@@ -1,6 +1,9 @@
 package net.javagator.mdh;
 
-import java.io.InputStream;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
@@ -27,8 +30,11 @@ public class Main extends Application {
 	private static HashMap<String, SceneRetriever> scenes = new HashMap<>();
 	private static String defaultScene = "menu";
 	
-	public static Font headerFont/* = Font.loadFont("file:resources/fonts/redhatdisplay.ttf", 36)*/;
-	public static Font textFont/* = Font.loadFont("file:resources/fonts/redhattext.ttf", 18)*/;
+	public static Font headerFont;
+	public static Font textFont;
+	
+	private static Image errMsgImg;
+	private static Image yayMsgImg;
 	
 	private static Stage stage;
 	
@@ -45,6 +51,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		initializeFonts();
+		initializeMessageImages();
 		initializeSceneMap();
 		primaryStage.setScene(scenes.get(defaultScene).getScene());
 		primaryStage.setTitle(scenes.get(defaultScene).sceneTitle);
@@ -72,18 +79,33 @@ public class Main extends Application {
 		scenes.put("bs2", new BlockstateFieldEditorScene());
 	}
 	
+	private void initializeMessageImages() {
+		errMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/images/error.png", 64, 64, true, true, true);
+		yayMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/images/success.png", 64, 64, true, true, true);
+	}
+	
 	private void initializeFonts() {
-		InputStream his = this.getClass().getResourceAsStream("fonts/redhatdisplay.ttf");
+		BufferedInputStream his = null;
+		BufferedInputStream tis = null;
+		try {
+			his = new BufferedInputStream(new URL("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/fonts/redhatdisplay.ttf").openStream());
+			tis = new BufferedInputStream(new URL("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/fonts/redhattext.ttf").openStream());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			error("Couldn't load font from malformed URL! :(");
+		} catch (IOException e) {
+			e.printStackTrace();
+			error("Couldn't load due to IO exception! If you are offline, please obtain a connection. :(");
+		}
 		headerFont = Font.loadFont(his, 36f);
-		InputStream tis = this.getClass().getResourceAsStream("fonts/redhattext.ttf");
-		textFont = Font.loadFont(tis, 36f);
+		textFont = Font.loadFont(tis, 18f);
 	}
 	
 	public static void error(String description) {
 		Alert msg = new Alert(AlertType.ERROR, description, ButtonType.OK);
 		msg.setTitle("Error");
 		ImageView graphic = new ImageView();
-		graphic.setImage(new Image("file:resources/images/error.png", 64, 64, true, true, true));
+		graphic.setImage(errMsgImg);
 		msg.setGraphic(graphic);
 		msg.show();
 	}
@@ -92,7 +114,7 @@ public class Main extends Application {
 		Alert msg = new Alert(AlertType.INFORMATION, description, ButtonType.OK);
 		msg.setTitle("Success!");
 		ImageView graphic = new ImageView();
-		graphic.setImage(new Image("file:resources/images/success.png", 64, 64, true, true, true));
+		graphic.setImage(yayMsgImg);
 		msg.setGraphic(graphic);
 		msg.setHeaderText("Success!");
 		msg.show();
