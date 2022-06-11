@@ -26,7 +26,7 @@ public class ItemModelFromTextureScene extends SceneRetriever {
 	
 	@Override
 	public void buildScene() {
-		sceneTitle = "Mod Development Helper | Item Model Designer";
+		sceneTitle = "Mod Development Helper | Item Model From Texture Tool";
 		
 		Text header = new Text();
 		header.setText("Item Models");

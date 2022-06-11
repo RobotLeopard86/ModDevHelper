@@ -17,13 +17,23 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
 import net.javagator.mdh.scenes.ItemModelScene;
 import net.javagator.mdh.scenes.LangEntryScene;
 import net.javagator.mdh.scenes.MenuScene;
+import net.javagator.mdh.scenes.RecipesScene;
 import net.javagator.mdh.scenes.blockstates.BlockstateFieldCreatorScene;
 import net.javagator.mdh.scenes.blockstates.BlockstateFieldEditorScene;
 import net.javagator.mdh.scenes.itemmodels.ItemModelFromBlockModelScene;
 import net.javagator.mdh.scenes.itemmodels.ItemModelFromTextureScene;
+import net.javagator.mdh.scenes.recipes.BlastFurnaceScene;
+import net.javagator.mdh.scenes.recipes.CampfireCookingScene;
+import net.javagator.mdh.scenes.recipes.ShapedCraftingScene;
+import net.javagator.mdh.scenes.recipes.ShapelessCraftingScene;
+import net.javagator.mdh.scenes.recipes.SmeltingScene;
+import net.javagator.mdh.scenes.recipes.SmithingScene;
+import net.javagator.mdh.scenes.recipes.SmokerScene;
+import net.javagator.mdh.scenes.recipes.StonecuttingScene;
 
 public class Main extends Application {
 	
@@ -77,6 +87,15 @@ public class Main extends Application {
 		scenes.put("iblock", new ItemModelFromBlockModelScene());
 		scenes.put("bs1", new BlockstateFieldCreatorScene());
 		scenes.put("bs2", new BlockstateFieldEditorScene());
+		scenes.put("recipe", new RecipesScene());
+		scenes.put("shaped", new ShapedCraftingScene());
+		scenes.put("sl", new ShapelessCraftingScene());
+		scenes.put("blaster", new BlastFurnaceScene());
+		scenes.put("campfire", new CampfireCookingScene());
+		scenes.put("smelting", new SmeltingScene());
+		scenes.put("st", new SmithingScene());
+		scenes.put("smoker", new SmokerScene());
+		scenes.put("scut", new StonecuttingScene());
 	}
 	
 	private void initializeMessageImages() {

@@ -40,7 +40,21 @@ public class MenuScene extends SceneRetriever {
 			Main.switchScene("bs1");
 		});
 		
-		root.getChildren().addAll(header, todo, lang, imodel, states);
+		Button craft = new Button();
+		craft.setFont(Main.textFont);
+		craft.setText("Recipe Generator");
+		craft.setOnAction(e -> {
+			Main.switchScene("recipe");
+		});
+		
+		Button quit = new Button();
+		quit.setFont(Main.textFont);
+		quit.setText("Quit App");
+		quit.setOnAction(e -> {
+			System.exit(0);
+		});
+		
+		root.getChildren().addAll(header, todo, lang, imodel, states, craft, quit);
 	}
 
 }
