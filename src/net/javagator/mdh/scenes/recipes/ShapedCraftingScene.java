@@ -25,7 +25,8 @@ public class ShapedCraftingScene extends SceneRetriever {
 		});
 		
 		ImageView grid = new ImageView();
-		grid.setImage(new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/images/crafting_table_grid.png", 100, 100, true, true, true));
+		grid.setImage(new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/images/crafting_table_grid.png", 250, 250, true, true, true));
+		grid.setX(scene.getWidth()/2);
 		
 		root.getChildren().addAll(header, exit, grid);
 	}
