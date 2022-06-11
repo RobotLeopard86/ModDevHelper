@@ -78,6 +78,7 @@ public class ItemModelFromTextureScene extends SceneRetriever {
 				pw.print(Main.getGson().toJson(json));
 				pw.flush();
 				pw.close();
+				Main.switchScene("menu");
 				Main.success("Successfully created model!");
 			} catch (FileNotFoundException exception) {
 				exception.printStackTrace();

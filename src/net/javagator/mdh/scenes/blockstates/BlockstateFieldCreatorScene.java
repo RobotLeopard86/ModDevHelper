@@ -1,5 +1,6 @@
 package net.javagator.mdh.scenes.blockstates;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.scene.Scene;
@@ -27,14 +28,22 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 	private TextField nameBox;
 	private TreeItem<String> tree;
 	private TreeView<String> treeview;
+	TreeItem<String> treeRoot;
 	private Button add;
 	private boolean enterPressedForProperty;
 	
 	private static HashMap<String,String[]> blockstateData = new HashMap<>();
+	private static ArrayList<String> datakeys = new ArrayList<>();
+	
+	private void clear() {
+		blockstateData.clear();
+		datakeys.clear();
+		treeRoot.getChildren().clear();
+	}
 	
 	@Override
 	public Scene getScene() {
-		blockstateData.clear();
+		clear();
 		return scene;
 	}
 	
@@ -48,19 +57,20 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 		header.setText("Blockstates");
 		header.setFont(Main.headerFont);
 		
-		Button exit = new Button();
-		exit.setFont(Main.textFont);
-		exit.setText("Return to Menu");
-		exit.setOnAction(e -> {
-			Main.switchScene("menu");
-		});
-		
-		TreeItem<String> treeRoot = new TreeItem<>();
+		treeRoot = new TreeItem<>();
 		treeRoot.setValue("Properties:");
 		treeRoot.setExpanded(true);
 		
 		TreeView<String> viewOfEverything = new TreeView<>();
 		viewOfEverything.setRoot(treeRoot);
+		
+		Button exit = new Button();
+		exit.setFont(Main.textFont);
+		exit.setText("Return to Menu");
+		exit.setOnAction(e -> {
+			clear();
+			Main.switchScene("menu");
+		});
 		
 		Button addProperty = new Button();
 		addProperty.setFont(Main.textFont);
@@ -76,9 +86,15 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 					values[i] = item.getValue();
 				}
 				blockstateData.put(tree.getValue(), values);
+				datakeys.add(tree.getValue());
 				treeRoot.getChildren().add(tree);
 			}
 		});
+		
+		Button clear = new Button();
+		clear.setFont(Main.textFont);
+		clear.setText("Clear Properties");
+		clear.setOnAction(e -> clear());
 		
 		Button complete = new Button();
 		complete.setFont(Main.textFont);
@@ -86,12 +102,16 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 		complete.setOnAction(e -> {
 			Alert msg = new Alert(AlertType.CONFIRMATION, "Are you sure you are finished creating blockstates? This cannot be changed once you proceed.", ButtonType.YES, ButtonType.NO);
 			if(msg.showAndWait().get() == ButtonType.YES) {
-				BlockstateFieldEditorScene.setData(blockstateData);
+				String[] keysAsArray = new String[datakeys.size()];
+				for(int i = 0; i < datakeys.size(); i++) {
+					keysAsArray[i] = datakeys.get(i);
+				}
+				BlockstateFieldEditorScene.setData(blockstateData, keysAsArray);
 				Main.switchScene("bs2");
 			}
 		});
 		
-		root.getChildren().addAll(header, exit, addProperty, viewOfEverything, complete);
+		root.getChildren().addAll(header, exit, addProperty, clear, viewOfEverything, complete);
 	}
 	
 	private Dialog<ButtonType> buildNewPropertyDialog() {	
@@ -154,6 +174,7 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 				nameBox.setText("");
 				if(numProperties == 2) {
 					pane.getButtonTypes().add(ButtonType.FINISH);
+					nameBox.requestFocus();
 				}
 				tree.getChildren().add(newValue);
 			} else {

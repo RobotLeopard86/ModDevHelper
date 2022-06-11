@@ -72,6 +72,7 @@ public class LangEntryScene extends SceneRetriever {
 					writer.print(Main.getGson().toJson(obj));
 					writer.flush();
 					writer.close();
+					Main.switchScene("menu");
 					Main.success("Successfully wrote entries!");
 				} catch (FileNotFoundException exception) {
 					exception.printStackTrace();

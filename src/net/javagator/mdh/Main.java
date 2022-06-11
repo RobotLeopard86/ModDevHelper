@@ -65,7 +65,7 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		gson = new GsonBuilder().setPrettyPrinting().create();
+		gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 		launch(args);
 	}
 	
