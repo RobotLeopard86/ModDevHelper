@@ -49,7 +49,7 @@ public class ShapedCraftingScene extends SceneRetriever {
 		exit.setFont(Main.textFont);
 		exit.setText("Return to Menu");
 		exit.setOnAction(e -> {
-			Main.switchScene("menu");
+			Main.switchScene("recipe");
 		});
 		
 		HBox s1 = manufactureSlot(1);
