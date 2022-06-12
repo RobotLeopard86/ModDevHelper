@@ -17,7 +17,7 @@ public abstract class SceneRetriever {
 	};
 	
 	public SceneRetriever() {
-		root = new VBox(10);
+		root = new VBox();
 		root.setSpacing(15);
 		scene = new Scene(root, 500, 600);
 		buildScene();
