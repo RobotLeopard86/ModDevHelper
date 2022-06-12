@@ -13,7 +13,6 @@ import com.google.gson.JsonObject;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import net.javagator.mdh.Main;
@@ -22,7 +21,6 @@ import net.javagator.mdh.SceneRetriever;
 public class ItemModelFromTextureScene extends SceneRetriever {
 	
 	private File textureFile;
-	private File outDir;
 	
 	@Override
 	public void buildScene() {
@@ -36,12 +34,6 @@ public class ItemModelFromTextureScene extends SceneRetriever {
 		texture.setFont(Main.textFont);
 		texture.setText("Selected Texture: ???");
 		texture.setWrappingWidth(scene.getWidth());
-		
-		Text output = new Text();
-		output.setFont(Main.textFont);
-		output.setText("Selected Output Folder: ???");
-		output.setWrappingWidth(scene.getWidth());
-		output.setVisible(false);
 		
 		Button exit = new Button();
 		exit.setFont(Main.textFont);
@@ -65,7 +57,9 @@ public class ItemModelFromTextureScene extends SceneRetriever {
 			textureObject.addProperty("layer0", modid.getText() + ":item/" + textureFile.getName().substring(0, textureFile.getName().length() - 4));
 			json.add("textures", textureObject);
 			
-			File modelFile = new File(outDir.getAbsolutePath() + "/" + textureFile.getName().substring(0, textureFile.getName().length() - 4) + ".json");
+			FileChooser fc = new FileChooser();
+			fc.getExtensionFilters().add(new ExtensionFilter("JSON", "*.json"));
+			File modelFile = fc.showSaveDialog(Main.getStage());
 			try {
 				modelFile.createNewFile();
 			} catch (IOException exception) {
@@ -88,19 +82,6 @@ public class ItemModelFromTextureScene extends SceneRetriever {
 		});
 		generate.setVisible(false);
 		
-		Button outputDirChooser = new Button();
-		outputDirChooser.setFont(Main.textFont);
-		outputDirChooser.setText("Choose Output Folder");
-		outputDirChooser.setOnAction(e -> {
-			DirectoryChooser dc = new DirectoryChooser();
-			dc.setTitle("Choose an output folder:");
-			outDir = dc.showDialog(Main.getStage());
-			output.setText(outDir.getAbsolutePath());
-			generate.setVisible(true);
-			modid.setVisible(true);
-		});
-		outputDirChooser.setVisible(false);
-		
 		Button textureChooser = new Button();
 		textureChooser.setFont(Main.textFont);
 		textureChooser.setText("Choose Texture");
@@ -110,29 +91,28 @@ public class ItemModelFromTextureScene extends SceneRetriever {
 			fc.getExtensionFilters().add(new ExtensionFilter("PNG Images", "*.png"));
 			textureFile = fc.showOpenDialog(Main.getStage());
 			boolean invalid = true;
-			try {
-				BufferedImage bimg;
-				bimg = ImageIO.read(textureFile);
-				int width = bimg.getWidth();
-				int height = bimg.getHeight();
-				if(width != 16 || height != 16) {
-					Main.error("Selected texture file is too small or large. It must be 16x16.");
-				} else {
-					invalid = false;
+			if(textureFile != null) {
+				try {
+					BufferedImage bimg;
+					bimg = ImageIO.read(textureFile);
+					int width = bimg.getWidth();
+					int height = bimg.getHeight();
+					if(width != 16 || height != 16) {
+						Main.error("Selected texture file is too small or large. It must be 16x16.");
+					} else {
+						invalid = false;
+					}
+				} catch (IOException exception) {
+					exception.printStackTrace();
+					Main.error("Couldn't read from texture file! :(\nFile: " + textureFile.getAbsolutePath());
 				}
-			} catch (IOException exception) {
-				exception.printStackTrace();
-				Main.error("Couldn't read from texture file! :(\nFile: " + textureFile.getAbsolutePath());
 			}
-			outputDirChooser.setVisible(!invalid);
-			output.setVisible(!invalid);
-			output.setText("Selected Output Folder: ???");
 			texture.setText(invalid ? "Selected Texture: ???" : "Selected Texture: " + textureFile.getAbsolutePath());
-			generate.setVisible(false);
-			modid.setVisible(false);
+			generate.setVisible(!invalid);
+			modid.setVisible(!invalid);
 		});
 		
-		root.getChildren().addAll(header, exit, textureChooser, texture, outputDirChooser, output, modid, generate);
+		root.getChildren().addAll(header, exit, textureChooser, texture, modid, generate);
 	}
 
 }

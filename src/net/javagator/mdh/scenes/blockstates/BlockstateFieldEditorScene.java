@@ -20,7 +20,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import net.javagator.mdh.ConditionDescriptor;
@@ -194,44 +193,6 @@ public class BlockstateFieldEditorScene extends SceneRetriever {
 		return dialog;
 	}
 	
-	private static Dialog<String> constructFilenameAskDialog() {
-		VBox content = new VBox();
-		
-		DialogPane pane = new DialogPane();
-		pane.setHeaderText("Please Enter File Name");
-		pane.setContent(content);
-		pane.getButtonTypes().add(ButtonType.APPLY);
-		
-		TextField entry = new TextField();
-		entry.setFont(Main.textFont);
-		entry.setPromptText("Enter filename (no extension)...");
-		
-		content.getChildren().add(entry);
-		
-		Dialog<String> dialog = new Dialog<String>();
-		dialog.setTitle("Input Request");
-		dialog.setWidth(1400);
-		dialog.setHeight(1600);
-		dialog.setResizable(true);
-		dialog.setDialogPane(pane);
-		dialog.setOnCloseRequest(e -> {
-			boolean shouldConsume = true;
-			
-			if(dialog.getResult() != "" && dialog.getResult() != null && entry.getText() != "") {
-				shouldConsume = false;
-				dialog.setResult(entry.getText());
-			} else {
-				Main.error("You must enter a filename! :(");
-			}
-			
-			if(shouldConsume) {
-				e.consume();
-			}
-		});
-		
-		return dialog;
-	}
-	
 	private static void updateView() {
 		completed++;
 		if(completed >= combos.length) {
@@ -245,12 +206,10 @@ public class BlockstateFieldEditorScene extends SceneRetriever {
 			
 			String json = Main.getGson().toJson(jsonRoot);
 			
-			DirectoryChooser dc = new DirectoryChooser();
-			File outDir = dc.showDialog(Main.getStage());
+			FileChooser fc = new FileChooser();
+			fc.getExtensionFilters().add(new ExtensionFilter("JSON", "*.json"));
+			File fullPath = fc.showSaveDialog(Main.getStage());
 			
-			String fileName = constructFilenameAskDialog().showAndWait().get() + ".json";
-			
-			File fullPath = new File(outDir.getAbsolutePath() + "/" + fileName);
 			if(!fullPath.exists()) {
 				try {
 					fullPath.createNewFile();

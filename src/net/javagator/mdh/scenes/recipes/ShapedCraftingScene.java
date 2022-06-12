@@ -15,15 +15,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import net.javagator.mdh.KeyDescriptor;
 import net.javagator.mdh.Main;
 import net.javagator.mdh.SceneRetriever;
@@ -144,12 +143,9 @@ public class ShapedCraftingScene extends SceneRetriever {
 				
 				String json = Main.getGson().toJson(jsonRoot);
 				
-				DirectoryChooser dc = new DirectoryChooser();
-				File outDir = dc.showDialog(Main.getStage());
-				
-				String fileName = constructFilenameAskDialog().showAndWait().get() + ".json";
-				
-				File fullPath = new File(outDir.getAbsolutePath() + "/" + fileName);
+				FileChooser fc = new FileChooser();
+				fc.getExtensionFilters().add(new ExtensionFilter("JSON", "*.json"));
+				File fullPath = fc.showSaveDialog(Main.getStage());
 				if(!fullPath.exists()) {
 					try {
 						fullPath.createNewFile();
@@ -236,44 +232,6 @@ public class ShapedCraftingScene extends SceneRetriever {
 			map.put(descriptors[i].getVal(), descriptors[i].getKey());
 		}
 		return map;
-	}
-	
-	private static Dialog<String> constructFilenameAskDialog() {
-		VBox content = new VBox();
-		
-		DialogPane pane = new DialogPane();
-		pane.setHeaderText("Please Enter File Name");
-		pane.setContent(content);
-		pane.getButtonTypes().add(ButtonType.APPLY);
-		
-		TextField entry = new TextField();
-		entry.setFont(Main.textFont);
-		entry.setPromptText("Enter filename (no extension)...");
-		
-		content.getChildren().add(entry);
-		
-		Dialog<String> dialog = new Dialog<String>();
-		dialog.setTitle("Input Request");
-		dialog.setWidth(1400);
-		dialog.setHeight(1600);
-		dialog.setResizable(true);
-		dialog.setDialogPane(pane);
-		dialog.setOnCloseRequest(e -> {
-			boolean shouldConsume = true;
-			
-			if(dialog.getResult() != "" && dialog.getResult() != null && entry.getText() != "") {
-				shouldConsume = false;
-				dialog.setResult(entry.getText());
-			} else {
-				Main.error("You must enter a filename! :(");
-			}
-			
-			if(shouldConsume) {
-				e.consume();
-			}
-		});
-		
-		return dialog;
 	}
 
 }

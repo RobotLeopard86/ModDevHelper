@@ -10,7 +10,6 @@ import com.google.gson.JsonObject;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import net.javagator.mdh.Main;
@@ -19,7 +18,6 @@ import net.javagator.mdh.SceneRetriever;
 public class ItemModelFromBlockModelScene extends SceneRetriever {
 	
 	private File blockModel;
-	private File outDir;
 	
 	@Override
 	public void buildScene() {
@@ -33,12 +31,6 @@ public class ItemModelFromBlockModelScene extends SceneRetriever {
 		model.setFont(Main.textFont);
 		model.setText("Selected Model: ???");
 		model.setWrappingWidth(scene.getWidth());
-		
-		Text output = new Text();
-		output.setFont(Main.textFont);
-		output.setText("Selected Output Folder: ???");
-		output.setWrappingWidth(scene.getWidth());
-		output.setVisible(false);
 		
 		Button exit = new Button();
 		exit.setFont(Main.textFont);
@@ -59,7 +51,9 @@ public class ItemModelFromBlockModelScene extends SceneRetriever {
 			JsonObject json = new JsonObject();
 			json.addProperty("parent", modid.getText() + ":block/" + blockModel.getName().substring(0, blockModel.getName().length() - 5));
 			
-			File modelFile = new File(outDir.getAbsolutePath() + "/" + blockModel.getName().substring(0, blockModel.getName().length() - 5) + ".json");
+			FileChooser fc = new FileChooser();
+			fc.getExtensionFilters().add(new ExtensionFilter("JSON", "*.json"));
+			File modelFile = fc.showSaveDialog(Main.getStage());
 			try {
 				modelFile.createNewFile();
 			} catch (IOException exception) {
@@ -82,19 +76,6 @@ public class ItemModelFromBlockModelScene extends SceneRetriever {
 		});
 		generate.setVisible(false);
 		
-		Button outputDirChooser = new Button();
-		outputDirChooser.setFont(Main.textFont);
-		outputDirChooser.setText("Choose Output Folder");
-		outputDirChooser.setOnAction(e -> {
-			DirectoryChooser dc = new DirectoryChooser();
-			dc.setTitle("Choose an output folder:");
-			outDir = dc.showDialog(Main.getStage());
-			output.setText(outDir.getAbsolutePath());
-			generate.setVisible(true);
-			modid.setVisible(true);
-		});
-		outputDirChooser.setVisible(false);
-		
 		Button modelChooser = new Button();
 		modelChooser.setFont(Main.textFont);
 		modelChooser.setText("Choose Model");
@@ -103,14 +84,12 @@ public class ItemModelFromBlockModelScene extends SceneRetriever {
 			fc.setTitle("Choose a model file:");
 			fc.getExtensionFilters().add(new ExtensionFilter("JSON", "*.json"));
 			blockModel = fc.showOpenDialog(Main.getStage());
-			outputDirChooser.setVisible(true);
-			output.setVisible(true);
-			modid.setVisible(false);
-			generate.setVisible(false);
+			modid.setVisible(true);
+			generate.setVisible(true);
 			model.setText("Selected File: " + blockModel.getAbsolutePath());
 		});
 		
-		root.getChildren().addAll(header, exit, modelChooser, model, outputDirChooser, output, modid, generate);
+		root.getChildren().addAll(header, exit, modelChooser, model, modid, generate);
 	}
 
 }
