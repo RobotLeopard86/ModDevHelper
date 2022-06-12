@@ -19,9 +19,11 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import net.javagator.mdh.Main;
-import net.javagator.mdh.SceneRetriever;
+import net.javagator.mdh.baseclasses.BaseScene;
+import net.javagator.mdh.util.CommonUtilities;
+import net.javagator.mdh.util.CommonUtilities.FontType;
 
-public class LangEntryScene extends SceneRetriever {
+public class LangEntryScene extends BaseScene {
 
 	private File langFile;
 	private JsonObject obj;
@@ -32,25 +34,25 @@ public class LangEntryScene extends SceneRetriever {
 		
 		Text header = new Text();
 		header.setText("Localization");
-		header.setFont(Main.headerFont);
+		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		
 		Text file = new Text();
-		file.setFont(Main.textFont);
+		file.setFont(CommonUtilities.getFont(FontType.HEADER));
 		file.setText("Selected File: ???");
 		file.setWrappingWidth(scene.getWidth());
 		
 		TextField keyBox = new TextField();
-		keyBox.setFont(Main.textFont);
+		keyBox.setFont(CommonUtilities.getFont(FontType.HEADER));
 		keyBox.setPromptText("Enter key (example: item.beyond.fudge)...");
 		keyBox.setVisible(false);
 		
 		TextField nameBox = new TextField();
-		nameBox.setFont(Main.textFont);
+		nameBox.setFont(CommonUtilities.getFont(FontType.HEADER));
 		nameBox.setPromptText("Enter name...");
 		nameBox.setVisible(false);
 		
 		Button addKey = new Button();
-		addKey.setFont(Main.textFont);
+		addKey.setFont(CommonUtilities.getFont(FontType.HEADER));
 		addKey.setText("Add to Localization File");
 		addKey.setOnAction(e -> {
 			String key = keyBox.getText();
@@ -62,7 +64,7 @@ public class LangEntryScene extends SceneRetriever {
 		addKey.setVisible(false);
 		
 		Button write = new Button();
-		write.setFont(Main.textFont);
+		write.setFont(CommonUtilities.getFont(FontType.HEADER));
 		write.setText("Write Changes");
 		write.setOnAction(e -> {
 			Alert confirm = new Alert(AlertType.CONFIRMATION, "Are you sure you want to write changes to the file?", ButtonType.YES, ButtonType.NO);
@@ -72,18 +74,18 @@ public class LangEntryScene extends SceneRetriever {
 					writer.print(Main.getGson().toJson(obj));
 					writer.flush();
 					writer.close();
-					Main.switchScene("menu");
-					Main.success("Successfully wrote entries!");
+					Main.switchScene(MenuScene.class.getName());
+					success("Successfully wrote entries!");
 				} catch (FileNotFoundException exception) {
 					exception.printStackTrace();
-					Main.error("File to write to could not be found! :(\nFile: " + langFile.getAbsolutePath());
+					error("File to write to could not be found! :(\nFile: " + langFile.getAbsolutePath());
 				}
 			}
 		});
 		write.setVisible(false);
 		
 		Button chooseFile = new Button();
-		chooseFile.setFont(Main.textFont);
+		chooseFile.setFont(CommonUtilities.getFont(FontType.HEADER));
 		chooseFile.setText("Choose Language File");
 		chooseFile.setOnAction(e -> {
 			FileChooser fc = new FileChooser();
@@ -96,13 +98,13 @@ public class LangEntryScene extends SceneRetriever {
 				exceptionRaised = false;
 			} catch (JsonIOException exception) {
 				exception.printStackTrace();
-				Main.error("IO stream read/write error :(");
+				error("IO stream read/write error :(");
 			} catch (JsonSyntaxException exception) {
 				exception.printStackTrace();
-				Main.error("JSON was malformed and therefore could not be parsed! :(");
+				error("JSON was malformed and therefore could not be parsed! :(");
 			} catch (FileNotFoundException exception) {
 				exception.printStackTrace();
-				Main.error("Language file could not be found! :(\nFile: " + langFile.getAbsolutePath());
+				error("Language file could not be found! :(\nFile: " + langFile.getAbsolutePath());
 			}
 			addKey.setVisible(!exceptionRaised);
 			write.setVisible(!exceptionRaised);
@@ -112,10 +114,10 @@ public class LangEntryScene extends SceneRetriever {
 		});
 		
 		Button exit = new Button();
-		exit.setFont(Main.textFont);
+		exit.setFont(CommonUtilities.getFont(FontType.HEADER));
 		exit.setText("Return to Menu");
 		exit.setOnAction(e -> {
-			Main.switchScene("menu");
+			Main.switchScene(MenuScene.class.getName());
 		});
 		
 		root.getChildren().addAll(header, exit, chooseFile, file, keyBox, nameBox, addKey, write);

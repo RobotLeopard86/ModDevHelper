@@ -10,7 +10,6 @@ import java.util.HashMap;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -23,32 +22,32 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import net.javagator.mdh.KeyDescriptor;
 import net.javagator.mdh.Main;
-import net.javagator.mdh.SceneRetriever;
+import net.javagator.mdh.baseclasses.BaseScene;
+import net.javagator.mdh.scenes.MenuScene;
+import net.javagator.mdh.scenes.RecipesScene;
+import net.javagator.mdh.util.CommonUtilities;
+import net.javagator.mdh.util.CommonUtilities.FontType;
+import net.javagator.mdh.util.KeyDescriptor;
 
-public class ShapedCraftingScene extends SceneRetriever {
+public class ShapedCraftingScene extends BaseScene {
 	
-	public ShapedCraftingScene() {
-		root = new VBox();
-		root.setSpacing(15);
-		scene = new Scene(root, 600, 615);
-		buildScene();
-	}
+	protected int windowWidth = 600;
+	protected int windowHeight = 615;
 
 	@Override
 	public void buildScene() {
 		sceneTitle = "Mod Development Helper | Shaped Crafting Recipe Generator";
 		
 		Text header = new Text();
-		header.setFont(Main.headerFont);
+		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Shaped Crafting Recipes");
 		
 		Button exit = new Button();
-		exit.setFont(Main.textFont);
+		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
 		exit.setText("Return to Menu");
 		exit.setOnAction(e -> {
-			Main.switchScene("recipe");
+			Main.switchScene(RecipesScene.class.getName());
 		});
 		
 		HBox s1 = manufactureSlot(1);
@@ -65,11 +64,11 @@ public class ShapedCraftingScene extends SceneRetriever {
 		result.setSpacing(15d);
 		
 		Text label = new Text();
-		label.setFont(Main.textFont);
+		label.setFont(CommonUtilities.getFont(FontType.TEXT));
 		label.setText("Result Item: ");
 		
 		TextField id = new TextField();
-		id.setFont(Main.textFont);
+		id.setFont(CommonUtilities.getFont(FontType.TEXT));
 		id.setPromptText("Enter item ID...");
 		
 		result.getChildren().addAll(label, id);
@@ -90,7 +89,7 @@ public class ShapedCraftingScene extends SceneRetriever {
 		grid.setImage(new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/images/crafting_table_grid.png", 200, 200, true, true, true));
 		
 		Text idExample = new Text();
-		idExample.setFont(Main.textFont);
+		idExample.setFont(CommonUtilities.getFont(FontType.TEXT));
 		idExample.setText("Example of an item ID:\nminecraft:stone");
 		
 		HBox topHBox = new HBox();
@@ -98,7 +97,7 @@ public class ShapedCraftingScene extends SceneRetriever {
 		topHBox.getChildren().addAll(grid, idExample);
 		
 		Button generate = new Button();
-		generate.setFont(Main.textFont);
+		generate.setFont(CommonUtilities.getFont(FontType.TEXT));
 		generate.setText("Generate Recipe");
 		generate.setOnAction(e -> {
 			Alert msg = new Alert(AlertType.CONFIRMATION, "Are you sure this is the recipe you want?", ButtonType.YES, ButtonType.NO);
@@ -151,7 +150,7 @@ public class ShapedCraftingScene extends SceneRetriever {
 						fullPath.createNewFile();
 					} catch (IOException exception) {
 						exception.printStackTrace();
-						Main.error("Couldn't create file as it already exists! Please try again. :(\nFile: " + fullPath.getAbsolutePath());
+						error("Couldn't create file as it already exists! Please try again. :(\nFile: " + fullPath.getAbsolutePath());
 						return;
 					}
 				}
@@ -163,7 +162,7 @@ public class ShapedCraftingScene extends SceneRetriever {
 					writer.close();
 				} catch (FileNotFoundException exception) {
 					exception.printStackTrace();
-					Main.error("Couldn't find file to write to! :(\nFile: " + fullPath.getAbsolutePath());
+					error("Couldn't find file to write to! :(\nFile: " + fullPath.getAbsolutePath());
 				}
 				
 				for(HBox box : allSlots) {
@@ -172,8 +171,8 @@ public class ShapedCraftingScene extends SceneRetriever {
 				
 				id.setText("");
 				
-				Main.switchScene("menu");
-				Main.success("Successfully wrote to recipe file!");
+				Main.switchScene(MenuScene.class.getName());
+				success("Successfully wrote to recipe file!");
 			}
 		});
 		
@@ -185,11 +184,11 @@ public class ShapedCraftingScene extends SceneRetriever {
 		main.setSpacing(15d);
 		
 		Text label = new Text();
-		label.setFont(Main.textFont);
+		label.setFont(CommonUtilities.getFont(FontType.TEXT));
 		label.setText("Slot " + num + ": ");
 		
 		TextField id = new TextField();
-		id.setFont(Main.textFont);
+		id.setFont(CommonUtilities.getFont(FontType.TEXT));
 		id.setPromptText("Enter item ID...");
 		
 		main.getChildren().addAll(label, id);

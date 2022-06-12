@@ -13,43 +13,46 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import net.javagator.mdh.Main;
-import net.javagator.mdh.SceneRetriever;
+import net.javagator.mdh.baseclasses.BaseScene;
+import net.javagator.mdh.scenes.RecipesScene;
+import net.javagator.mdh.util.CommonUtilities;
+import net.javagator.mdh.util.CommonUtilities.FontType;
 
-public class SmithingScene extends SceneRetriever {
+public class SmithingScene extends BaseScene {
 
 	@Override
 	public void buildScene() {
 		sceneTitle = "Mod Development Helper | Smithing Table Recipe Generator";
 		
 		Text header = new Text();
-		header.setFont(Main.headerFont);
+		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Smithing Recipes");
 		
 		Button exit = new Button();
-		exit.setFont(Main.textFont);
+		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
 		exit.setText("Return to Menu");
 		exit.setOnAction(e -> {
-			Main.switchScene("recipe");
+			Main.switchScene(RecipesScene.class.getName());
 		});
 		
 		Text idExample = new Text();
-		idExample.setFont(Main.textFont);
+		idExample.setFont(CommonUtilities.getFont(FontType.TEXT));
 		idExample.setText("Example of an item ID:\nminecraft:stone");
 		
 		TextField baseField = new TextField();
-		baseField.setFont(Main.textFont);
+		baseField.setFont(CommonUtilities.getFont(FontType.TEXT));
 		baseField.setPromptText("Enter base item ID here...");
 		
 		TextField additionField = new TextField();
-		additionField.setFont(Main.textFont);
+		additionField.setFont(CommonUtilities.getFont(FontType.TEXT));
 		additionField.setPromptText("Enter additional item ID here...");
 		
 		TextField resultField = new TextField();
-		resultField.setFont(Main.textFont);
+		resultField.setFont(CommonUtilities.getFont(FontType.TEXT));
 		resultField.setPromptText("Enter result item ID here...");
 		
 		Button finish = new Button();
-		finish.setFont(Main.textFont);
+		finish.setFont(CommonUtilities.getFont(FontType.TEXT));
 		finish.setText("Generate Recipe");
 		finish.setOnAction(e -> {
 			JsonObject jsonRoot = new JsonObject();
@@ -75,7 +78,7 @@ public class SmithingScene extends SceneRetriever {
 					fullPath.createNewFile();
 				} catch (IOException exception) {
 					exception.printStackTrace();
-					Main.error("Couldn't create file as it already exists! Please try again. :(\nFile: " + fullPath.getAbsolutePath());
+					error("Couldn't create file as it already exists! Please try again. :(\nFile: " + fullPath.getAbsolutePath());
 					return;
 				}
 			}
@@ -87,15 +90,15 @@ public class SmithingScene extends SceneRetriever {
 				writer.close();
 			} catch (FileNotFoundException exception) {
 				exception.printStackTrace();
-				Main.error("Couldn't find file to write to! :(\nFile: " + fullPath.getAbsolutePath());
+				error("Couldn't find file to write to! :(\nFile: " + fullPath.getAbsolutePath());
 			}
 			
 			baseField.setText("");
 			additionField.setText("");
 			resultField.setText("");
 			
-			Main.switchScene("menu");
-			Main.success("Successfully wrote to recipe file!");
+			Main.switchScene(MenuScene.class.getName());
+			success("Successfully wrote to recipe file!");
 		});
 		
 		root.getChildren().addAll(header, exit, idExample, baseField, additionField, resultField, finish);

@@ -1,4 +1,4 @@
-package net.javagator.mdh;
+package net.javagator.mdh.util;
 
 import java.io.File;
 

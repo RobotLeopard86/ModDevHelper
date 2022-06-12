@@ -1,4 +1,4 @@
-package net.javagator.mdh.scenes.recipes;
+package net.javagator.mdh.baseclasses;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,21 +13,24 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import net.javagator.mdh.Main;
-import net.javagator.mdh.baseclasses.BaseScene;
 import net.javagator.mdh.scenes.MenuScene;
 import net.javagator.mdh.scenes.RecipesScene;
 import net.javagator.mdh.util.CommonUtilities;
 import net.javagator.mdh.util.CommonUtilities.FontType;
 
-public class StonecuttingScene extends BaseScene {
+public class CookingRecipeScene extends BaseScene {
+	
+	protected String title;
+	protected String headerText;
+	protected String recipeType;
 
 	@Override
 	public void buildScene() {
-		sceneTitle = "Mod Development Helper | Stonecutting Recipe Generator";
+		sceneTitle = title;
 		
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
-		header.setText("Stonecutting Recipes");
+		header.setText(headerText);
 		
 		Button exit = new Button();
 		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -40,45 +43,51 @@ public class StonecuttingScene extends BaseScene {
 		idExample.setFont(CommonUtilities.getFont(FontType.TEXT));
 		idExample.setText("Example of an item ID:\nminecraft:stone");
 		
-		TextField itemField = new TextField();
-		itemField.setFont(CommonUtilities.getFont(FontType.TEXT));
-		itemField.setPromptText("Enter ingredient item ID here...");
+		TextField ingredientField = new TextField();
+		ingredientField.setFont(CommonUtilities.getFont(FontType.TEXT));
+		ingredientField.setPromptText("Enter ingredient item ID here...");
 		
 		TextField resultField = new TextField();
 		resultField.setFont(CommonUtilities.getFont(FontType.TEXT));
 		resultField.setPromptText("Enter result item ID here...");
 		
-		TextField countField = new TextField();
-		countField.setFont(CommonUtilities.getFont(FontType.TEXT));
-		countField.setPromptText("Enter amount of result item here...");
+		TextField xpField = new TextField();
+		xpField.setFont(CommonUtilities.getFont(FontType.TEXT));
+		xpField.setPromptText("Enter XP amount here...");
+		
+		TextField timeField = new TextField();
+		timeField.setFont(CommonUtilities.getFont(FontType.TEXT));
+		timeField.setPromptText("Enter cooking time (in ticks) here...");
 		
 		Button finish = new Button();
 		finish.setFont(CommonUtilities.getFont(FontType.TEXT));
 		finish.setText("Generate Recipe");
 		finish.setOnAction(e -> {
 			
-			int amount;
+			int xp, time;
 			try {
-				amount = Integer.parseInt(countField.getText());
+				xp = Integer.parseInt(xpField.getText());
+				time = Integer.parseInt(timeField.getText());
 			} catch (NumberFormatException exception) {
 				exception.printStackTrace();
-				error("The amount field must be a whole number! :(");
+				error("Both the XP and cooking time fields must be whole numbers! :(");
 				return;
 			}
-			if(amount < 1) {
-				error("The amount field must be greater than 1!");
+			if(xp < 0 || time < 0) {
+				error("Both the XP and cooking time fields must contain positive numbers! :(");
 				return;
 			}
 			
 			JsonObject jsonRoot = new JsonObject();
-			jsonRoot.addProperty("type", "minecraft:smithing");
+			jsonRoot.addProperty("type", "minecraft:" + recipeType);
 			
 			JsonObject item = new JsonObject();
-			item.addProperty("item", itemField.getText());
+			item.addProperty("item", ingredientField.getText());
 			jsonRoot.add("ingredient", item);
 			
 			jsonRoot.addProperty("result", resultField.getText());
-			jsonRoot.addProperty("count", amount);
+			jsonRoot.addProperty("experience", xp);
+			jsonRoot.addProperty("cookingtime", time);
 			
 			String json = Main.getGson().toJson(jsonRoot);
 			
@@ -105,15 +114,16 @@ public class StonecuttingScene extends BaseScene {
 				error("Couldn't find file to write to! :(\nFile: " + fullPath.getAbsolutePath());
 			}
 			
-			itemField.setText("");
+			ingredientField.setText("");
 			resultField.setText("");
-			countField.setText("");
+			xpField.setText("");
+			timeField.setText("");
 			
 			Main.switchScene(MenuScene.class.getName());
 			success("Successfully wrote to recipe file!");
 		});
 		
-		root.getChildren().addAll(header, exit, idExample, itemField, resultField, countField, finish);
+		root.getChildren().addAll(header, exit, idExample, ingredientField, resultField, xpField, timeField, finish);
 	}
 
 }

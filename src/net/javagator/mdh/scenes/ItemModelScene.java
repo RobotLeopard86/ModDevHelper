@@ -6,9 +6,12 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
 import net.javagator.mdh.Main;
-import net.javagator.mdh.SceneRetriever;
+import net.javagator.mdh.baseclasses.BaseScene;
+import net.javagator.mdh.scenes.itemmodels.ItemModelFromTextureScene;
+import net.javagator.mdh.util.CommonUtilities;
+import net.javagator.mdh.util.CommonUtilities.FontType;
 
-public class ItemModelScene extends SceneRetriever {
+public class ItemModelScene extends BaseScene {
 
 	@Override
 	public void buildScene() {
@@ -16,29 +19,29 @@ public class ItemModelScene extends SceneRetriever {
 		
 		Text header = new Text();
 		header.setText("Item Models");
-		header.setFont(Main.headerFont);
+		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		
 		ToggleGroup options = new ToggleGroup();
 		
 		RadioButton texture = new RadioButton();
-		texture.setFont(Main.textFont);
+		texture.setFont(CommonUtilities.getFont(FontType.HEADER));
 		texture.setText("Texture");
 		texture.setToggleGroup(options);
 		
 		RadioButton model = new RadioButton();
-		model.setFont(Main.textFont);
+		model.setFont(CommonUtilities.getFont(FontType.HEADER));
 		model.setText("Block Model");
 		model.setToggleGroup(options);
 		
 		Button next = new Button();
-		next.setFont(Main.textFont);
+		next.setFont(CommonUtilities.getFont(FontType.HEADER));
 		next.setText("Continue");
 		next.setOnAction(e -> {
-			Main.switchScene(options.getSelectedToggle().equals((Toggle)texture) ? "itexture" : "iblock");
+			Main.switchScene(options.getSelectedToggle().equals((Toggle)texture) ? ItemModelFromTextureScene.class.getName() : ItemModelFromBlockModelScene.class.getName());
 		});
 		
 		Button exit = new Button();
-		exit.setFont(Main.textFont);
+		exit.setFont(CommonUtilities.getFont(FontType.HEADER));
 		exit.setText("Return to Menu");
 		exit.setOnAction(e -> {
 			Main.switchScene("menu");

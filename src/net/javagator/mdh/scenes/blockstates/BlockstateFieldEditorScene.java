@@ -22,12 +22,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import net.javagator.mdh.ConditionDescriptor;
 import net.javagator.mdh.Main;
-import net.javagator.mdh.ModelDescriptor;
-import net.javagator.mdh.SceneRetriever;
+import net.javagator.mdh.baseclasses.BaseScene;
+import net.javagator.mdh.scenes.MenuScene;
+import net.javagator.mdh.util.CommonUtilities;
+import net.javagator.mdh.util.CommonUtilities.FontType;
+import net.javagator.mdh.util.ConditionDescriptor;
+import net.javagator.mdh.util.ModelDescriptor;
 
-public class BlockstateFieldEditorScene extends SceneRetriever {
+public class BlockstateFieldEditorScene extends BaseScene {
 	
 	private static HashMap<String,String[]> data = new HashMap<>();
 	private static String[] keys;
@@ -53,22 +56,22 @@ public class BlockstateFieldEditorScene extends SceneRetriever {
 		
 		Text header = new Text();
 		header.setText("Blockstates");
-		header.setFont(Main.headerFont);
+		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		
 		remaining = new Text();
-		remaining.setFont(Main.textFont);
+		remaining.setFont(CommonUtilities.getFont(FontType.TEXT));
 		
 		conditions = new Text();
-		conditions.setFont(Main.textFont);
+		conditions.setFont(CommonUtilities.getFont(FontType.TEXT));
 		conditions.setText("Condition:");
 		
 		filePath = new Text();
-		filePath.setFont(Main.textFont);
+		filePath.setFont(CommonUtilities.getFont(FontType.TEXT));
 		filePath.setText("Selected Model: ???");
 		filePath.setWrappingWidth(scene.getWidth());
 		
 		Button chooseModel = new Button();
-		chooseModel.setFont(Main.textFont);
+		chooseModel.setFont(CommonUtilities.getFont(FontType.TEXT));
 		chooseModel.setText("Choose Model File");
 		chooseModel.setOnAction(e -> {
 			FileChooser fc = new FileChooser();
@@ -88,15 +91,15 @@ public class BlockstateFieldEditorScene extends SceneRetriever {
 		zPane.setSpacing(10d);
 		
 		xDisplay = new Text();
-		xDisplay.setFont(Main.textFont);
+		xDisplay.setFont(CommonUtilities.getFont(FontType.TEXT));
 		xDisplay.setText("X Rotation: 0");
 		
 		yDisplay = new Text();
-		yDisplay.setFont(Main.textFont);
+		yDisplay.setFont(CommonUtilities.getFont(FontType.TEXT));
 		yDisplay.setText("Y Rotation: 0");
 		
 		zDisplay = new Text();
-		zDisplay.setFont(Main.textFont);
+		zDisplay.setFont(CommonUtilities.getFont(FontType.TEXT));
 		zDisplay.setText("Z Rotation: 0");
 		
 		x = new Slider();
@@ -128,13 +131,13 @@ public class BlockstateFieldEditorScene extends SceneRetriever {
 		zPane.getChildren().addAll(zDisplay, z);
 		
 		Button next = new Button();
-		next.setFont(Main.textFont);
+		next.setFont(CommonUtilities.getFont(FontType.TEXT));
 		next.setText("Continue");
 		next.setOnAction(e -> {
 			Alert msg = new Alert(AlertType.CONFIRMATION, "Are you sure this is the configuration you want? This cannot be changed later.", ButtonType.YES, ButtonType.NO);
 			if(msg.showAndWait().get() == ButtonType.YES) {
 				if(mdl == null) {
-					Main.error("You have not selected a model! :(");
+					error("You have not selected a model! :(");
 					return;
 				}
 				models[completed] = new ModelDescriptor(mdl, (int)x.getValue(), (int)y.getValue(), (int)z.getValue());
@@ -164,7 +167,7 @@ public class BlockstateFieldEditorScene extends SceneRetriever {
 		pane.getButtonTypes().add(ButtonType.APPLY);
 		
 		TextField entry = new TextField();
-		entry.setFont(Main.textFont);
+		entry.setFont(CommonUtilities.getFont(FontType.TEXT));
 		entry.setPromptText("Enter mod ID...");
 		
 		content.getChildren().add(entry);
@@ -182,7 +185,7 @@ public class BlockstateFieldEditorScene extends SceneRetriever {
 				shouldConsume = false;
 				dialog.setResult(entry.getText());
 			} else {
-				Main.error("You must enter a mod ID! :(");
+				error("You must enter a mod ID! :(");
 			}
 			
 			if(shouldConsume) {
@@ -215,7 +218,7 @@ public class BlockstateFieldEditorScene extends SceneRetriever {
 					fullPath.createNewFile();
 				} catch (IOException e) {
 					e.printStackTrace();
-					Main.error("Couldn't create file as it already exists! Please try again. :(\nFile: " + fullPath.getAbsolutePath());
+					error("Couldn't create file as it already exists! Please try again. :(\nFile: " + fullPath.getAbsolutePath());
 					return;
 				}
 			}
@@ -227,10 +230,10 @@ public class BlockstateFieldEditorScene extends SceneRetriever {
 				writer.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				Main.error("Couldn't find file to write to! :(\nFile: " + fullPath.getAbsolutePath());
+				error("Couldn't find file to write to! :(\nFile: " + fullPath.getAbsolutePath());
 			}
-			Main.switchScene("menu");
-			Main.success("Successfully wrote to blockstate file!");
+			Main.switchScene(MenuScene.class.getName());
+			success("Successfully wrote to blockstate file!");
 			return;
 		}
 		remaining.setText(completed + " of " + calculateTotalOutcomes() + " Completed");

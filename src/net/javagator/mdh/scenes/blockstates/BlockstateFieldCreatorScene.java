@@ -17,9 +17,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import net.javagator.mdh.Main;
-import net.javagator.mdh.SceneRetriever;
+import net.javagator.mdh.baseclasses.BaseScene;
+import net.javagator.mdh.scenes.MenuScene;
+import net.javagator.mdh.util.CommonUtilities;
+import net.javagator.mdh.util.CommonUtilities.FontType;
 
-public class BlockstateFieldCreatorScene extends SceneRetriever {
+public class BlockstateFieldCreatorScene extends BaseScene {
 
 	private boolean addedPropertyName;
 	private int numProperties;
@@ -42,12 +45,6 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 	}
 	
 	@Override
-	public Scene getScene() {
-		clear();
-		return scene;
-	}
-	
-	@Override
 	public void buildScene() {
 		sceneTitle = "Mod Development Helper | Blockstate File Creator";
 		addedPropertyName = false;
@@ -55,7 +52,7 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 		
 		Text header = new Text();
 		header.setText("Blockstates");
-		header.setFont(Main.headerFont);
+		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		
 		treeRoot = new TreeItem<>();
 		treeRoot.setValue("Properties:");
@@ -65,15 +62,14 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 		viewOfEverything.setRoot(treeRoot);
 		
 		Button exit = new Button();
-		exit.setFont(Main.textFont);
+		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
 		exit.setText("Return to Menu");
 		exit.setOnAction(e -> {
-			clear();
-			Main.switchScene("menu");
+			Main.switchScene(MenuScene.class.getName());
 		});
 		
 		Button addProperty = new Button();
-		addProperty.setFont(Main.textFont);
+		addProperty.setFont(CommonUtilities.getFont(FontType.TEXT));
 		addProperty.setText("Add New Property");
 		addProperty.setOnAction(e -> {
 			addedPropertyName = false;
@@ -92,12 +88,12 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 		});
 		
 		Button clear = new Button();
-		clear.setFont(Main.textFont);
+		clear.setFont(CommonUtilities.getFont(FontType.TEXT));
 		clear.setText("Clear Properties");
 		clear.setOnAction(e -> clear());
 		
 		Button complete = new Button();
-		complete.setFont(Main.textFont);
+		complete.setFont(CommonUtilities.getFont(FontType.TEXT));
 		complete.setText("Finish");
 		complete.setOnAction(e -> {
 			Alert msg = new Alert(AlertType.CONFIRMATION, "Are you sure you are finished creating blockstates? This cannot be changed once you proceed.", ButtonType.YES, ButtonType.NO);
@@ -107,6 +103,7 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 					keysAsArray[i] = datakeys.get(i);
 				}
 				BlockstateFieldEditorScene.setData(blockstateData, keysAsArray);
+				clear();
 				Main.switchScene("bs2");
 			}
 		});
@@ -137,7 +134,7 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 		
 		nameBox = new TextField();
 		nameBox.setPromptText("Enter property name...");
-		nameBox.setFont(Main.textFont);
+		nameBox.setFont(CommonUtilities.getFont(FontType.TEXT));
 		nameBox.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ENTER && nameBox.isFocused()) {
 				enterPressedForProperty = true;
@@ -154,7 +151,7 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 		treeview.setRoot(tree);
 		
 		add = new Button();
-		add.setFont(Main.textFont);
+		add.setFont(CommonUtilities.getFont(FontType.TEXT));
 		add.setText("Add Property");
 		add.setOnAction(e -> updateTree());
 		
@@ -165,7 +162,7 @@ public class BlockstateFieldCreatorScene extends SceneRetriever {
 	
 	private void updateTree() {
 		if(nameBox.getText().equalsIgnoreCase("")) {
-			Main.error("You have not provided a value! :(");
+			error("You have not provided a value! :(");
 		} else {
 			if(addedPropertyName) {
 				numProperties++;

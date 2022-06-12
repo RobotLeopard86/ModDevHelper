@@ -1,23 +1,13 @@
 package net.javagator.mdh;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javafx.application.Application;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
+import net.javagator.mdh.baseclasses.BaseScene;
 import net.javagator.mdh.scenes.ItemModelScene;
 import net.javagator.mdh.scenes.LangEntryScene;
 import net.javagator.mdh.scenes.MenuScene;
@@ -34,17 +24,12 @@ import net.javagator.mdh.scenes.recipes.SmeltingScene;
 import net.javagator.mdh.scenes.recipes.SmithingScene;
 import net.javagator.mdh.scenes.recipes.SmokerScene;
 import net.javagator.mdh.scenes.recipes.StonecuttingScene;
+import net.javagator.mdh.util.CommonUtilities;
 
 public class Main extends Application {
 	
-	private static HashMap<String, SceneRetriever> scenes = new HashMap<>();
-	private static String defaultScene = "menu";
-	
-	public static Font headerFont;
-	public static Font textFont;
-	
-	private static Image errMsgImg;
-	private static Image yayMsgImg;
+	private static HashMap<String, BaseScene> scenes = new HashMap<>();
+	private static String defaultScene = MenuScene.class.getName();
 	
 	private static Stage stage;
 	
@@ -60,13 +45,12 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		initializeFonts();
-		initializeMessageImages();
+		CommonUtilities.initializeMessageImages();
+		CommonUtilities.initializeFonts();
 		initializeSceneMap();
-		primaryStage.setScene(scenes.get(defaultScene).getScene());
-		primaryStage.setTitle(scenes.get(defaultScene).sceneTitle);
-		primaryStage.show();
 		stage = primaryStage;
+		switchScene(defaultScene);
+		primaryStage.show();
 	}
 	
 	public static void switchScene(String name) {
@@ -80,63 +64,22 @@ public class Main extends Application {
 	}
 	
 	private void initializeSceneMap() {
-		scenes.put("menu", new MenuScene());
-		scenes.put("lang", new LangEntryScene());
-		scenes.put("items", new ItemModelScene());
-		scenes.put("itexture", new ItemModelFromTextureScene());
-		scenes.put("iblock", new ItemModelFromBlockModelScene());
-		scenes.put("bs1", new BlockstateFieldCreatorScene());
-		scenes.put("bs2", new BlockstateFieldEditorScene());
-		scenes.put("recipe", new RecipesScene());
-		scenes.put("shaped", new ShapedCraftingScene());
-		scenes.put("sl", new ShapelessCraftingScene());
-		scenes.put("blaster", new BlastFurnaceScene());
-		scenes.put("campfire", new CampfireCookingScene());
-		scenes.put("smelting", new SmeltingScene());
-		scenes.put("st", new SmithingScene());
-		scenes.put("smoker", new SmokerScene());
-		scenes.put("scut", new StonecuttingScene());
+		scenes.put(MenuScene.class.getName(), new MenuScene());
+		scenes.put(LangEntryScene.class.getName(), new LangEntryScene());
+		scenes.put(ItemModelScene.class.getName(), new ItemModelScene());
+		scenes.put(ItemModelFromTextureScene.class.getName(), new ItemModelFromTextureScene());
+		scenes.put(ItemModelFromBlockModelScene.class.getName(), new ItemModelFromBlockModelScene());
+		scenes.put(BlockstateFieldCreatorScene.class.getName(), new BlockstateFieldCreatorScene());
+		scenes.put(BlockstateFieldEditorScene.class.getName(), new BlockstateFieldEditorScene());
+		scenes.put(RecipesScene.class.getName(), new RecipesScene());
+		scenes.put(ShapedCraftingScene.class.getName(), new ShapedCraftingScene());
+		scenes.put(ShapelessCraftingScene.class.getName(), new ShapelessCraftingScene());
+		scenes.put(BlastFurnaceScene.class.getName(), new BlastFurnaceScene());
+		scenes.put(CampfireCookingScene.class.getName(), new CampfireCookingScene());
+		scenes.put(SmeltingScene.class.getName(), new SmeltingScene());
+		scenes.put(SmithingScene.class.getName(), new SmithingScene());
+		scenes.put(SmokerScene.class.getName(), new SmokerScene());
+		scenes.put(StonecuttingScene.class.getName(), new StonecuttingScene());
 	}
 	
-	private void initializeMessageImages() {
-		errMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/images/error.png", 64, 64, true, true, true);
-		yayMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/images/success.png", 64, 64, true, true, true);
-	}
-	
-	private void initializeFonts() {
-		BufferedInputStream his = null;
-		BufferedInputStream tis = null;
-		try {
-			his = new BufferedInputStream(new URL("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/fonts/redhatdisplay.ttf").openStream());
-			tis = new BufferedInputStream(new URL("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/fonts/redhattext.ttf").openStream());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			error("Couldn't load font from malformed URL! :(");
-		} catch (IOException e) {
-			e.printStackTrace();
-			error("Couldn't load due to IO exception! If you are offline, please obtain a connection. :(");
-		}
-		headerFont = Font.loadFont(his, 36f);
-		textFont = Font.loadFont(tis, 18f);
-	}
-	
-	public static void error(String description) {
-		Alert msg = new Alert(AlertType.ERROR, description, ButtonType.OK);
-		msg.setTitle("Error");
-		ImageView graphic = new ImageView();
-		graphic.setImage(errMsgImg);
-		msg.setGraphic(graphic);
-		msg.show();
-	}
-	
-	public static void success(String description) {
-		Alert msg = new Alert(AlertType.INFORMATION, description, ButtonType.OK);
-		msg.setTitle("Success!");
-		ImageView graphic = new ImageView();
-		graphic.setImage(yayMsgImg);
-		msg.setGraphic(graphic);
-		msg.setHeaderText("Success!");
-		msg.show();
-	}
-
 }

@@ -3,9 +3,12 @@ package net.javagator.mdh.scenes;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import net.javagator.mdh.Main;
-import net.javagator.mdh.SceneRetriever;
+import net.javagator.mdh.baseclasses.BaseScene;
+import net.javagator.mdh.scenes.blockstates.BlockstateFieldCreatorScene;
+import net.javagator.mdh.util.CommonUtilities;
+import net.javagator.mdh.util.CommonUtilities.FontType;
 
-public class MenuScene extends SceneRetriever {
+public class MenuScene extends BaseScene {
 
 	@Override
 	public void buildScene() {
@@ -13,42 +16,42 @@ public class MenuScene extends SceneRetriever {
 		
 		Text header = new Text();
 		header.setText("Mod Development Helper");
-		header.setFont(Main.headerFont);
+		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		
 		Text todo = new Text();
 		todo.setText("Please select an option:");
-		todo.setFont(Main.textFont);
+		todo.setFont(CommonUtilities.getFont(FontType.HEADER));
 
 		Button lang = new Button();
-		lang.setFont(Main.textFont);
+		lang.setFont(CommonUtilities.getFont(FontType.HEADER));
 		lang.setText("Localization Entry");
 		lang.setOnAction(e -> {
-			Main.switchScene("lang");
+			Main.switchScene(LangEntryScene.class.getName());
 		});
 		
 		Button imodel = new Button();
-		imodel.setFont(Main.textFont);
+		imodel.setFont(CommonUtilities.getFont(FontType.HEADER));
 		imodel.setText("Item Model Designer");
 		imodel.setOnAction(e -> {
-			Main.switchScene("items");
+			Main.switchScene(ItemModelScene.class.getName());
 		});
 		
 		Button states = new Button();
-		states.setFont(Main.textFont);
+		states.setFont(CommonUtilities.getFont(FontType.HEADER));
 		states.setText("Blockstate File Creator");
 		states.setOnAction(e -> {
-			Main.switchScene("bs1");
+			Main.switchScene(BlockstateFieldCreatorScene.class.getName());
 		});
 		
 		Button craft = new Button();
-		craft.setFont(Main.textFont);
+		craft.setFont(CommonUtilities.getFont(FontType.HEADER));
 		craft.setText("Recipe Generator");
 		craft.setOnAction(e -> {
-			Main.switchScene("recipe");
+			Main.switchScene(RecipesScene.class.getName());
 		});
 		
 		Button quit = new Button();
-		quit.setFont(Main.textFont);
+		quit.setFont(CommonUtilities.getFont(FontType.HEADER));
 		quit.setText("Quit App");
 		quit.setOnAction(e -> {
 			System.exit(0);

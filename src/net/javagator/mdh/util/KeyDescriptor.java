@@ -1,4 +1,4 @@
-package net.javagator.mdh;
+package net.javagator.mdh.util;
 
 public class KeyDescriptor {
 	
@@ -17,5 +17,4 @@ public class KeyDescriptor {
 	public String getVal() {
 		return val;
 	}
-
 }

@@ -13,9 +13,13 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import net.javagator.mdh.Main;
-import net.javagator.mdh.SceneRetriever;
+import net.javagator.mdh.baseclasses.BaseScene;
+import net.javagator.mdh.scenes.ItemModelScene;
+import net.javagator.mdh.scenes.MenuScene;
+import net.javagator.mdh.util.CommonUtilities;
+import net.javagator.mdh.util.CommonUtilities.FontType;
 
-public class ItemModelFromBlockModelScene extends SceneRetriever {
+public class ItemModelFromBlockModelScene extends BaseScene {
 	
 	private File blockModel;
 	
@@ -25,27 +29,27 @@ public class ItemModelFromBlockModelScene extends SceneRetriever {
 		
 		Text header = new Text();
 		header.setText("Item Models");
-		header.setFont(Main.headerFont);
+		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		
 		Text model = new Text();
-		model.setFont(Main.textFont);
+		model.setFont(CommonUtilities.getFont(FontType.TEXT));
 		model.setText("Selected Model: ???");
 		model.setWrappingWidth(scene.getWidth());
 		
 		Button exit = new Button();
-		exit.setFont(Main.textFont);
+		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
 		exit.setText("Back");
 		exit.setOnAction(e -> {
-			Main.switchScene("items");
+			Main.switchScene(ItemModelScene.class.getName());
 		});
 		
 		TextField modid = new TextField();
-		modid.setFont(Main.textFont);
+		modid.setFont(CommonUtilities.getFont(FontType.TEXT));
 		modid.setPromptText("Enter mod ID...");
 		modid.setVisible(false);
 		
 		Button generate = new Button();
-		generate.setFont(Main.textFont);
+		generate.setFont(CommonUtilities.getFont(FontType.TEXT));
 		generate.setText("Generate Model");
 		generate.setOnAction(e -> {
 			JsonObject json = new JsonObject();
@@ -58,7 +62,7 @@ public class ItemModelFromBlockModelScene extends SceneRetriever {
 				modelFile.createNewFile();
 			} catch (IOException exception) {
 				exception.printStackTrace();
-				Main.error("Model file could not be created! :(");
+				error("Model file could not be created! :(");
 				return;
 			}
 			try {
@@ -66,18 +70,18 @@ public class ItemModelFromBlockModelScene extends SceneRetriever {
 				pw.print(Main.getGson().toJson(json));
 				pw.flush();
 				pw.close();
-				Main.switchScene("menu");
-				Main.success("Successfully created model!");
+				Main.switchScene(MenuScene.class.getName());
+				success("Successfully created model!");
 			} catch (FileNotFoundException exception) {
 				exception.printStackTrace();
-				Main.error("Model file could not be found! :(\nFile: " + modelFile.getAbsolutePath());
+				error("Model file could not be found! :(\nFile: " + modelFile.getAbsolutePath());
 				return;
 			}
 		});
 		generate.setVisible(false);
 		
 		Button modelChooser = new Button();
-		modelChooser.setFont(Main.textFont);
+		modelChooser.setFont(CommonUtilities.getFont(FontType.TEXT));
 		modelChooser.setText("Choose Model");
 		modelChooser.setOnAction(e -> {
 			FileChooser fc = new FileChooser();
