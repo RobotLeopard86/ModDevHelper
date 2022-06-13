@@ -7,6 +7,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
 import net.javagator.mdh.Main;
 import net.javagator.mdh.baseclasses.BaseScene;
+import net.javagator.mdh.scenes.itemmodels.ItemModelFromBlockModelScene;
 import net.javagator.mdh.scenes.itemmodels.ItemModelFromTextureScene;
 import net.javagator.mdh.util.CommonUtilities;
 import net.javagator.mdh.util.CommonUtilities.FontType;

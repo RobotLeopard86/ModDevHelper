@@ -14,6 +14,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import net.javagator.mdh.Main;
 import net.javagator.mdh.baseclasses.BaseScene;
+import net.javagator.mdh.scenes.MenuScene;
 import net.javagator.mdh.scenes.RecipesScene;
 import net.javagator.mdh.util.CommonUtilities;
 import net.javagator.mdh.util.CommonUtilities.FontType;

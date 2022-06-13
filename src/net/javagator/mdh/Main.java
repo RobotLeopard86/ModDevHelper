@@ -6,6 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javafx.application.Application;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import net.javagator.mdh.baseclasses.BaseScene;
 import net.javagator.mdh.scenes.ItemModelScene;
@@ -49,6 +53,17 @@ public class Main extends Application {
 		CommonUtilities.initializeFonts();
 		initializeSceneMap();
 		stage = primaryStage;
+		primaryStage.setOnCloseRequest(e -> {
+			Alert msg = new Alert(AlertType.WARNING, "You may have unsaved data! Are you sure you want to quit?", ButtonType.YES, ButtonType.NO);
+			msg.setTitle("Warning!");
+			ImageView graphic = new ImageView();
+			graphic.setImage(CommonUtilities.getWarningImg());
+			msg.setGraphic(graphic);
+			msg.setHeaderText("Warning");
+			if(msg.showAndWait().get() == ButtonType.NO) {
+				e.consume();
+			}
+		});
 		switchScene(defaultScene);
 		primaryStage.show();
 	}
