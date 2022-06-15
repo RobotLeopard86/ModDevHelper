@@ -51,6 +51,13 @@ public class MenuScene extends BaseScene {
 			Main.switchScene(RecipesScene.class.getName());
 		});
 		
+		Button loot = new Button();
+		loot.setFont(CommonUtilities.getFont(FontType.TEXT));
+		loot.setText("Loot Table Creator");
+		loot.setOnAction(e -> {
+			Main.switchScene(LootTablesMenuScene.class.getName());
+		});
+		
 		Button quit = new Button();
 		quit.setFont(CommonUtilities.getFont(FontType.TEXT));
 		quit.setText("Quit App");
@@ -58,7 +65,7 @@ public class MenuScene extends BaseScene {
 			Main.getStage().fireEvent(new WindowEvent(Main.getStage(), WindowEvent.WINDOW_CLOSE_REQUEST));
 		});
 		
-		root.getChildren().addAll(header, todo, lang, imodel, states, craft, quit);
+		root.getChildren().addAll(header, todo, lang, imodel, states, craft, loot, quit);
 	}
 
 }

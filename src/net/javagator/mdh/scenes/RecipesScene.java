@@ -30,62 +30,62 @@ public class RecipesScene extends BaseScene {
 		ToggleGroup options = new ToggleGroup();
 		
 		RadioButton cshape = new RadioButton();
-		cshape.setFont(CommonUtilities.getFont(FontType.HEADER));
+		cshape.setFont(CommonUtilities.getFont(FontType.TEXT));
 		cshape.setText("Crafting Table - Shaped");
 		cshape.setToggleGroup(options);
 		cshape.getProperties().put("continue_to", ShapedCraftingScene.class.getName());
 		
 		RadioButton csl = new RadioButton();
-		csl.setFont(CommonUtilities.getFont(FontType.HEADER));
+		csl.setFont(CommonUtilities.getFont(FontType.TEXT));
 		csl.setText("Crafting Table - Shapeless");
 		csl.setToggleGroup(options);
 		csl.getProperties().put("continue_to", ShapelessCraftingScene.class.getName());
 		
 		RadioButton blast = new RadioButton();
-		blast.setFont(CommonUtilities.getFont(FontType.HEADER));
+		blast.setFont(CommonUtilities.getFont(FontType.TEXT));
 		blast.setText("Blast Furnace");
 		blast.setToggleGroup(options);
 		blast.getProperties().put("continue_to", BlastFurnaceScene.class.getName());
 		
 		RadioButton camp = new RadioButton();
-		camp.setFont(CommonUtilities.getFont(FontType.HEADER));
+		camp.setFont(CommonUtilities.getFont(FontType.TEXT));
 		camp.setText("Campfire Cooking");
 		camp.setToggleGroup(options);
 		camp.getProperties().put("continue_to", CampfireCookingScene.class.getName());
 		
 		RadioButton smelt = new RadioButton();
-		smelt.setFont(CommonUtilities.getFont(FontType.HEADER));
+		smelt.setFont(CommonUtilities.getFont(FontType.TEXT));
 		smelt.setText("Furnace");
 		smelt.setToggleGroup(options);
 		smelt.getProperties().put("continue_to", SmeltingScene.class.getName());
 		
 		RadioButton smith = new RadioButton();
-		smith.setFont(CommonUtilities.getFont(FontType.HEADER));
+		smith.setFont(CommonUtilities.getFont(FontType.TEXT));
 		smith.setText("Smithing Table");
 		smith.setToggleGroup(options);
 		smith.getProperties().put("continue_to", SmithingScene.class.getName());
 		
 		RadioButton smoked = new RadioButton();
-		smoked.setFont(CommonUtilities.getFont(FontType.HEADER));
+		smoked.setFont(CommonUtilities.getFont(FontType.TEXT));
 		smoked.setText("Smoker");
 		smoked.setToggleGroup(options);
 		smoked.getProperties().put("continue_to", SmokerScene.class.getName());
 		
 		RadioButton cut = new RadioButton();
-		cut.setFont(CommonUtilities.getFont(FontType.HEADER));
+		cut.setFont(CommonUtilities.getFont(FontType.TEXT));
 		cut.setText("Stonecutter");
 		cut.setToggleGroup(options);
 		cut.getProperties().put("continue_to", StonecuttingScene.class.getName());
 		
 		Button next = new Button();
-		next.setFont(CommonUtilities.getFont(FontType.HEADER));
+		next.setFont(CommonUtilities.getFont(FontType.TEXT));
 		next.setText("Continue");
 		next.setOnAction(e -> {
 			Main.switchScene(options.getSelectedToggle().getProperties().get("continue_to").toString());
 		});
 		
 		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.HEADER));
+		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
 		exit.setText("Return to Menu");
 		exit.setOnAction(e -> {
 			Main.switchScene(MenuScene.class.getName());

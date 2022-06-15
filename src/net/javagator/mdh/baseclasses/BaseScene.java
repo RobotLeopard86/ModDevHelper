@@ -49,4 +49,14 @@ public abstract class BaseScene {
 		msg.setHeaderText("Success!");
 		msg.show();
 	};
+	
+	protected static ButtonType warning(String description) {
+		Alert msg = new Alert(AlertType.WARNING, description, ButtonType.YES, ButtonType.NO);
+		msg.setTitle("Warning");
+		ImageView graphic = new ImageView();
+		graphic.setImage(CommonUtilities.getWarningImg());
+		msg.setGraphic(graphic);
+		msg.setHeaderText("Warning!");
+		return msg.showAndWait().get();
+	};
 }

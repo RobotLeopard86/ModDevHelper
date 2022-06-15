@@ -7,19 +7,24 @@ import com.google.gson.GsonBuilder;
 
 import javafx.application.Application;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import net.javagator.mdh.baseclasses.BaseScene;
 import net.javagator.mdh.scenes.ItemModelScene;
 import net.javagator.mdh.scenes.LangEntryScene;
+import net.javagator.mdh.scenes.LootTablesMenuScene;
 import net.javagator.mdh.scenes.MenuScene;
 import net.javagator.mdh.scenes.RecipesScene;
 import net.javagator.mdh.scenes.blockstates.BlockstateFieldCreatorScene;
 import net.javagator.mdh.scenes.blockstates.BlockstateFieldEditorScene;
 import net.javagator.mdh.scenes.itemmodels.ItemModelFromBlockModelScene;
 import net.javagator.mdh.scenes.itemmodels.ItemModelFromTextureScene;
+import net.javagator.mdh.scenes.loot.ChestLootScene;
+import net.javagator.mdh.scenes.loot.EntityLootScene;
+import net.javagator.mdh.scenes.loot.block.BlockLootScene;
+import net.javagator.mdh.scenes.loot.block.SingleItemBlockLootScene;
 import net.javagator.mdh.scenes.recipes.BlastFurnaceScene;
 import net.javagator.mdh.scenes.recipes.CampfireCookingScene;
 import net.javagator.mdh.scenes.recipes.ShapedCraftingScene;
@@ -95,6 +100,11 @@ public class Main extends Application {
 		scenes.put(SmithingScene.class.getName(), new SmithingScene());
 		scenes.put(SmokerScene.class.getName(), new SmokerScene());
 		scenes.put(StonecuttingScene.class.getName(), new StonecuttingScene());
+		scenes.put(LootTablesMenuScene.class.getName(), new LootTablesMenuScene());
+		scenes.put(BlockLootScene.class.getName(), new BlockLootScene());
+		scenes.put(SingleItemBlockLootScene.class.getName(), new SingleItemBlockLootScene());
+		scenes.put(EntityLootScene.class.getName(), new EntityLootScene());
+		scenes.put(ChestLootScene.class.getName(), new ChestLootScene());
 	}
 	
 }

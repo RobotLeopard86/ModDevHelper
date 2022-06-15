@@ -25,24 +25,24 @@ public class ItemModelScene extends BaseScene {
 		ToggleGroup options = new ToggleGroup();
 		
 		RadioButton texture = new RadioButton();
-		texture.setFont(CommonUtilities.getFont(FontType.HEADER));
+		texture.setFont(CommonUtilities.getFont(FontType.TEXT));
 		texture.setText("Texture");
 		texture.setToggleGroup(options);
 		
 		RadioButton model = new RadioButton();
-		model.setFont(CommonUtilities.getFont(FontType.HEADER));
+		model.setFont(CommonUtilities.getFont(FontType.TEXT));
 		model.setText("Block Model");
 		model.setToggleGroup(options);
 		
 		Button next = new Button();
-		next.setFont(CommonUtilities.getFont(FontType.HEADER));
+		next.setFont(CommonUtilities.getFont(FontType.TEXT));
 		next.setText("Continue");
 		next.setOnAction(e -> {
 			Main.switchScene(options.getSelectedToggle().equals((Toggle)texture) ? ItemModelFromTextureScene.class.getName() : ItemModelFromBlockModelScene.class.getName());
 		});
 		
 		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.HEADER));
+		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
 		exit.setText("Return to Menu");
 		exit.setOnAction(e -> {
 			Main.switchScene("menu");
