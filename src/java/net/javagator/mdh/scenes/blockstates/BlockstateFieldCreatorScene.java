@@ -30,7 +30,7 @@ public class BlockstateFieldCreatorScene extends BaseScene {
 	private TextField nameBox;
 	private TreeItem<String> tree;
 	private TreeView<String> treeview;
-	TreeItem<String> treeRoot;
+	private TreeItem<String> treeRoot;
 	private Button add;
 	private boolean enterPressedForProperty;
 	

@@ -45,7 +45,7 @@ public class ItemModelScene extends BaseScene {
 		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
 		exit.setText("Return to Menu");
 		exit.setOnAction(e -> {
-			Main.switchScene("menu");
+			Main.switchScene(MenuScene.class.getName());
 		});
 		
 		options.selectToggle(texture);

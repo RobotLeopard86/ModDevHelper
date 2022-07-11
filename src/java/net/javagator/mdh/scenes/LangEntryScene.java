@@ -37,22 +37,22 @@ public class LangEntryScene extends BaseScene {
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		
 		Text file = new Text();
-		file.setFont(CommonUtilities.getFont(FontType.HEADER));
+		file.setFont(CommonUtilities.getFont(FontType.TEXT));
 		file.setText("Selected File: ???");
 		file.setWrappingWidth(scene.getWidth());
 		
 		TextField keyBox = new TextField();
-		keyBox.setFont(CommonUtilities.getFont(FontType.HEADER));
-		keyBox.setPromptText("Enter key (example: item.beyond.fudge)...");
+		keyBox.setFont(CommonUtilities.getFont(FontType.TEXT));
+		keyBox.setPromptText("Enter key (example: item.minecraft.diamond)...");
 		keyBox.setVisible(false);
 		
 		TextField nameBox = new TextField();
-		nameBox.setFont(CommonUtilities.getFont(FontType.HEADER));
+		nameBox.setFont(CommonUtilities.getFont(FontType.TEXT));
 		nameBox.setPromptText("Enter name...");
 		nameBox.setVisible(false);
 		
 		Button addKey = new Button();
-		addKey.setFont(CommonUtilities.getFont(FontType.HEADER));
+		addKey.setFont(CommonUtilities.getFont(FontType.TEXT));
 		addKey.setText("Add to Localization File");
 		addKey.setOnAction(e -> {
 			String key = keyBox.getText();
@@ -64,7 +64,7 @@ public class LangEntryScene extends BaseScene {
 		addKey.setVisible(false);
 		
 		Button write = new Button();
-		write.setFont(CommonUtilities.getFont(FontType.HEADER));
+		write.setFont(CommonUtilities.getFont(FontType.TEXT));
 		write.setText("Write Changes");
 		write.setOnAction(e -> {
 			Alert confirm = new Alert(AlertType.CONFIRMATION, "Are you sure you want to write changes to the file?", ButtonType.YES, ButtonType.NO);
@@ -85,7 +85,7 @@ public class LangEntryScene extends BaseScene {
 		write.setVisible(false);
 		
 		Button chooseFile = new Button();
-		chooseFile.setFont(CommonUtilities.getFont(FontType.HEADER));
+		chooseFile.setFont(CommonUtilities.getFont(FontType.TEXT));
 		chooseFile.setText("Choose Language File");
 		chooseFile.setOnAction(e -> {
 			FileChooser fc = new FileChooser();
@@ -105,6 +105,8 @@ public class LangEntryScene extends BaseScene {
 			} catch (FileNotFoundException exception) {
 				exception.printStackTrace();
 				error("Language file could not be found! :(\nFile: " + langFile.getAbsolutePath());
+			} catch (NullPointerException exception) {
+				//Error swallowed as it is raised when the user cancels selection.
 			}
 			addKey.setVisible(!exceptionRaised);
 			write.setVisible(!exceptionRaised);
@@ -114,7 +116,7 @@ public class LangEntryScene extends BaseScene {
 		});
 		
 		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.HEADER));
+		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
 		exit.setText("Return to Menu");
 		exit.setOnAction(e -> {
 			Main.switchScene(MenuScene.class.getName());
