@@ -15,6 +15,22 @@ import javafx.scene.text.Font;
 public class CommonUtilities {
 	
 	public static enum FontType {HEADER, TEXT};
+	public static enum Direction {
+		North(0, "north"),
+		South(1, "south"),
+		West(2, "west"),
+		East(3, "east"),
+		Top(4, "up"),
+		Bottom(5, "down");
+		
+		public int idx;
+		public String mappedVal;
+		
+		private Direction(int index, String mcKeymap) {
+			idx = index;
+			mappedVal = mcKeymap;
+		}
+	}
 	
 	private static Font headerFont;
 	private static Font textFont;
@@ -40,8 +56,8 @@ public class CommonUtilities {
 		BufferedInputStream his = null;
 		BufferedInputStream tis = null;
 		try {
-			his = new BufferedInputStream(new URL("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/fonts/redhatdisplay.ttf").openStream());
-			tis = new BufferedInputStream(new URL("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/fonts/redhattext.ttf").openStream());
+			his = new BufferedInputStream(new URL("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/src/resources/fonts/redhatdisplay.ttf").openStream());
+			tis = new BufferedInputStream(new URL("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/src/resources/fonts/redhattext.ttf").openStream());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			Alert msg = new Alert(AlertType.ERROR, "Couldn't load font from malformed URL! :(", ButtonType.OK);
@@ -64,9 +80,9 @@ public class CommonUtilities {
 	}
 	
 	public static void initializeMessageImages() {
-		errMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/images/error.png", 64, 64, true, true, true);
-		yayMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/images/success.png", 64, 64, true, true, true);
-		warnMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/images/warning.png", 64, 64, true, true, true);
+		errMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/src/resources/images/error.png", 64, 64, true, true, true);
+		yayMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/src/resources/images/success.png", 64, 64, true, true, true);
+		warnMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/src/resources/images/warning.png", 64, 64, true, true, true);
 	}
 
 	public static Image getErrorImg() {

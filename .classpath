@@ -1,46 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/java"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-18">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="W:/Java FX/lib/javafx.base.jar" sourcepath="W:/Java FX/src/javafx.base">
+	<classpathentry exported="true" kind="lib" path="W:/Java FX/lib/javafx.base.jar" sourcepath="W:/Java FX/src/javafx.base">
 		<attributes>
 			<attribute name="module" value="true"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="W:/Java FX/bin"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="W:/Java FX/lib/javafx.controls.jar" sourcepath="W:/Java FX/src/javafx.controls">
+	<classpathentry exported="true" kind="lib" path="W:/Java FX/lib/javafx.controls.jar" sourcepath="W:/Java FX/src/javafx.controls">
 		<attributes>
 			<attribute name="module" value="true"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="W:/Java FX/bin"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="W:/Java FX/lib/javafx.fxml.jar" sourcepath="W:/Java FX/src/javafx.fxml">
+	<classpathentry exported="true" kind="lib" path="W:/Java FX/lib/javafx.fxml.jar" sourcepath="W:/Java FX/src/javafx.fxml">
 		<attributes>
 			<attribute name="module" value="true"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="W:/Java FX/bin"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="W:/Java FX/lib/javafx.graphics.jar" sourcepath="W:/Java FX/src/javafx.graphics">
+	<classpathentry exported="true" kind="lib" path="W:/Java FX/lib/javafx.graphics.jar" sourcepath="W:/Java FX/src/javafx.graphics">
 		<attributes>
 			<attribute name="module" value="true"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="W:/Java FX/bin"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="W:/Java FX/lib/javafx.media.jar" sourcepath="W:/Java FX/src/javafx.media">
+	<classpathentry exported="true" kind="lib" path="W:/Java FX/lib/javafx.media.jar" sourcepath="W:/Java FX/src/javafx.media">
 		<attributes>
 			<attribute name="module" value="true"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="W:/Java FX/bin"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="W:/Java FX/lib/javafx.swing.jar" sourcepath="W:/Java FX/src/javafx.swing">
+	<classpathentry exported="true" kind="lib" path="W:/Java FX/lib/javafx.swing.jar" sourcepath="W:/Java FX/src/javafx.swing">
 		<attributes>
 			<attribute name="module" value="true"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="W:/Java FX/bin"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="W:/Java FX/lib/javafx.web.jar" sourcepath="W:/Java FX/src/javafx.web">
+	<classpathentry exported="true" kind="lib" path="W:/Java FX/lib/javafx.web.jar" sourcepath="W:/Java FX/src/javafx.web">
 		<attributes>
 			<attribute name="module" value="true"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="W:/Java FX/bin"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/resources/libraries/gson-2.9.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="src/resources/libraries/gson-2.9.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

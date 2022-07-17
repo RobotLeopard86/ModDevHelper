@@ -37,6 +37,13 @@ public class MenuScene extends BaseScene {
 			Main.switchScene(ItemModelScene.class.getName());
 		});
 		
+		Button cmodel = new Button();
+		cmodel.setFont(CommonUtilities.getFont(FontType.TEXT));
+		cmodel.setText("Cube Block Model Creator");
+		cmodel.setOnAction(e -> {
+			Main.switchScene(CubeModelScene.class.getName());
+		});
+		
 		Button states = new Button();
 		states.setFont(CommonUtilities.getFont(FontType.TEXT));
 		states.setText("Blockstate File Creator");
@@ -51,13 +58,6 @@ public class MenuScene extends BaseScene {
 			Main.switchScene(RecipesScene.class.getName());
 		});
 		
-		Button loot = new Button();
-		loot.setFont(CommonUtilities.getFont(FontType.TEXT));
-		loot.setText("Loot Table Creator");
-		loot.setOnAction(e -> {
-			Main.switchScene(LootTablesMenuScene.class.getName());
-		});
-		
 		Button quit = new Button();
 		quit.setFont(CommonUtilities.getFont(FontType.TEXT));
 		quit.setText("Quit App");
@@ -65,7 +65,7 @@ public class MenuScene extends BaseScene {
 			Main.getStage().fireEvent(new WindowEvent(Main.getStage(), WindowEvent.WINDOW_CLOSE_REQUEST));
 		});
 		
-		root.getChildren().addAll(header, todo, lang, imodel, states, craft, loot, quit);
+		root.getChildren().addAll(header, todo, lang, imodel, cmodel, states, craft, quit);
 	}
 
 }

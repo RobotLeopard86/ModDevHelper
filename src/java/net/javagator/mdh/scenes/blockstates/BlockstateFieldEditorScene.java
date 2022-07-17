@@ -13,12 +13,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -158,50 +155,34 @@ public class BlockstateFieldEditorScene extends BaseScene {
 		updateView();
 	}
 	
-	private static Dialog<String> constructModIdAskDialog() {
-		VBox content = new VBox();
-		
-		DialogPane pane = new DialogPane();
-		pane.setHeaderText("Please Enter Mod ID");
-		pane.setContent(content);
-		pane.getButtonTypes().add(ButtonType.APPLY);
-		
-		TextField entry = new TextField();
-		entry.setFont(CommonUtilities.getFont(FontType.TEXT));
-		entry.setPromptText("Enter mod ID...");
-		
-		content.getChildren().add(entry);
-		
-		Dialog<String> dialog = new Dialog<String>();
-		dialog.setTitle("Input Request");
-		dialog.setWidth(1400);
-		dialog.setHeight(1600);
-		dialog.setResizable(true);
-		dialog.setDialogPane(pane);
-		dialog.setOnCloseRequest(e -> {
-			boolean shouldConsume = true;
-			
-			if(dialog.getResult() != "" && dialog.getResult() != null && entry.getText() != "") {
-				shouldConsume = false;
-				dialog.setResult(entry.getText());
-			} else {
-				error("You must enter a mod ID! :(");
-			}
-			
-			if(shouldConsume) {
-				e.consume();
-			}
-		});
-		
-		return dialog;
-	}
-	
 	private static void updateView() {
 		completed++;
 		if(completed >= combos.length) {
 			JsonObject jsonRoot = new JsonObject();
 			JsonObject variants = new JsonObject();
-			String modID = constructModIdAskDialog().showAndWait().get();
+			
+			TextInputDialog modIdDialog = new TextInputDialog();
+			modIdDialog.getEditor().setFont(CommonUtilities.getFont(FontType.TEXT));
+			modIdDialog.getEditor().setPromptText("Enter mod ID...");
+			modIdDialog.setHeaderText("Enter mod ID...");
+			modIdDialog.setGraphic(null);
+			modIdDialog.setTitle("Input Request");
+			modIdDialog.setOnCloseRequest(event -> {
+				boolean shouldConsume = true;
+				
+				if(modIdDialog.getResult() != "" && modIdDialog.getResult() != null && modIdDialog.getEditor().getText() != "") {
+					shouldConsume = false;
+				} else {
+					error("You must enter a mod ID! :(");
+				}
+				
+				if(shouldConsume) {
+					event.consume();
+				}
+			});
+			
+			String modID = modIdDialog.showAndWait().get();
+			
 			for(int i = 0; i < combos.length; i++) {
 				variants.add(combos[i].generateJsonLabel(), models[i].constructJson(modID));
 			}

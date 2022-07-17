@@ -103,7 +103,7 @@ public class BlockstateFieldCreatorScene extends BaseScene {
 				}
 				BlockstateFieldEditorScene.setData(blockstateData, keysAsArray);
 				clear();
-				Main.switchScene("bs2");
+				Main.switchScene(BlockstateFieldEditorScene.class.getName());
 			}
 		});
 		
