@@ -1,4 +1,4 @@
-/bin/
-.classpath
-.project
-.settings
+/Tool/bin/
+/Tool/.classpath
+/Tool/.project
+/Tool/.settings
