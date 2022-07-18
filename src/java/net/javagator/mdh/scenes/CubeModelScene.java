@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextInputDialog;
@@ -112,7 +113,29 @@ public class CubeModelScene extends BaseScene {
 					}
 				});
 				
+				ChoiceDialog<Direction> particleDialog = new ChoiceDialog<>();
+				particleDialog.setHeaderText("Which face's texture should be used for the break particle?");
+				particleDialog.setTitle("Input Request");
+				particleDialog.setGraphic(null);
+				particleDialog.getItems().addAll(Direction.Top, Direction.Bottom, Direction.East, Direction.West, Direction.North, Direction.South);
+				particleDialog.setSelectedItem(Direction.Top);
+				particleDialog.setOnCloseRequest(event -> {
+					boolean shouldConsume = true;
+					
+					if(particleDialog.getResult() != null) {
+						shouldConsume = false;
+					} else {
+						error("You must select an option! :(");
+					}
+					
+					if(shouldConsume) {
+						event.consume();
+					}
+				});
+				
 				String modId = modIdDialog.showAndWait().get();
+				
+				Direction particle = particleDialog.showAndWait().get();
 				
 				if(modId == "") {
 					error("You must enter a mod ID!");
@@ -131,6 +154,8 @@ public class CubeModelScene extends BaseScene {
 				for(TextureAtPosDescriptor descriptor : textureValues) {
 					descriptor.addToJson(textures);
 				}
+				
+				textures.addProperty("particle", textureValues[particle.idx].getResourceLocation());
 				
 				jsonRoot.add("textures", textures);
 				

@@ -17,4 +17,12 @@ public class TextureAtPosDescriptor {
 	public void addToJson(JsonObject json) {
 		json.addProperty(dir.mappedVal, resourceLocation);
 	}
+
+	public String getResourceLocation() {
+		return resourceLocation;
+	}
+
+	public Direction getDir() {
+		return dir;
+	}
 }
