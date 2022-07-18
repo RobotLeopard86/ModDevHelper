@@ -84,7 +84,7 @@ public class CommonUtilities {
 		errMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/error.png", 64, 64, true, true, true);
 		yayMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/success.png", 64, 64, true, true, true);
 		warnMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/warning.png", 64, 64, true, true, true);
-		appIcon = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/appicon.png", 64, 64, true, true, true);
+		appIcon = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/appicon.png");
 	}
 
 	public static Image getErrorImg() {

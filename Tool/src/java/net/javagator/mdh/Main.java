@@ -54,6 +54,7 @@ public class Main extends Application {
 		CommonUtilities.initializeFonts();
 		initializeSceneMap();
 		stage = primaryStage;
+		primaryStage.getIcons().add(CommonUtilities.getIcon());
 		primaryStage.setOnCloseRequest(e -> {
 			Alert msg = new Alert(AlertType.WARNING, "You may have unsaved data! Are you sure you want to quit?", ButtonType.YES, ButtonType.NO);
 			msg.setTitle("Warning!");
@@ -66,7 +67,6 @@ public class Main extends Application {
 			}
 		});
 		switchScene(defaultScene);
-		primaryStage.getIcons().add(CommonUtilities.getIcon());
 		primaryStage.show();
 	}
 	
