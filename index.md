@@ -1,37 +1,7 @@
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/RobotLeopard86/ModDevHelper/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/RobotLeopard86/ModDevHelper/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+# Mod Development Helper  
+## About  
+This tool is a helper tool for creating Minecraft mods. See the [GitHub repo](https://github.com/RobotLeopard86/ModDevHelper).  This tool is still a work in progress, and will be updated to include more features eventually. For now, it is unfinished. More progress updates to come.  
+## License  
+Mod Development Helper is licensed under the [MIT License](https://choosealicense.com/licenses/mit). Please respect the rules of the license.  
+## Downloads
+Only a Windows build is currently available. Under the hood, the program is a Java program, but the correct Java version has been stripped down and included to run the app. Simply unzip the folder. **Make sure you unzip the file to "C:\Program Files\ModDevHelper". If you don't the program won't launch (it expects everything to be in that location).** Eventually, a proper installer will be provided. Download [here](https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/gh-pages/mdh_alpha1.zip).
