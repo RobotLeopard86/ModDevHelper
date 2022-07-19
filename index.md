@@ -1,6 +1,6 @@
 # Mod Development Helper  
 ## About  
-This tool is a helper tool for creating Minecraft mods. See the [GitHub repo](https://github.com/RobotLeopard86/ModDevHelper).  This tool is still a work in progress, and will be updated to include more features eventually. For now, it is unfinished. More progress updates to come. View the video [here](https://robotleopard86.github.io/ModDevHelper/about.html)  
+This tool is a helper tool for creating Minecraft mods. See the [GitHub repo](https://github.com/RobotLeopard86/ModDevHelper).  This tool is still a work in progress, and will be updated to include more features eventually. For now, it is unfinished. More progress updates to come. View the about video [here](https://robotleopard86.github.io/ModDevHelper/about.html).  
 ## License  
 Mod Development Helper is licensed under the [MIT License](https://choosealicense.com/licenses/mit). Please respect the rules of the license.  
 ## Downloads
