@@ -21,6 +21,7 @@ import net.javagator.mdh.scenes.blockstates.BlockstateFieldCreatorScene;
 import net.javagator.mdh.scenes.blockstates.BlockstateFieldEditorScene;
 import net.javagator.mdh.scenes.itemmodels.ItemModelFromBlockModelScene;
 import net.javagator.mdh.scenes.itemmodels.ItemModelFromTextureScene;
+import net.javagator.mdh.scenes.loot.LootTableSetupScene;
 import net.javagator.mdh.scenes.recipes.BlastFurnaceScene;
 import net.javagator.mdh.scenes.recipes.CampfireCookingScene;
 import net.javagator.mdh.scenes.recipes.ShapedCraftingScene;
@@ -98,6 +99,7 @@ public class Main extends Application {
 		scenes.put(SmithingScene.class.getName(), new SmithingScene());
 		scenes.put(SmokerScene.class.getName(), new SmokerScene());
 		scenes.put(StonecuttingScene.class.getName(), new StonecuttingScene());
+		scenes.put(LootTableSetupScene.class.getName(), new LootTableSetupScene());
 	}
 	
 }
