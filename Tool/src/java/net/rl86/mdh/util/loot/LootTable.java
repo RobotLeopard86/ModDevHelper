@@ -1,4 +1,4 @@
-package net.rl86.mdh.util.descriptors.loot;
+package net.rl86.mdh.util.loot;
 
 import java.util.ArrayList;
 
