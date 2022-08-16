@@ -1,13 +1,14 @@
 package net.rl86.mdh.scenes.loot;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.text.Text;
 import net.rl86.mdh.Main;
 import net.rl86.mdh.baseclasses.BaseScene;
 import net.rl86.mdh.scenes.MenuScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
+import net.rl86.mdh.util.CommonUtilities.LootType;
 
 public class LootTableSetupScene extends BaseScene {
 
@@ -26,11 +27,16 @@ public class LootTableSetupScene extends BaseScene {
 			Main.switchScene(MenuScene.class.getName());
 		});
 		
-		TextField numPools = new TextField();
-		numPools.setFont(CommonUtilities.getFont(FontType.TEXT));
-		numPools.setPromptText("Enter number of pools here...");
+		Text typeDesc = new Text();
+		typeDesc.setFont(CommonUtilities.getFont(FontType.TEXT));
+		typeDesc.setText("What purpose is this loot table intended for?");
 		
-		root.getChildren().addAll(header, exit, numPools);
+		ChoiceBox<LootType> type = new ChoiceBox<>();
+		type.getItems().addAll(LootType.BLOCK, LootType.ENTITY, LootType.CHEST);
+		type.setValue(LootType.BLOCK);
+		type.setPrefSize(windowWidth / 3, windowHeight / 15);
+		
+		root.getChildren().addAll(header, exit, typeDesc, type);
 	}
 
 }

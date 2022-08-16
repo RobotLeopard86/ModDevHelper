@@ -1,4 +1,4 @@
-package net.rl86.mdh.util;
+package net.rl86.mdh.util.descriptors;
 
 public class ConditionDescriptor {
 	

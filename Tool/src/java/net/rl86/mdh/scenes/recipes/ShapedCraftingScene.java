@@ -27,8 +27,8 @@ import net.rl86.mdh.baseclasses.BaseScene;
 import net.rl86.mdh.scenes.MenuScene;
 import net.rl86.mdh.scenes.RecipesScene;
 import net.rl86.mdh.util.CommonUtilities;
-import net.rl86.mdh.util.KeyDescriptor;
 import net.rl86.mdh.util.CommonUtilities.FontType;
+import net.rl86.mdh.util.descriptors.KeyDescriptor;
 
 public class ShapedCraftingScene extends BaseScene {
 	

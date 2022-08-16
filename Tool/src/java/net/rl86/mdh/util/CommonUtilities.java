@@ -31,6 +31,21 @@ public class CommonUtilities {
 			mappedVal = mcKeymap;
 		}
 	}
+	public static enum LootType {
+		BLOCK("Block Drops"),
+		ENTITY("Entity Drops"),
+		CHEST("Chest Loot");
+		
+		private String id;
+		
+		private LootType(String name) {
+			id = name;
+		}
+		
+		public String toString() {
+			return id;
+		}
+	}
 	
 	private static Font headerFont;
 	private static Font textFont;

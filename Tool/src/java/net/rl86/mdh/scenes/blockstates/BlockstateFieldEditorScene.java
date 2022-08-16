@@ -23,9 +23,9 @@ import net.rl86.mdh.Main;
 import net.rl86.mdh.baseclasses.BaseScene;
 import net.rl86.mdh.scenes.MenuScene;
 import net.rl86.mdh.util.CommonUtilities;
-import net.rl86.mdh.util.ConditionDescriptor;
-import net.rl86.mdh.util.ModelDescriptor;
 import net.rl86.mdh.util.CommonUtilities.FontType;
+import net.rl86.mdh.util.descriptors.ConditionDescriptor;
+import net.rl86.mdh.util.descriptors.ModelDescriptor;
 
 public class BlockstateFieldEditorScene extends BaseScene {
 	
