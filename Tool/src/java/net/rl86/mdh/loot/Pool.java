@@ -1,4 +1,4 @@
-package net.rl86.mdh.util.loot;
+package net.rl86.mdh.loot;
 
 public class Pool {
 	

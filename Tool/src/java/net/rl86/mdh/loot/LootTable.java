@@ -1,4 +1,4 @@
-package net.rl86.mdh.util.loot;
+package net.rl86.mdh.loot;
 
 import java.util.ArrayList;
 
