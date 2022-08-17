@@ -9,12 +9,12 @@ import net.rl86.mdh.loot.predicates.PrefNameJsonElement;
 import net.rl86.mdh.util.CommonUtilities.LootType;
 
 @PredicateData(availableTo = {LootType.BLOCK}, id = "minecraft:table_bonus")
-public class Enchantment implements IPredicate {
+public class TableBonus implements IPredicate {
 	
 	public String enchantment;
 	public Number[] table;
 
-	public Enchantment(String enchantment, Number[] table) {
+	public TableBonus(String enchantment, Number[] table) {
 		this.enchantment = enchantment;
 		this.table = table;
 	}
