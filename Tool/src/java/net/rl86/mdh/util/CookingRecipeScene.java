@@ -1,4 +1,4 @@
-package net.rl86.mdh.baseclasses;
+package net.rl86.mdh.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +15,6 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import net.rl86.mdh.Main;
 import net.rl86.mdh.scenes.MenuScene;
 import net.rl86.mdh.scenes.RecipesScene;
-import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 
 public class CookingRecipeScene extends BaseScene {

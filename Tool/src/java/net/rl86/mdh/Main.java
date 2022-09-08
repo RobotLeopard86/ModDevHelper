@@ -11,7 +11,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import net.rl86.mdh.baseclasses.BaseScene;
 import net.rl86.mdh.scenes.CubeModelScene;
 import net.rl86.mdh.scenes.ItemModelScene;
 import net.rl86.mdh.scenes.LangEntryScene;
@@ -30,6 +29,7 @@ import net.rl86.mdh.scenes.recipes.SmeltingScene;
 import net.rl86.mdh.scenes.recipes.SmithingScene;
 import net.rl86.mdh.scenes.recipes.SmokerScene;
 import net.rl86.mdh.scenes.recipes.StonecuttingScene;
+import net.rl86.mdh.util.BaseScene;
 import net.rl86.mdh.util.CommonUtilities;
 
 public class Main extends Application {

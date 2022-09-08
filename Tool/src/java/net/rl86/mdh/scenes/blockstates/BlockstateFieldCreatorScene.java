@@ -16,8 +16,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import net.rl86.mdh.Main;
-import net.rl86.mdh.baseclasses.BaseScene;
 import net.rl86.mdh.scenes.MenuScene;
+import net.rl86.mdh.util.BaseScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 

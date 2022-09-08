@@ -5,7 +5,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
 import net.rl86.mdh.Main;
-import net.rl86.mdh.baseclasses.BaseScene;
 import net.rl86.mdh.scenes.recipes.BlastFurnaceScene;
 import net.rl86.mdh.scenes.recipes.CampfireCookingScene;
 import net.rl86.mdh.scenes.recipes.ShapedCraftingScene;
@@ -14,6 +13,7 @@ import net.rl86.mdh.scenes.recipes.SmeltingScene;
 import net.rl86.mdh.scenes.recipes.SmithingScene;
 import net.rl86.mdh.scenes.recipes.SmokerScene;
 import net.rl86.mdh.scenes.recipes.StonecuttingScene;
+import net.rl86.mdh.util.BaseScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 

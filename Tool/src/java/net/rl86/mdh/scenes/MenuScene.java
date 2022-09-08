@@ -4,9 +4,9 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.WindowEvent;
 import net.rl86.mdh.Main;
-import net.rl86.mdh.baseclasses.BaseScene;
 import net.rl86.mdh.scenes.blockstates.BlockstateFieldCreatorScene;
 import net.rl86.mdh.scenes.loot.LootTableSetupScene;
+import net.rl86.mdh.util.BaseScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 

@@ -1,4 +1,4 @@
-package net.rl86.mdh.baseclasses;
+package net.rl86.mdh.util;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -6,7 +6,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import net.rl86.mdh.util.CommonUtilities;
 
 public abstract class BaseScene {
 	

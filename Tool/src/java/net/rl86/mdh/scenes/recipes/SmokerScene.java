@@ -1,6 +1,6 @@
 package net.rl86.mdh.scenes.recipes;
 
-import net.rl86.mdh.baseclasses.CookingRecipeScene;
+import net.rl86.mdh.util.CookingRecipeScene;
 
 public class SmokerScene extends CookingRecipeScene {
 

@@ -6,9 +6,9 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
 import net.rl86.mdh.Main;
-import net.rl86.mdh.baseclasses.BaseScene;
 import net.rl86.mdh.scenes.itemmodels.ItemModelFromBlockModelScene;
 import net.rl86.mdh.scenes.itemmodels.ItemModelFromTextureScene;
+import net.rl86.mdh.util.BaseScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 
