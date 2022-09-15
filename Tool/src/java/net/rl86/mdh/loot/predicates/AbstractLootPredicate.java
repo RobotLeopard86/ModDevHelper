@@ -10,7 +10,13 @@ import javafx.scene.layout.VBox;
 
 public abstract class AbstractLootPredicate {
 	
+	protected AbstractLootPredicate(String name) {
+		this.name = name;
+	}
+	
 	public abstract JsonObject generateJson();
+	
+	public String name;
 	
 	protected abstract void addDialogContentToBox(VBox source);
 	
@@ -43,5 +49,9 @@ public abstract class AbstractLootPredicate {
 		return dialog;
 	}
 	
+	@Override
+	public String toString() {
+		return name + " <" + this.getClass().getAnnotation(ResourceName.class).value() + ">";
+	}
 	
 }

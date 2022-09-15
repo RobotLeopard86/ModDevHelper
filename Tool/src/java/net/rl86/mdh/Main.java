@@ -72,6 +72,7 @@ public class Main extends Application {
 	}
 	
 	public static void switchScene(String name) {
+		scenes.get(name).buildScene();
 		stage.setScene(scenes.get(name).getScene());
 		stage.setTitle(scenes.get(name).sceneTitle);
 	}
