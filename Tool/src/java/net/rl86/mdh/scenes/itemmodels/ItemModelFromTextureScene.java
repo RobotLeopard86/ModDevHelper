@@ -28,6 +28,7 @@ public class ItemModelFromTextureScene extends BaseScene {
 	
 	@Override
 	public void buildScene() {
+		returnToScene = ItemModelScene.class.getName();
 		sceneTitle = "Mod Development Helper | Item Model From Texture Tool";
 		
 		Text header = new Text();
@@ -38,13 +39,6 @@ public class ItemModelFromTextureScene extends BaseScene {
 		texture.setFont(CommonUtilities.getFont(FontType.TEXT));
 		texture.setText("Selected Texture: ???");
 		texture.setWrappingWidth(scene.getWidth());
-		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Back");
-		exit.setOnAction(e -> {
-			Main.switchScene(ItemModelScene.class.getName());
-		});
 		
 		TextField modid = new TextField();
 		modid.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -116,7 +110,7 @@ public class ItemModelFromTextureScene extends BaseScene {
 			modid.setVisible(!invalid);
 		});
 		
-		root.getChildren().addAll(header, exit, textureChooser, texture, modid, generate);
+		root.getChildren().addAll(header, textureChooser, texture, modid, generate);
 	}
 
 }

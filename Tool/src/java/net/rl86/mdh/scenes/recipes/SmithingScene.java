@@ -23,18 +23,12 @@ public class SmithingScene extends BaseScene {
 
 	@Override
 	public void buildScene() {
+		returnToScene = RecipesScene.class.getName();
 		sceneTitle = "Mod Development Helper | Smithing Table Recipe Generator";
 		
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Smithing Recipes");
-		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Return to Menu");
-		exit.setOnAction(e -> {
-			Main.switchScene(RecipesScene.class.getName());
-		});
 		
 		Text idExample = new Text();
 		idExample.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -102,7 +96,7 @@ public class SmithingScene extends BaseScene {
 			success("Successfully wrote to recipe file!");
 		});
 		
-		root.getChildren().addAll(header, exit, idExample, baseField, additionField, resultField, finish);
+		root.getChildren().addAll(header, idExample, baseField, additionField, resultField, finish);
 	}
 
 }

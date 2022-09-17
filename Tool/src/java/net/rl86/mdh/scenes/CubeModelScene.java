@@ -44,13 +44,6 @@ public class CubeModelScene extends BaseScene {
 		header.setText("Cube Block Models");
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Return to Menu");
-		exit.setOnAction(e -> {
-			Main.switchScene(MenuScene.class.getName());
-		});
-		
 		VBox selections = manufactureSelectionBoxes();
 		
 		Button picker = new Button();
@@ -196,7 +189,7 @@ public class CubeModelScene extends BaseScene {
 			}
 		});
 		
-		root.getChildren().addAll(header, exit, selections, picker, generate);
+		root.getChildren().addAll(header, selections, picker, generate);
 	}
 	
 	private VBox manufactureSelectionBox(Direction dir) {

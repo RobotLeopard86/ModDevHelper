@@ -74,6 +74,7 @@ public class MenuScene extends BaseScene {
 		});
 		
 		root.getChildren().addAll(header, todo, lang, imodel, cmodel, states, craft, loot, quit);
+		root.getChildren().remove(back);
 	}
 
 }

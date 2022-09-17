@@ -16,7 +16,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import net.rl86.mdh.Main;
-import net.rl86.mdh.scenes.MenuScene;
 import net.rl86.mdh.util.BaseScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
@@ -60,13 +59,6 @@ public class BlockstateFieldCreatorScene extends BaseScene {
 		TreeView<String> viewOfEverything = new TreeView<>();
 		viewOfEverything.setRoot(treeRoot);
 		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Return to Menu");
-		exit.setOnAction(e -> {
-			Main.switchScene(MenuScene.class.getName());
-		});
-		
 		Button addProperty = new Button();
 		addProperty.setFont(CommonUtilities.getFont(FontType.TEXT));
 		addProperty.setText("Add New Property");
@@ -107,7 +99,7 @@ public class BlockstateFieldCreatorScene extends BaseScene {
 			}
 		});
 		
-		root.getChildren().addAll(header, exit, addProperty, clear, viewOfEverything, complete);
+		root.getChildren().addAll(header, addProperty, clear, viewOfEverything, complete);
 	}
 	
 	private Dialog<ButtonType> buildNewPropertyDialog() {	

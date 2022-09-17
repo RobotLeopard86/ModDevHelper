@@ -115,14 +115,7 @@ public class LangEntryScene extends BaseScene {
 			file.setText(exceptionRaised ? "Selected File: ???" : ("Selected File: " + langFile.getAbsolutePath()));
 		});
 		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Return to Menu");
-		exit.setOnAction(e -> {
-			Main.switchScene(MenuScene.class.getName());
-		});
-		
-		root.getChildren().addAll(header, exit, chooseFile, file, keyBox, nameBox, addKey, write);
+		root.getChildren().addAll(header, chooseFile, file, keyBox, nameBox, addKey, write);
 	}
 
 }

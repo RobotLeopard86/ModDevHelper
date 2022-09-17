@@ -25,18 +25,12 @@ public class CookingRecipeScene extends BaseScene {
 
 	@Override
 	public void buildScene() {
+		returnToScene = RecipesScene.class.getName();
 		sceneTitle = title;
 		
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText(headerText);
-		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Return to Menu");
-		exit.setOnAction(e -> {
-			Main.switchScene(RecipesScene.class.getName());
-		});
 		
 		Text idExample = new Text();
 		idExample.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -122,7 +116,7 @@ public class CookingRecipeScene extends BaseScene {
 			success("Successfully wrote to recipe file!");
 		});
 		
-		root.getChildren().addAll(header, exit, idExample, ingredientField, resultField, xpField, timeField, finish);
+		root.getChildren().addAll(header, idExample, ingredientField, resultField, xpField, timeField, finish);
 	}
 
 }

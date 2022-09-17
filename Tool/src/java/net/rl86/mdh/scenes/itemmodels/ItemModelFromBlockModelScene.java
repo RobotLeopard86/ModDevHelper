@@ -25,6 +25,7 @@ public class ItemModelFromBlockModelScene extends BaseScene {
 	
 	@Override
 	public void buildScene() {
+		returnToScene = ItemModelScene.class.getName();
 		sceneTitle = "Mod Development Helper | Item Model From Block Model Tool";
 		
 		Text header = new Text();
@@ -35,13 +36,6 @@ public class ItemModelFromBlockModelScene extends BaseScene {
 		model.setFont(CommonUtilities.getFont(FontType.TEXT));
 		model.setText("Selected Model: ???");
 		model.setWrappingWidth(scene.getWidth());
-		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Back");
-		exit.setOnAction(e -> {
-			Main.switchScene(ItemModelScene.class.getName());
-		});
 		
 		TextField modid = new TextField();
 		modid.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -93,7 +87,7 @@ public class ItemModelFromBlockModelScene extends BaseScene {
 			model.setText("Selected File: " + blockModel.getAbsolutePath());
 		});
 		
-		root.getChildren().addAll(header, exit, modelChooser, model, modid, generate);
+		root.getChildren().addAll(header, modelChooser, model, modid, generate);
 	}
 
 }

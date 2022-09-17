@@ -37,18 +37,12 @@ public class ShapedCraftingScene extends BaseScene {
 
 	@Override
 	public void buildScene() {
+		returnToScene = RecipesScene.class.getName();
 		sceneTitle = "Mod Development Helper | Shaped Crafting Recipe Generator";
 		
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Shaped Crafting Recipes");
-		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Return to Menu");
-		exit.setOnAction(e -> {
-			Main.switchScene(RecipesScene.class.getName());
-		});
 		
 		HBox s1 = manufactureSlot(1);
 		HBox s2 = manufactureSlot(2);
@@ -176,7 +170,7 @@ public class ShapedCraftingScene extends BaseScene {
 			}
 		});
 		
-		root.getChildren().addAll(header, exit, topHBox, slots, generate);
+		root.getChildren().addAll(header, topHBox, slots, generate);
 	}
 	
 	private static HBox manufactureSlot(int num) {

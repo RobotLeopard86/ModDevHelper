@@ -32,18 +32,12 @@ public class ShapelessCraftingScene extends BaseScene {
 
 	@Override
 	public void buildScene() {
+		returnToScene = RecipesScene.class.getName();
 		sceneTitle = "Mod Development Helper | Shapeless Crafting Recipe Generator";
 		
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Shapeless Crafting Recipes");
-		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Return to Menu");
-		exit.setOnAction(e -> {
-			Main.switchScene(RecipesScene.class.getName());
-		});
 		
 		Text idExample = new Text();
 		idExample.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -282,7 +276,7 @@ public class ShapelessCraftingScene extends BaseScene {
 		numItems.setSpacing(15d);
 		numItems.getChildren().addAll(numItemsLbl, numItemsBar);
 		
-		root.getChildren().addAll(header, exit, idExample, numItems, s1, s2, s3,s4, s5, s6, s7, s8, s9, result, generate);
+		root.getChildren().addAll(header, idExample, numItems, s1, s2, s3,s4, s5, s6, s7, s8, s9, result, generate);
 	}
 	
 	private static boolean checkIfValid(TextField[] fields) {

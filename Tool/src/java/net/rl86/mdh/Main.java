@@ -6,10 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javafx.application.Application;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import net.rl86.mdh.scenes.CubeModelScene;
 import net.rl86.mdh.scenes.ItemModelScene;
@@ -20,6 +17,7 @@ import net.rl86.mdh.scenes.blockstates.BlockstateFieldCreatorScene;
 import net.rl86.mdh.scenes.blockstates.BlockstateFieldEditorScene;
 import net.rl86.mdh.scenes.itemmodels.ItemModelFromBlockModelScene;
 import net.rl86.mdh.scenes.itemmodels.ItemModelFromTextureScene;
+import net.rl86.mdh.scenes.loot.LootTableEditorScene;
 import net.rl86.mdh.scenes.loot.LootTableSetupScene;
 import net.rl86.mdh.scenes.recipes.BlastFurnaceScene;
 import net.rl86.mdh.scenes.recipes.CampfireCookingScene;
@@ -56,22 +54,13 @@ public class Main extends Application {
 		initializeSceneMap();
 		stage = primaryStage;
 		primaryStage.getIcons().add(CommonUtilities.getIcon());
-		primaryStage.setOnCloseRequest(e -> {
-			Alert msg = new Alert(AlertType.WARNING, "You may have unsaved data! Are you sure you want to quit?", ButtonType.YES, ButtonType.NO);
-			msg.setTitle("Warning!");
-			ImageView graphic = new ImageView();
-			graphic.setImage(CommonUtilities.getWarningImg());
-			msg.setGraphic(graphic);
-			msg.setHeaderText("Warning");
-			if(msg.showAndWait().get() == ButtonType.NO) {
-				e.consume();
-			}
-		});
 		switchScene(defaultScene);
 		primaryStage.show();
 	}
 	
 	public static void switchScene(String name) {
+		((VBox) scenes.get(name).getScene().getRoot()).getChildren().clear();
+		((VBox) scenes.get(name).getScene().getRoot()).getChildren().add(scenes.get(name).getBackBtn());
 		scenes.get(name).buildScene();
 		stage.setScene(scenes.get(name).getScene());
 		stage.setTitle(scenes.get(name).sceneTitle);
@@ -101,6 +90,7 @@ public class Main extends Application {
 		scenes.put(SmokerScene.class.getName(), new SmokerScene());
 		scenes.put(StonecuttingScene.class.getName(), new StonecuttingScene());
 		scenes.put(LootTableSetupScene.class.getName(), new LootTableSetupScene());
+		scenes.put(LootTableEditorScene.class.getName(), new LootTableEditorScene());
 	}
 	
 }

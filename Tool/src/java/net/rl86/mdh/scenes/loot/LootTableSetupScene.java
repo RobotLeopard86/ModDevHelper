@@ -4,7 +4,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.text.Text;
 import net.rl86.mdh.Main;
-import net.rl86.mdh.scenes.MenuScene;
 import net.rl86.mdh.util.BaseScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
@@ -20,13 +19,6 @@ public class LootTableSetupScene extends BaseScene {
 		header.setText("Loot Tables");
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Return to Menu");
-		exit.setOnAction(e -> {
-			Main.switchScene(MenuScene.class.getName());
-		});
-		
 		Text typeDesc = new Text();
 		typeDesc.setFont(CommonUtilities.getFont(FontType.TEXT));
 		typeDesc.setText("What purpose is this loot table intended for?");
@@ -36,7 +28,14 @@ public class LootTableSetupScene extends BaseScene {
 		type.setValue(LootType.BLOCK);
 		type.setPrefSize(windowWidth / 3, windowHeight / 15);
 		
-		root.getChildren().addAll(header, exit, typeDesc, type);
+		Button make = new Button();
+		make.setFont(CommonUtilities.getFont(FontType.TEXT));
+		make.setText("Create Loot Table");
+		make.setOnAction(e -> {
+			Main.switchScene(LootTableEditorScene.class.getName());
+		});
+		
+		root.getChildren().addAll(header, typeDesc, type);
 	}
 
 }

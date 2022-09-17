@@ -21,6 +21,7 @@ public class RecipesScene extends BaseScene {
 
 	@Override
 	public void buildScene() {
+		warnOnExit = false;
 		sceneTitle = "Mod Development Helper | Recipe Generator";
 		
 		Text header = new Text();
@@ -84,16 +85,9 @@ public class RecipesScene extends BaseScene {
 			Main.switchScene(options.getSelectedToggle().getProperties().get("continue_to").toString());
 		});
 		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Return to Menu");
-		exit.setOnAction(e -> {
-			Main.switchScene(MenuScene.class.getName());
-		});
-		
 		options.selectToggle(cshape);
 		
-		root.getChildren().addAll(header, exit, cshape, csl, blast, camp, smelt, smith, smoked, cut, next);
+		root.getChildren().addAll(header, cshape, csl, blast, camp, smelt, smith, smoked, cut, next);
 	}
 
 }

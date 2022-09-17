@@ -16,6 +16,7 @@ public class ItemModelScene extends BaseScene {
 
 	@Override
 	public void buildScene() {
+		warnOnExit = false;
 		sceneTitle = "Mod Development Helper | Item Model Designer";
 		
 		Text header = new Text();
@@ -41,16 +42,9 @@ public class ItemModelScene extends BaseScene {
 			Main.switchScene(options.getSelectedToggle().equals((Toggle)texture) ? ItemModelFromTextureScene.class.getName() : ItemModelFromBlockModelScene.class.getName());
 		});
 		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Return to Menu");
-		exit.setOnAction(e -> {
-			Main.switchScene(MenuScene.class.getName());
-		});
-		
 		options.selectToggle(texture);
 		
-		root.getChildren().addAll(header, exit, texture, model, next);
+		root.getChildren().addAll(header, texture, model, next);
 	}
 
 }

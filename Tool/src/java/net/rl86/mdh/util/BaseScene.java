@@ -3,9 +3,13 @@ package net.rl86.mdh.util;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import net.rl86.mdh.Main;
+import net.rl86.mdh.scenes.MenuScene;
+import net.rl86.mdh.util.CommonUtilities.FontType;
 
 public abstract class BaseScene {
 	
@@ -16,6 +20,11 @@ public abstract class BaseScene {
 	protected VBox root;
 	
 	public String sceneTitle;
+
+	protected String returnToScene;
+	protected boolean warnOnExit = true;
+	
+	protected Button back;
 	
 	public abstract void buildScene();
 	
@@ -27,6 +36,22 @@ public abstract class BaseScene {
 		root = new VBox();
 		root.setSpacing(15);
 		scene = new Scene(root, windowWidth, windowHeight);
+		returnToScene = MenuScene.class.getName();
+		
+		Button exit = new Button();
+		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
+		exit.setText("Back");
+		exit.setOnAction(e -> {
+			if(warnOnExit) {
+				if(warning("Are you sure you want to exit? You will lose all data!") != ButtonType.YES) return;
+			}
+			System.out.println("Warning either passed or ignored.");
+			Main.switchScene(returnToScene);
+		});
+		root.getChildren().add(exit);
+		
+		back = exit;
+		
 		buildScene();
 	};
 	
@@ -58,4 +83,8 @@ public abstract class BaseScene {
 		msg.setHeaderText("Warning!");
 		return msg.showAndWait().get();
 	};
+	
+	public Button getBackBtn() {
+		return back;
+	}
 }

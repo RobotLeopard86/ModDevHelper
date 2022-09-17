@@ -23,18 +23,12 @@ public class StonecuttingScene extends BaseScene {
 
 	@Override
 	public void buildScene() {
+		returnToScene = RecipesScene.class.getName();
 		sceneTitle = "Mod Development Helper | Stonecutting Recipe Generator";
 		
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Stonecutting Recipes");
-		
-		Button exit = new Button();
-		exit.setFont(CommonUtilities.getFont(FontType.TEXT));
-		exit.setText("Return to Menu");
-		exit.setOnAction(e -> {
-			Main.switchScene(RecipesScene.class.getName());
-		});
 		
 		Text idExample = new Text();
 		idExample.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -113,7 +107,7 @@ public class StonecuttingScene extends BaseScene {
 			success("Successfully wrote to recipe file!");
 		});
 		
-		root.getChildren().addAll(header, exit, idExample, itemField, resultField, countField, finish);
+		root.getChildren().addAll(header, idExample, itemField, resultField, countField, finish);
 	}
 
 }
