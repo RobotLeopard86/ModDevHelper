@@ -14,6 +14,7 @@ public class MenuScene extends BaseScene {
 
 	@Override
 	public void buildScene() {
+		warnOnExit = false;
 		sceneTitle = "Mod Development Helper | Home";
 		
 		Text header = new Text();

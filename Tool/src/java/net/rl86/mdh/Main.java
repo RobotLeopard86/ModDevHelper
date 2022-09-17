@@ -1,11 +1,17 @@
 package net.rl86.mdh;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import net.rl86.mdh.scenes.CubeModelScene;
@@ -53,6 +59,22 @@ public class Main extends Application {
 		CommonUtilities.initializeFonts();
 		initializeSceneMap();
 		stage = primaryStage;
+		primaryStage.setOnCloseRequest(e -> {
+			BaseScene selected = findByValue(stage.getScene());
+			if(selected.shouldWarnOnExit()) {
+				Alert msg = new Alert(AlertType.WARNING, "Are you sure you want to close the application? You will lose all data!", ButtonType.YES, ButtonType.NO);
+				msg.setTitle("Warning");
+				ImageView graphic = new ImageView();
+				graphic.setImage(CommonUtilities.getWarningImg());
+				msg.setGraphic(graphic);
+				msg.setHeaderText("Warning!");
+				if(msg.showAndWait().get() == ButtonType.YES) {
+					primaryStage.close();
+				} else {
+					e.consume();
+				}
+			}
+		});
 		primaryStage.getIcons().add(CommonUtilities.getIcon());
 		switchScene(defaultScene);
 		primaryStage.show();
@@ -93,6 +115,18 @@ public class Main extends Application {
 		scenes.put(StonecuttingScene.class.getName(), new StonecuttingScene());
 		scenes.put(LootTableSetupScene.class.getName(), new LootTableSetupScene());
 		scenes.put(LootTableEditorScene.class.getName(), new LootTableEditorScene());
+	}
+	
+	private BaseScene findByValue(Scene toFind) {
+		Collection<BaseScene> values = scenes.values();
+		
+		for(BaseScene val : values) {
+			if(val.getScene() == toFind) {
+				return val;
+			}
+		}
+		
+		return null;
 	}
 	
 }
