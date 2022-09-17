@@ -63,6 +63,8 @@ public class Main extends Application {
 		((VBox) scenes.get(name).getScene().getRoot()).getChildren().add(scenes.get(name).getBackBtn());
 		scenes.get(name).buildScene();
 		stage.setScene(scenes.get(name).getScene());
+		stage.sizeToScene();
+		stage.centerOnScreen();
 		stage.setTitle(scenes.get(name).sceneTitle);
 	}
 

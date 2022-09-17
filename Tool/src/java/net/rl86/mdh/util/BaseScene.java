@@ -28,6 +28,10 @@ public abstract class BaseScene {
 	
 	public abstract void buildScene();
 	
+	protected void setDimensions() {
+		//lol do nothing
+	}
+	
 	public Scene getScene() {
 		return scene;
 	};
@@ -35,6 +39,9 @@ public abstract class BaseScene {
 	public BaseScene() {
 		root = new VBox();
 		root.setSpacing(15);
+		
+		setDimensions();
+		
 		scene = new Scene(root, windowWidth, windowHeight);
 		returnToScene = MenuScene.class.getName();
 		
@@ -45,7 +52,6 @@ public abstract class BaseScene {
 			if(warnOnExit) {
 				if(warning("Are you sure you want to exit? You will lose all data!") != ButtonType.YES) return;
 			}
-			System.out.println("Warning either passed or ignored.");
 			Main.switchScene(returnToScene);
 		});
 		root.getChildren().add(exit);

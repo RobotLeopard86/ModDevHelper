@@ -28,12 +28,11 @@ import net.rl86.mdh.scenes.RecipesScene;
 import net.rl86.mdh.util.BaseScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
+import net.rl86.mdh.util.CustomSize;
 import net.rl86.mdh.util.descriptors.KeyDescriptor;
 
+@CustomSize(width = 600, height = 700)
 public class ShapedCraftingScene extends BaseScene {
-	
-	protected int windowWidth = 600;
-	protected int windowHeight = 615;
 
 	@Override
 	public void buildScene() {
@@ -80,7 +79,7 @@ public class ShapedCraftingScene extends BaseScene {
 		slots.getChildren().addAll(s1to5, s6to9);
 		
 		ImageView grid = new ImageView();
-		grid.setImage(new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/resources/images/crafting_table_grid.png", 200, 200, true, true, true));
+		grid.setImage(new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/crafting_table_grid.png", 200, 200, true, true, true));
 		
 		Text idExample = new Text();
 		idExample.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -170,7 +169,7 @@ public class ShapedCraftingScene extends BaseScene {
 			}
 		});
 		
-		root.getChildren().addAll(header, topHBox, slots, generate);
+		root.getChildren().addAll(header, grid, topHBox, slots, generate);
 	}
 	
 	private static HBox manufactureSlot(int num) {
@@ -225,6 +224,13 @@ public class ShapedCraftingScene extends BaseScene {
 			map.put(descriptors[i].getVal(), descriptors[i].getKey());
 		}
 		return map;
+	}
+	
+	@Override
+	protected void setDimensions() {
+		CustomSize size = this.getClass().getAnnotation(CustomSize.class);
+		windowWidth = size.width();
+		windowHeight = size.height();
 	}
 
 }

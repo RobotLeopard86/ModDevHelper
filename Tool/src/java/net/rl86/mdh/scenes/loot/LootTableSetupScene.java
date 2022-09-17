@@ -13,6 +13,7 @@ public class LootTableSetupScene extends BaseScene {
 
 	@Override
 	public void buildScene() {
+		warnOnExit = false;
 		sceneTitle = "Mod Development Helper | Loot Table Creator";
 		
 		Text header = new Text();
@@ -35,7 +36,7 @@ public class LootTableSetupScene extends BaseScene {
 			Main.switchScene(LootTableEditorScene.class.getName());
 		});
 		
-		root.getChildren().addAll(header, typeDesc, type);
+		root.getChildren().addAll(header, typeDesc, type, make);
 	}
 
 }
