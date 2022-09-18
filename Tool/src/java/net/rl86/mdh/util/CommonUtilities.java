@@ -32,18 +32,24 @@ public class CommonUtilities {
 		}
 	}
 	public static enum LootType {
-		BLOCK("Block Drops"),
-		ENTITY("Entity Drops"),
-		CHEST("Chest Loot");
+		BLOCK("Block Drops", "minecraft:block"),
+		ENTITY("Entity Drops", "minecraft:entity"),
+		CHEST("Chest Loot", "minecraft:chest");
 		
 		private String id;
+		private String inGameID;
 		
-		private LootType(String name) {
+		private LootType(String name, String ingame) {
 			id = name;
+			inGameID = ingame;
 		}
 		
 		public String toString() {
 			return id;
+		}
+		
+		public String getInGameID() {
+			return inGameID;
 		}
 	}
 	
