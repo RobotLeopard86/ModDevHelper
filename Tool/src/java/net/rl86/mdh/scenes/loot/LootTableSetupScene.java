@@ -33,6 +33,7 @@ public class LootTableSetupScene extends BaseScene {
 		make.setFont(CommonUtilities.getFont(FontType.TEXT));
 		make.setText("Create Loot Table");
 		make.setOnAction(e -> {
+			LootTableEditorScene.tableTypeDataReceiver = type.getValue();
 			Main.switchScene(LootTableEditorScene.class.getName());
 		});
 		

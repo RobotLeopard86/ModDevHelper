@@ -28,10 +28,8 @@ import net.rl86.mdh.scenes.RecipesScene;
 import net.rl86.mdh.util.BaseScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
-import net.rl86.mdh.util.CustomSize;
 import net.rl86.mdh.util.descriptors.KeyDescriptor;
 
-@CustomSize(width = 600, height = 700)
 public class ShapedCraftingScene extends BaseScene {
 
 	@Override
@@ -228,9 +226,8 @@ public class ShapedCraftingScene extends BaseScene {
 	
 	@Override
 	protected void setDimensions() {
-		CustomSize size = this.getClass().getAnnotation(CustomSize.class);
-		windowWidth = size.width();
-		windowHeight = size.height();
+		windowWidth = 600;
+		windowHeight = 615;
 	}
 
 }

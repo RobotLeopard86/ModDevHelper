@@ -24,8 +24,7 @@ public abstract class LootMember {
 	}
 	
 	public LootMember(String name) {
-		this.name = name;
-		
+		this.name = name;		
 		root = new VBox();
 		root.setSpacing(15);
 	}

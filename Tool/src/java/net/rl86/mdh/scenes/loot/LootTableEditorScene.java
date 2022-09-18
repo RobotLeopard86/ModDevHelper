@@ -10,10 +10,12 @@ import net.rl86.mdh.util.BaseScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 import net.rl86.mdh.util.CommonUtilities.LootType;
-import net.rl86.mdh.util.CustomSize;
 
-@CustomSize(width = 1280, height = 720)
 public class LootTableEditorScene extends BaseScene {
+	
+	public static LootType tableTypeDataReceiver;
+	
+	private TabPane tabs;
 
 	@Override
 	public void buildScene() {
@@ -23,21 +25,23 @@ public class LootTableEditorScene extends BaseScene {
 		header.setText("Loot Table Editor");
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		
-		TabPane tabs = new TabPane();
+		tabs = new TabPane();
 		tabs.setSide(Side.TOP);
 		tabs.setTabClosingPolicy(TabClosingPolicy.SELECTED_TAB);
 		tabs.setTabDragPolicy(TabDragPolicy.FIXED);
-		
-		tabs.getTabs().add(new LootTable(LootType.CHEST).generateTab());
 		
 		root.getChildren().addAll(header, tabs);
 	}
 
 	@Override
+	public void updatePageOnSceneLoad() {
+		tabs.getTabs().add(new LootTable(tableTypeDataReceiver).generateTab());
+	}
+
+	@Override
 	protected void setDimensions() {
-		CustomSize size = this.getClass().getAnnotation(CustomSize.class);
-		windowWidth = size.width();
-		windowHeight = size.height();
+		windowWidth = 1280;
+		windowHeight = 720;
 	}
 
 }

@@ -28,6 +28,10 @@ public abstract class BaseScene {
 	
 	public abstract void buildScene();
 	
+	public void updatePageOnSceneLoad() {
+		//lol do nothing
+	}
+	
 	public boolean shouldWarnOnExit() {
 		return warnOnExit;
 	}
