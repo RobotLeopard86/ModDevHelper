@@ -23,28 +23,28 @@ import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 
 public class ItemModelFromTextureScene extends BaseScene {
-	
+
 	private File textureFile;
-	
+
 	@Override
 	public void buildScene() {
 		returnToScene = ItemModelScene.class.getName();
 		sceneTitle = "Mod Development Helper | Item Model From Texture Tool";
-		
+
 		Text header = new Text();
 		header.setText("Item Models");
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
-		
+
 		Text texture = new Text();
 		texture.setFont(CommonUtilities.getFont(FontType.TEXT));
 		texture.setText("Selected Texture: ???");
 		texture.setWrappingWidth(scene.getWidth());
-		
+
 		TextField modid = new TextField();
 		modid.setFont(CommonUtilities.getFont(FontType.TEXT));
 		modid.setPromptText("Enter mod ID...");
 		modid.setVisible(false);
-		
+
 		Button generate = new Button();
 		generate.setFont(CommonUtilities.getFont(FontType.TEXT));
 		generate.setText("Generate Model");
@@ -54,7 +54,7 @@ public class ItemModelFromTextureScene extends BaseScene {
 			JsonObject textureObject = new JsonObject();
 			textureObject.addProperty("layer0", modid.getText() + ":item/" + textureFile.getName().substring(0, textureFile.getName().length() - 4));
 			json.add("textures", textureObject);
-			
+
 			FileChooser fc = new FileChooser();
 			fc.getExtensionFilters().add(new ExtensionFilter("JSON", "*.json"));
 			File modelFile = fc.showSaveDialog(Main.getStage());
@@ -79,7 +79,7 @@ public class ItemModelFromTextureScene extends BaseScene {
 			}
 		});
 		generate.setVisible(false);
-		
+
 		Button textureChooser = new Button();
 		textureChooser.setFont(CommonUtilities.getFont(FontType.TEXT));
 		textureChooser.setText("Choose Texture");
@@ -109,7 +109,7 @@ public class ItemModelFromTextureScene extends BaseScene {
 			generate.setVisible(!invalid);
 			modid.setVisible(!invalid);
 		});
-		
+
 		root.getChildren().addAll(header, textureChooser, texture, modid, generate);
 	}
 

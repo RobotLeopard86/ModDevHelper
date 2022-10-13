@@ -1,7 +1,7 @@
 package net.rl86.mdh.util.descriptors;
 
 public class ConditionDescriptor {
-	
+
 	private String[] conditions;
 	private String[] values;
 	private boolean isAllTime;
@@ -13,7 +13,7 @@ public class ConditionDescriptor {
 		this.conditions = conditions;
 		this.values = values;
 	}
-	
+
 	public ConditionDescriptor() {
 		isAllTime = true;
 	}
@@ -22,23 +22,23 @@ public class ConditionDescriptor {
 	public String toString() {
 		if(!isAllTime) {
 			String[] pairs = new String[conditions.length];
-			
+
 			for(int i = 0; i < pairs.length; i++) {
 				pairs[i] = conditions[i] + ": " + values[i];
 			}
-			
+
 			String result = "Condition:\n";
-			
-			for(int i = 0; i < pairs.length; i++) {
-				result = result + pairs[i] + "\n";
+
+			for (String pair : pairs) {
+				result = result + pair + "\n";
 			}
-			
+
 			return result;
 		} else {
 			return "Condition:\nAll Time";
 		}
 	}
-	
+
 	public String generateJsonLabel() {
 		if(isAllTime) {
 			return "\"\"";

@@ -20,35 +20,35 @@ import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 
 public class ItemModelFromBlockModelScene extends BaseScene {
-	
+
 	private File blockModel;
-	
+
 	@Override
 	public void buildScene() {
 		returnToScene = ItemModelScene.class.getName();
 		sceneTitle = "Mod Development Helper | Item Model From Block Model Tool";
-		
+
 		Text header = new Text();
 		header.setText("Item Models");
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
-		
+
 		Text model = new Text();
 		model.setFont(CommonUtilities.getFont(FontType.TEXT));
 		model.setText("Selected Model: ???");
 		model.setWrappingWidth(scene.getWidth());
-		
+
 		TextField modid = new TextField();
 		modid.setFont(CommonUtilities.getFont(FontType.TEXT));
 		modid.setPromptText("Enter mod ID...");
 		modid.setVisible(false);
-		
+
 		Button generate = new Button();
 		generate.setFont(CommonUtilities.getFont(FontType.TEXT));
 		generate.setText("Generate Model");
 		generate.setOnAction(e -> {
 			JsonObject json = new JsonObject();
 			json.addProperty("parent", modid.getText() + ":block/" + blockModel.getName().substring(0, blockModel.getName().length() - 5));
-			
+
 			FileChooser fc = new FileChooser();
 			fc.getExtensionFilters().add(new ExtensionFilter("JSON", "*.json"));
 			File modelFile = fc.showSaveDialog(Main.getStage());
@@ -73,7 +73,7 @@ public class ItemModelFromBlockModelScene extends BaseScene {
 			}
 		});
 		generate.setVisible(false);
-		
+
 		Button modelChooser = new Button();
 		modelChooser.setFont(CommonUtilities.getFont(FontType.TEXT));
 		modelChooser.setText("Choose Model");
@@ -86,7 +86,7 @@ public class ItemModelFromBlockModelScene extends BaseScene {
 			generate.setVisible(true);
 			model.setText("Selected File: " + blockModel.getAbsolutePath());
 		});
-		
+
 		root.getChildren().addAll(header, modelChooser, model, modid, generate);
 	}
 

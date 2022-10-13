@@ -25,32 +25,32 @@ public class StonecuttingScene extends BaseScene {
 	public void buildScene() {
 		returnToScene = RecipesScene.class.getName();
 		sceneTitle = "Mod Development Helper | Stonecutting Recipe Generator";
-		
+
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Stonecutting Recipes");
-		
+
 		Text idExample = new Text();
 		idExample.setFont(CommonUtilities.getFont(FontType.TEXT));
 		idExample.setText("Example of an item ID:\nminecraft:stone");
-		
+
 		TextField itemField = new TextField();
 		itemField.setFont(CommonUtilities.getFont(FontType.TEXT));
 		itemField.setPromptText("Enter ingredient item ID here...");
-		
+
 		TextField resultField = new TextField();
 		resultField.setFont(CommonUtilities.getFont(FontType.TEXT));
 		resultField.setPromptText("Enter result item ID here...");
-		
+
 		TextField countField = new TextField();
 		countField.setFont(CommonUtilities.getFont(FontType.TEXT));
 		countField.setPromptText("Enter amount of result item here...");
-		
+
 		Button finish = new Button();
 		finish.setFont(CommonUtilities.getFont(FontType.TEXT));
 		finish.setText("Generate Recipe");
 		finish.setOnAction(e -> {
-			
+
 			int amount;
 			try {
 				amount = Integer.parseInt(countField.getText());
@@ -63,19 +63,19 @@ public class StonecuttingScene extends BaseScene {
 				error("The amount field must be greater than 1!");
 				return;
 			}
-			
+
 			JsonObject jsonRoot = new JsonObject();
 			jsonRoot.addProperty("type", "minecraft:smithing");
-			
+
 			JsonObject item = new JsonObject();
 			item.addProperty("item", itemField.getText());
 			jsonRoot.add("ingredient", item);
-			
+
 			jsonRoot.addProperty("result", resultField.getText());
 			jsonRoot.addProperty("count", amount);
-			
+
 			String json = Main.getGson().toJson(jsonRoot);
-			
+
 			FileChooser fc = new FileChooser();
 			fc.getExtensionFilters().add(new ExtensionFilter("JSON", "*.json"));
 			File fullPath = fc.showSaveDialog(Main.getStage());
@@ -88,7 +88,7 @@ public class StonecuttingScene extends BaseScene {
 					return;
 				}
 			}
-			
+
 			try {
 				PrintWriter writer = new PrintWriter(fullPath);
 				writer.print(json);
@@ -98,15 +98,15 @@ public class StonecuttingScene extends BaseScene {
 				exception.printStackTrace();
 				error("Couldn't find file to write to! :(\nFile: " + fullPath.getAbsolutePath());
 			}
-			
+
 			itemField.setText("");
 			resultField.setText("");
 			countField.setText("");
-			
+
 			Main.switchScene(MenuScene.class.getName());
 			success("Successfully wrote to recipe file!");
 		});
-		
+
 		root.getChildren().addAll(header, idExample, itemField, resultField, countField, finish);
 	}
 

@@ -1,4 +1,4 @@
-package net.rl86.mdh.loot.define;
+package net.rl86.mdh.loot.misc;
 
 import static net.rl86.mdh.loot.util.LootMemberType.MemberType.POOL;
 
@@ -9,7 +9,7 @@ import net.rl86.mdh.loot.util.LootMemberType;
 
 @LootMemberType(POOL)
 public class Pool extends LootMember {
-	
+
 	public int rolls;
 
 	public Pool(String name, int rolls) {
@@ -29,7 +29,12 @@ public class Pool extends LootMember {
 
 	@Override
 	protected void generateTabContent() {
-		
+
+	}
+
+	@Override
+	public LootMember[] getChildren() {
+		return null;
 	}
 
 }

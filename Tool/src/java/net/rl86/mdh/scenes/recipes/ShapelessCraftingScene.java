@@ -26,7 +26,7 @@ import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 
 public class ShapelessCraftingScene extends BaseScene {
-	
+
 	protected int windowWidth = 500;
 	protected int windowHeight = 775;
 
@@ -34,19 +34,19 @@ public class ShapelessCraftingScene extends BaseScene {
 	public void buildScene() {
 		returnToScene = RecipesScene.class.getName();
 		sceneTitle = "Mod Development Helper | Shapeless Crafting Recipe Generator";
-		
+
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Shapeless Crafting Recipes");
-		
+
 		Text idExample = new Text();
 		idExample.setFont(CommonUtilities.getFont(FontType.TEXT));
 		idExample.setText("Example of an item ID:\nminecraft:stone");
-		
+
 		TextField s1 = new TextField();
 		s1.setFont(CommonUtilities.getFont(FontType.TEXT));
 		s1.setPromptText("Enter 1st item ID...");
-		
+
 		TextField s2 = new TextField();
 		s2.setFont(CommonUtilities.getFont(FontType.TEXT));
 		s2.setPromptText("Enter 2nd item ID...");
@@ -78,15 +78,15 @@ public class ShapelessCraftingScene extends BaseScene {
 		s9.setFont(CommonUtilities.getFont(FontType.TEXT));
 		s9.setPromptText("Enter 9th item ID...");
 		s9.setDisable(true);
-		
+
 		TextField result = new TextField();
 		result.setFont(CommonUtilities.getFont(FontType.TEXT));
 		result.setPromptText("Enter result item ID...");
-		
+
 		Text numItemsLbl = new Text();
 		numItemsLbl.setFont(CommonUtilities.getFont(FontType.TEXT));
 		numItemsLbl.setText("Number of Items: 1");
-		
+
 		Slider numItemsBar = new Slider();
 		numItemsBar.setMin(1d);
 		numItemsBar.setMax(9d);
@@ -113,7 +113,7 @@ public class ShapelessCraftingScene extends BaseScene {
 				s8.setDisable(true);
 				s9.setDisable(true);
 				break;
-			case 3:	
+			case 3:
 				s2.setDisable(false);
 				s3.setDisable(false);
 				s4.setDisable(true);
@@ -133,7 +133,7 @@ public class ShapelessCraftingScene extends BaseScene {
 				s8.setDisable(true);
 				s9.setDisable(true);
 				break;
-			case 5:	
+			case 5:
 				s2.setDisable(false);
 				s3.setDisable(false);
 				s4.setDisable(false);
@@ -153,7 +153,7 @@ public class ShapelessCraftingScene extends BaseScene {
 				s8.setDisable(true);
 				s9.setDisable(true);
 				break;
-			case 7:	
+			case 7:
 				s2.setDisable(false);
 				s3.setDisable(false);
 				s4.setDisable(false);
@@ -163,7 +163,7 @@ public class ShapelessCraftingScene extends BaseScene {
 				s8.setDisable(true);
 				s9.setDisable(true);
 				break;
-			case 8:	
+			case 8:
 				s2.setDisable(false);
 				s3.setDisable(false);
 				s4.setDisable(false);
@@ -185,7 +185,7 @@ public class ShapelessCraftingScene extends BaseScene {
 				break;
 			}
 		});
-		
+
 		Button generate = new Button();
 		generate.setFont(CommonUtilities.getFont(FontType.TEXT));
 		generate.setText("Generate Recipe");
@@ -193,7 +193,7 @@ public class ShapelessCraftingScene extends BaseScene {
 			Alert msg = new Alert(AlertType.CONFIRMATION, "Are you sure this is the recipe you want?", ButtonType.YES, ButtonType.NO);
 			if(msg.showAndWait().get() == ButtonType.YES) {
 				TextField[] ingredientFields = new TextField[(int)numItemsBar.getValue() + 1];
-				
+
 				switch(ingredientFields.length) {
 				case 9:
 					ingredientFields[8] = s9;
@@ -214,30 +214,30 @@ public class ShapelessCraftingScene extends BaseScene {
 					ingredientFields[0] = s1;
 				}
 				ingredientFields[ingredientFields.length - 1] = result;
-				
+
 				if(!checkIfValid(ingredientFields)) {
 					error("You must fill in all selected ingredient fields and the result field! :(");
 					return;
 				}
-				
+
 				JsonObject jsonRoot = new JsonObject();
 				jsonRoot.addProperty("type", "minecraft:crafting_shapeless");
-				
+
 				JsonArray items = new JsonArray();
 				for(TextField field : ingredientFields) {
 					JsonObject obj = new JsonObject();
 					obj.addProperty("item", field.getText());
 					items.add(obj);
 				}
-				
+
 				JsonObject resultItem = new JsonObject();
 				resultItem.addProperty("item", result.getText());
-				
+
 				jsonRoot.add("ingredients", items);
 				jsonRoot.add("result", resultItem);
-				
+
 				String json = Main.getGson().toJson(jsonRoot);
-				
+
 				FileChooser fc = new FileChooser();
 				fc.getExtensionFilters().add(new ExtensionFilter("JSON", "*.json"));
 				File fullPath = fc.showSaveDialog(Main.getStage());
@@ -250,7 +250,7 @@ public class ShapelessCraftingScene extends BaseScene {
 						return;
 					}
 				}
-				
+
 				try {
 					PrintWriter writer = new PrintWriter(fullPath);
 					writer.print(json);
@@ -260,35 +260,35 @@ public class ShapelessCraftingScene extends BaseScene {
 					exception.printStackTrace();
 					error("Couldn't find file to write to! :(\nFile: " + fullPath.getAbsolutePath());
 				}
-				
+
 				for(TextField field : ingredientFields) {
 					field.setText("");
 				}
-				
+
 				result.setText("");
-				
+
 				Main.switchScene(MenuScene.class.getName());
 				success("Successfully wrote to recipe file!");
 			}
 		});
-		
+
 		HBox numItems = new HBox();
 		numItems.setSpacing(15d);
 		numItems.getChildren().addAll(numItemsLbl, numItemsBar);
-		
+
 		root.getChildren().addAll(header, idExample, numItems, s1, s2, s3,s4, s5, s6, s7, s8, s9, result, generate);
 	}
-	
+
 	private static boolean checkIfValid(TextField[] fields) {
 		boolean valid = true;
-		
+
 		for(TextField field : fields) {
 			if(field.getText().equalsIgnoreCase("")) {
 				valid = false;
 				break;
 			}
 		}
-		
+
 		return valid;
 	}
 }

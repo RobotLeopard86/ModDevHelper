@@ -36,11 +36,11 @@ public class ShapedCraftingScene extends BaseScene {
 	public void buildScene() {
 		returnToScene = RecipesScene.class.getName();
 		sceneTitle = "Mod Development Helper | Shaped Crafting Recipe Generator";
-		
+
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Shaped Crafting Recipes");
-		
+
 		HBox s1 = manufactureSlot(1);
 		HBox s2 = manufactureSlot(2);
 		HBox s3 = manufactureSlot(3);
@@ -50,43 +50,43 @@ public class ShapedCraftingScene extends BaseScene {
 		HBox s7 = manufactureSlot(7);
 		HBox s8 = manufactureSlot(8);
 		HBox s9 = manufactureSlot(9);
-		
+
 		HBox result = new HBox();
 		result.setSpacing(15d);
-		
+
 		Text label = new Text();
 		label.setFont(CommonUtilities.getFont(FontType.TEXT));
 		label.setText("Result Item: ");
-		
+
 		TextField id = new TextField();
 		id.setFont(CommonUtilities.getFont(FontType.TEXT));
 		id.setPromptText("Enter item ID...");
-		
+
 		result.getChildren().addAll(label, id);
-		
+
 		VBox s1to5 = new VBox();
 		s1to5.setSpacing(10d);
 		s1to5.getChildren().addAll(s1, s2, s3, s4, s5);
-		
+
 		VBox s6to9 = new VBox();
 		s6to9.setSpacing(10d);
 		s6to9.getChildren().addAll(s6, s7, s8, s9, result);
-		
+
 		HBox slots = new HBox();
 		slots.setSpacing(10d);
 		slots.getChildren().addAll(s1to5, s6to9);
-		
+
 		ImageView grid = new ImageView();
 		grid.setImage(new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/crafting_table_grid.png", 200, 200, true, true, true));
-		
+
 		Text idExample = new Text();
 		idExample.setFont(CommonUtilities.getFont(FontType.TEXT));
 		idExample.setText("Example of an item ID:\nminecraft:stone");
-		
+
 		HBox topHBox = new HBox();
 		topHBox.setSpacing(15d);
 		topHBox.getChildren().addAll(grid, idExample);
-		
+
 		Button generate = new Button();
 		generate.setFont(CommonUtilities.getFont(FontType.TEXT));
 		generate.setText("Generate Recipe");
@@ -95,10 +95,10 @@ public class ShapedCraftingScene extends BaseScene {
 			if(msg.showAndWait().get() == ButtonType.YES) {
 				JsonObject jsonRoot = new JsonObject();
 				jsonRoot.addProperty("type", "minecraft:crafting_shaped");
-				
+
 				HBox[] allSlots = {s1, s2, s3, s4, s5, s6, s7, s8, s9};
 				KeyDescriptor[] keys = genItemsAndKeys(allSlots);
-				
+
 				JsonObject legend = new JsonObject();
 				for(KeyDescriptor kd : keys) {
 					JsonObject key = new JsonObject();
@@ -106,7 +106,7 @@ public class ShapedCraftingScene extends BaseScene {
 					legend.add(((Character)kd.getKey()).toString(), key);
 				}
 				if(legend.has(" ")) legend.remove(" ");
-				
+
 				JsonArray pattern = new JsonArray();
 				HashMap<String, Character> keymap = generateKeyMap(keys);
 				for(int i = 1; i < 10; i += 3) {
@@ -123,16 +123,16 @@ public class ShapedCraftingScene extends BaseScene {
 					}
 					pattern.add(row);
 				}
-				
+
 				JsonObject last = new JsonObject();
 				last.addProperty("item", id.getText());
-				
+
 				jsonRoot.add("key", legend);
 				jsonRoot.add("pattern", pattern);
 				jsonRoot.add("result", last);
-				
+
 				String json = Main.getGson().toJson(jsonRoot);
-				
+
 				FileChooser fc = new FileChooser();
 				fc.getExtensionFilters().add(new ExtensionFilter("JSON", "*.json"));
 				File fullPath = fc.showSaveDialog(Main.getStage());
@@ -145,7 +145,7 @@ public class ShapedCraftingScene extends BaseScene {
 						return;
 					}
 				}
-				
+
 				try {
 					PrintWriter writer = new PrintWriter(fullPath);
 					writer.print(json);
@@ -155,75 +155,75 @@ public class ShapedCraftingScene extends BaseScene {
 					exception.printStackTrace();
 					error("Couldn't find file to write to! :(\nFile: " + fullPath.getAbsolutePath());
 				}
-				
+
 				for(HBox box : allSlots) {
 					((TextField)box.getChildren().get(1)).setText("");
 				}
-				
+
 				id.setText("");
-				
+
 				Main.switchScene(MenuScene.class.getName());
 				success("Successfully wrote to recipe file!");
 			}
 		});
-		
+
 		root.getChildren().addAll(header, grid, topHBox, slots, generate);
 	}
-	
+
 	private static HBox manufactureSlot(int num) {
 		HBox main = new HBox();
 		main.setSpacing(15d);
-		
+
 		Text label = new Text();
 		label.setFont(CommonUtilities.getFont(FontType.TEXT));
 		label.setText("Slot " + num + ": ");
-		
+
 		TextField id = new TextField();
 		id.setFont(CommonUtilities.getFont(FontType.TEXT));
 		id.setPromptText("Enter item ID...");
-		
+
 		main.getChildren().addAll(label, id);
-		
+
 		return main;
 	}
-	
+
 	private static boolean kdListContainsValue(ArrayList<KeyDescriptor> list, String value) {
 		boolean doesContain = false;
-		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getVal().equalsIgnoreCase(value)) {
+		for (KeyDescriptor element : list) {
+			if(element.getVal().equalsIgnoreCase(value)) {
 				doesContain = true;
 				break;
 			}
 		}
 		return doesContain;
 	}
-	
+
 	private static KeyDescriptor[] genItemsAndKeys(HBox[] slots) {
 		ArrayList<KeyDescriptor> result = new ArrayList<>();
 		char[] keys = {'#', '%', '$', '@', '/', '?', '&', '<', '>'};
-		
+
 		int keyID = 0;
-		
-		for(int i = 0; i < slots.length; i++) {
-			String value = ((TextField)slots[i].getChildren().get(1)).getText();
-			
+
+		for (HBox slot : slots) {
+			String value = ((TextField)slot.getChildren().get(1)).getText();
+
 			if(!kdListContainsValue(result, value) && !value.equalsIgnoreCase("")) {
 				result.add(new KeyDescriptor(keys[keyID], value));
 				keyID++;
 			}
 		}
-		
+
 		return result.toArray(new KeyDescriptor[0]);
 	}
-	
+
 	private static HashMap<String, Character> generateKeyMap(KeyDescriptor[] descriptors){
 		HashMap<String, Character> map = new HashMap<>();
-		for(int i = 0; i < descriptors.length; i++) {
-			map.put(descriptors[i].getVal(), descriptors[i].getKey());
+		for (KeyDescriptor descriptor : descriptors) {
+			map.put(descriptor.getVal(), descriptor.getKey());
 		}
 		return map;
 	}
-	
+
 	@Override
 	protected void setDimensions() {
 		windowWidth = 600;

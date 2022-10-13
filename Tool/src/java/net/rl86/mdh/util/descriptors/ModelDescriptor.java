@@ -5,7 +5,7 @@ import java.io.File;
 import com.google.gson.JsonObject;
 
 public class ModelDescriptor {
-	
+
 	private File model;
 	private int rotx;
 	private int roty;
@@ -21,15 +21,15 @@ public class ModelDescriptor {
 			rotz = zaxis;
 		}
 	}
-	
+
 	public JsonObject constructJson(String modId) {
 		JsonObject obj = new JsonObject();
-		
+
 		obj.addProperty("model", modId + ":block/" + model.getName().substring(0, model.getName().length() - 5));
 		obj.addProperty("x", rotx);
 		obj.addProperty("y", roty);
 		obj.addProperty("z", rotz);
-		
+
 		return obj;
 	}
 

@@ -32,32 +32,32 @@ import net.rl86.mdh.util.CommonUtilities.FontType;
 import net.rl86.mdh.util.descriptors.TextureAtPosDescriptor;
 
 public class CubeModelScene extends BaseScene {
-	
+
 	private ImageView[] views;
 	private ArrayList<Integer> chosenViews;
 
 	@Override
 	public void buildScene() {
 		sceneTitle = "Mod Development Helper | Cube Model Creator";
-		
+
 		Text header = new Text();
 		header.setText("Cube Block Models");
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
-		
+
 		VBox selections = manufactureSelectionBoxes();
-		
+
 		Button picker = new Button();
 		picker.setFont(CommonUtilities.getFont(FontType.TEXT));
 		picker.setText("Pick Texture");
 		picker.setOnAction(e -> {
 			FileChooser fc = new FileChooser();
 			fc.getExtensionFilters().add(new ExtensionFilter("PNG Images", "*.png"));
-			
+
 			File img = fc.showOpenDialog(Main.getStage());
-			
+
 			if(img != null) {
 				Dialog<ButtonType> dialog = constructApplyTextureDialog();
-				
+
 				if(dialog.showAndWait().get() != ButtonType.CANCEL) {
 					for(int chosenView : chosenViews) {
 						views[chosenView].setImage(new Image("file:" + img.getAbsolutePath(), 64, 64, true, true, false));
@@ -66,7 +66,7 @@ public class CubeModelScene extends BaseScene {
 				}
 			}
 		});
-		
+
 		Button generate = new Button();
 		generate.setFont(CommonUtilities.getFont(FontType.TEXT));
 		generate.setText("Generate Model");
@@ -80,12 +80,12 @@ public class CubeModelScene extends BaseScene {
 						break;
 					}
 				}
-				
+
 				if(error) {
 					error("All faces must have a texture!");
 					return;
 				}
-				
+
 				TextInputDialog modIdDialog = new TextInputDialog();
 				modIdDialog.getEditor().setFont(CommonUtilities.getFont(FontType.TEXT));
 				modIdDialog.getEditor().setPromptText("Enter mod ID...");
@@ -94,18 +94,18 @@ public class CubeModelScene extends BaseScene {
 				modIdDialog.setTitle("Input Request");
 				modIdDialog.setOnCloseRequest(event -> {
 					boolean shouldConsume = true;
-					
+
 					if(modIdDialog.getResult() != "" && modIdDialog.getResult() != null && modIdDialog.getEditor().getText() != "") {
 						shouldConsume = false;
 					} else {
 						error("You must enter a mod ID! :(");
 					}
-					
+
 					if(shouldConsume) {
 						event.consume();
 					}
 				});
-				
+
 				ChoiceDialog<Direction> particleDialog = new ChoiceDialog<>();
 				particleDialog.setHeaderText("Which face's texture should be used for the break particle?");
 				particleDialog.setTitle("Input Request");
@@ -114,50 +114,50 @@ public class CubeModelScene extends BaseScene {
 				particleDialog.setSelectedItem(Direction.Top);
 				particleDialog.setOnCloseRequest(event -> {
 					boolean shouldConsume = true;
-					
+
 					if(particleDialog.getResult() != null) {
 						shouldConsume = false;
 					} else {
 						error("You must select an option! :(");
 					}
-					
+
 					if(shouldConsume) {
 						event.consume();
 					}
 				});
-				
+
 				String modId = modIdDialog.showAndWait().get();
-				
+
 				Direction particle = particleDialog.showAndWait().get();
-				
+
 				if(modId == "") {
 					error("You must enter a mod ID!");
 					return;
 				}
-				
+
 				TextureAtPosDescriptor[] textureValues = new TextureAtPosDescriptor[6];
 				for(int i = 0; i < views.length; i++) {
 					textureValues[i] = new TextureAtPosDescriptor(modId + ":block/" + views[i].getProperties().get("name"), (Direction)views[i].getProperties().get("dir"));
 				}
-				
+
 				JsonObject jsonRoot = new JsonObject();
 				jsonRoot.addProperty("parent", "minecraft:block/cube");
-				
+
 				JsonObject textures = new JsonObject();
 				for(TextureAtPosDescriptor descriptor : textureValues) {
 					descriptor.addToJson(textures);
 				}
-				
+
 				textures.addProperty("particle", textureValues[particle.idx].getResourceLocation());
-				
+
 				jsonRoot.add("textures", textures);
-				
+
 				String json = Main.getGson().toJson(jsonRoot);
-				
+
 				FileChooser fc = new FileChooser();
 				fc.getExtensionFilters().add(new ExtensionFilter("JSON", "*.json"));
 				File fullPath = fc.showSaveDialog(Main.getStage());
-				
+
 				if(!fullPath.exists()) {
 					try {
 						fullPath.createNewFile();
@@ -167,7 +167,7 @@ public class CubeModelScene extends BaseScene {
 						return;
 					}
 				}
-				
+
 				try {
 					PrintWriter writer = new PrintWriter(fullPath);
 					writer.print(json);
@@ -177,90 +177,90 @@ public class CubeModelScene extends BaseScene {
 					exception.printStackTrace();
 					error("Couldn't find file to write to! :(\nFile: " + fullPath.getAbsolutePath());
 				}
-				
+
 				for(ImageView view : views) {
 					view.getProperties().remove("name");
 					view.setImage(null);
 				}
-				
+
 				Main.switchScene(MenuScene.class.getName());
 				success("Successfully created model!");
 				return;
 			}
 		});
-		
+
 		root.getChildren().addAll(header, selections, picker, generate);
 	}
-	
+
 	private VBox manufactureSelectionBox(Direction dir) {
 		VBox layout = new VBox();
 		layout.setSpacing(10d);
-		
+
 		Text label = new Text();
 		label.setFont(CommonUtilities.getFont(FontType.TEXT));
 		label.setText(dir.toString() + " Face Texture:");
-		
+
 		ImageView view = new ImageView();
 		view.getProperties().put("dir", dir);
 		views[dir.idx] = view;
-		
+
 		layout.getChildren().addAll(label, view);
-		
+
 		return layout;
 	}
-	
+
 	private HBox manufactureRow(Direction first, Direction second) {
 		HBox layout = new HBox();
 		layout.setSpacing(15d);
-		
+
 		layout.getChildren().addAll(manufactureSelectionBox(first), manufactureSelectionBox(second));
-		
+
 		return layout;
 	}
-	
+
 	private VBox manufactureSelectionBoxes() {
 		VBox layout = new VBox();
 		layout.setSpacing(10d);
-		
+
 		views = new ImageView[6];
-		
+
 		layout.getChildren().addAll(manufactureRow(Direction.North, Direction.South), manufactureRow(Direction.East, Direction.West), manufactureRow(Direction.Top, Direction.Bottom));
-		
+
 		return layout;
 	}
-	
+
 	private Dialog<ButtonType> constructApplyTextureDialog(){
 		VBox layout = new VBox();
 		layout.setSpacing(15d);
-		
+
 		CheckBox north = new CheckBox();
 		north.setFont(CommonUtilities.getFont(FontType.TEXT));
 		north.setText("North");
-		
+
 		CheckBox south = new CheckBox();
 		south.setFont(CommonUtilities.getFont(FontType.TEXT));
 		south.setText("South");
-		
+
 		CheckBox east = new CheckBox();
 		east.setFont(CommonUtilities.getFont(FontType.TEXT));
 		east.setText("East");
-		
+
 		CheckBox west = new CheckBox();
 		west.setFont(CommonUtilities.getFont(FontType.TEXT));
 		west.setText("West");
-		
+
 		CheckBox top = new CheckBox();
 		top.setFont(CommonUtilities.getFont(FontType.TEXT));
 		top.setText("Top");
-		
+
 		CheckBox bottom = new CheckBox();
 		bottom.setFont(CommonUtilities.getFont(FontType.TEXT));
 		bottom.setText("Bottom");
-		
+
 		DialogPane pane = new DialogPane();
 		pane.setContent(layout);
 		pane.getButtonTypes().addAll(ButtonType.APPLY, ButtonType.CANCEL);
-		
+
 		Dialog<ButtonType> dialog = new Dialog<>();
 		dialog.setTitle("Texture Manager");
 		dialog.setDialogPane(pane);
@@ -288,9 +288,9 @@ public class CubeModelScene extends BaseScene {
 				}
 			}
 		});
-		
+
 		layout.getChildren().addAll(north, south, east, west, top, bottom);
-		
+
 		return dialog;
 	}
 

@@ -9,8 +9,8 @@ import com.google.gson.GsonBuilder;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -37,22 +37,22 @@ import net.rl86.mdh.util.BaseScene;
 import net.rl86.mdh.util.CommonUtilities;
 
 public class Main extends Application {
-	
+
 	private static HashMap<String, BaseScene> scenes = new HashMap<>();
 	private static String defaultScene = MenuScene.class.getName();
-	
+
 	private static Stage stage;
-	
+
 	public static Stage getStage() {
 		return stage;
 	}
-	
+
 	private static Gson gson;
-	
+
 	public static Gson getGson() {
 		return gson;
 	}
-	
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		CommonUtilities.initializeImages();
@@ -79,7 +79,7 @@ public class Main extends Application {
 		switchScene(defaultScene);
 		primaryStage.show();
 	}
-	
+
 	public static void switchScene(String name) {
 		((VBox) scenes.get(name).getScene().getRoot()).getChildren().clear();
 		((VBox) scenes.get(name).getScene().getRoot()).getChildren().add(scenes.get(name).getBackBtn());
@@ -95,7 +95,7 @@ public class Main extends Application {
 		gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 		launch(args);
 	}
-	
+
 	private void initializeSceneMap() {
 		scenes.put(MenuScene.class.getName(), new MenuScene());
 		scenes.put(LangEntryScene.class.getName(), new LangEntryScene());
@@ -117,17 +117,17 @@ public class Main extends Application {
 		scenes.put(LootTableSetupScene.class.getName(), new LootTableSetupScene());
 		scenes.put(LootTableEditorScene.class.getName(), new LootTableEditorScene());
 	}
-	
+
 	private BaseScene findByValue(Scene toFind) {
 		Collection<BaseScene> values = scenes.values();
-		
+
 		for(BaseScene val : values) {
 			if(val.getScene() == toFind) {
 				return val;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 }

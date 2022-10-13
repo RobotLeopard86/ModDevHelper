@@ -32,33 +32,33 @@ public class BlockstateFieldCreatorScene extends BaseScene {
 	private TreeItem<String> treeRoot;
 	private Button add;
 	private boolean enterPressedForProperty;
-	
+
 	private static HashMap<String,String[]> blockstateData = new HashMap<>();
 	private static ArrayList<String> datakeys = new ArrayList<>();
-	
+
 	private void clear() {
 		blockstateData.clear();
 		datakeys.clear();
 		treeRoot.getChildren().clear();
 	}
-	
+
 	@Override
 	public void buildScene() {
 		sceneTitle = "Mod Development Helper | Blockstate File Creator";
 		addedPropertyName = false;
 		numProperties = 0;
-		
+
 		Text header = new Text();
 		header.setText("Blockstates");
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
-		
+
 		treeRoot = new TreeItem<>();
 		treeRoot.setValue("Properties:");
 		treeRoot.setExpanded(true);
-		
+
 		TreeView<String> viewOfEverything = new TreeView<>();
 		viewOfEverything.setRoot(treeRoot);
-		
+
 		Button addProperty = new Button();
 		addProperty.setFont(CommonUtilities.getFont(FontType.TEXT));
 		addProperty.setText("Add New Property");
@@ -77,12 +77,12 @@ public class BlockstateFieldCreatorScene extends BaseScene {
 				treeRoot.getChildren().add(tree);
 			}
 		});
-		
+
 		Button clear = new Button();
 		clear.setFont(CommonUtilities.getFont(FontType.TEXT));
 		clear.setText("Clear Properties");
 		clear.setOnAction(e -> clear());
-		
+
 		Button complete = new Button();
 		complete.setFont(CommonUtilities.getFont(FontType.TEXT));
 		complete.setText("Finish");
@@ -98,19 +98,19 @@ public class BlockstateFieldCreatorScene extends BaseScene {
 				Main.switchScene(BlockstateFieldEditorScene.class.getName());
 			}
 		});
-		
+
 		root.getChildren().addAll(header, addProperty, clear, viewOfEverything, complete);
 	}
-	
-	private Dialog<ButtonType> buildNewPropertyDialog() {	
+
+	private Dialog<ButtonType> buildNewPropertyDialog() {
 		VBox content = new VBox();
 		content.setSpacing(10);
-		
+
 		pane = new DialogPane();
 		pane.setContent(content);
 		pane.setHeaderText("Add Property");
 		pane.getButtonTypes().add(ButtonType.CANCEL);
-		
+
 		dialog = new Dialog<>();
 		dialog.setTitle("Create New Property");
 		dialog.setDialogPane(pane);
@@ -122,7 +122,7 @@ public class BlockstateFieldCreatorScene extends BaseScene {
 				e.consume();
 			}
 		});
-		
+
 		nameBox = new TextField();
 		nameBox.setPromptText("Enter property name...");
 		nameBox.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -132,25 +132,25 @@ public class BlockstateFieldCreatorScene extends BaseScene {
 				updateTree();
 			}
 		});
-		
+
 		tree = new TreeItem<>();
 		tree.setExpanded(true);
-		
+
 		treeview = new TreeView<>();
 		treeview.setEditable(false);
 		treeview.setVisible(false);
 		treeview.setRoot(tree);
-		
+
 		add = new Button();
 		add.setFont(CommonUtilities.getFont(FontType.TEXT));
 		add.setText("Add Property");
 		add.setOnAction(e -> updateTree());
-		
+
 		content.getChildren().addAll(nameBox, treeview, add);
-		
+
 		return dialog;
 	}
-	
+
 	private void updateTree() {
 		if(nameBox.getText().equalsIgnoreCase("")) {
 			error("You have not provided a value! :(");

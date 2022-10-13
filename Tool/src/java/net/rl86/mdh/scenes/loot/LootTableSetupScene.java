@@ -15,20 +15,20 @@ public class LootTableSetupScene extends BaseScene {
 	public void buildScene() {
 		warnOnExit = false;
 		sceneTitle = "Mod Development Helper | Loot Table Creator";
-		
+
 		Text header = new Text();
 		header.setText("Loot Tables");
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
-		
+
 		Text typeDesc = new Text();
 		typeDesc.setFont(CommonUtilities.getFont(FontType.TEXT));
 		typeDesc.setText("What purpose is this loot table intended for?");
-		
+
 		ChoiceBox<LootType> type = new ChoiceBox<>();
 		type.getItems().addAll(LootType.BLOCK, LootType.ENTITY, LootType.CHEST);
 		type.setValue(LootType.BLOCK);
 		type.setPrefSize(windowWidth / 3, windowHeight / 15);
-		
+
 		Button make = new Button();
 		make.setFont(CommonUtilities.getFont(FontType.TEXT));
 		make.setText("Create Loot Table");
@@ -36,7 +36,7 @@ public class LootTableSetupScene extends BaseScene {
 			LootTableEditorScene.tableTypeDataReceiver = type.getValue();
 			Main.switchScene(LootTableEditorScene.class.getName());
 		});
-		
+
 		root.getChildren().addAll(header, typeDesc, type, make);
 	}
 

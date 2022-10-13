@@ -27,30 +27,30 @@ public class LangEntryScene extends BaseScene {
 
 	private File langFile;
 	private JsonObject obj;
-	
+
 	@Override
 	public void buildScene() {
 		sceneTitle = "Mod Development Helper | Localization Entry";
-		
+
 		Text header = new Text();
 		header.setText("Localization");
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
-		
+
 		Text file = new Text();
 		file.setFont(CommonUtilities.getFont(FontType.TEXT));
 		file.setText("Selected File: ???");
 		file.setWrappingWidth(scene.getWidth());
-		
+
 		TextField keyBox = new TextField();
 		keyBox.setFont(CommonUtilities.getFont(FontType.TEXT));
 		keyBox.setPromptText("Enter key (example: item.minecraft.diamond)...");
 		keyBox.setVisible(false);
-		
+
 		TextField nameBox = new TextField();
 		nameBox.setFont(CommonUtilities.getFont(FontType.TEXT));
 		nameBox.setPromptText("Enter name...");
 		nameBox.setVisible(false);
-		
+
 		Button addKey = new Button();
 		addKey.setFont(CommonUtilities.getFont(FontType.TEXT));
 		addKey.setText("Add to Localization File");
@@ -62,7 +62,7 @@ public class LangEntryScene extends BaseScene {
 			keyBox.setText("");
 		});
 		addKey.setVisible(false);
-		
+
 		Button write = new Button();
 		write.setFont(CommonUtilities.getFont(FontType.TEXT));
 		write.setText("Write Changes");
@@ -83,7 +83,7 @@ public class LangEntryScene extends BaseScene {
 			}
 		});
 		write.setVisible(false);
-		
+
 		Button chooseFile = new Button();
 		chooseFile.setFont(CommonUtilities.getFont(FontType.TEXT));
 		chooseFile.setText("Choose Language File");
@@ -114,7 +114,7 @@ public class LangEntryScene extends BaseScene {
 			nameBox.setVisible(!exceptionRaised);
 			file.setText(exceptionRaised ? "Selected File: ???" : ("Selected File: " + langFile.getAbsolutePath()));
 		});
-		
+
 		root.getChildren().addAll(header, chooseFile, file, keyBox, nameBox, addKey, write);
 	}
 

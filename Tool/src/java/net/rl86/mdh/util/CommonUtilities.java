@@ -13,8 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 
 public class CommonUtilities {
-	
-	public static enum FontType {HEADER, TEXT};
+
+	public static enum FontType {HEADER, TEXT}
 	public static enum Direction {
 		North(0, "north"),
 		South(1, "south"),
@@ -22,10 +22,10 @@ public class CommonUtilities {
 		East(3, "east"),
 		Top(4, "up"),
 		Bottom(5, "down");
-		
+
 		public int idx;
 		public String mappedVal;
-		
+
 		private Direction(int index, String mcKeymap) {
 			idx = index;
 			mappedVal = mcKeymap;
@@ -35,32 +35,33 @@ public class CommonUtilities {
 		BLOCK("Block Drops", "minecraft:block"),
 		ENTITY("Entity Drops", "minecraft:entity"),
 		CHEST("Chest Loot", "minecraft:chest");
-		
+
 		private String id;
 		private String inGameID;
-		
+
 		private LootType(String name, String ingame) {
 			id = name;
 			inGameID = ingame;
 		}
-		
+
+		@Override
 		public String toString() {
 			return id;
 		}
-		
+
 		public String getInGameID() {
 			return inGameID;
 		}
 	}
-	
+
 	private static Font headerFont;
 	private static Font textFont;
-	
+
 	private static Image errMsgImg;
 	private static Image yayMsgImg;
 	private static Image warnMsgImg;
 	private static Image appIcon;
-	
+
 	public static Font getFont(FontType type) {
 		Font value = null;
 		switch(type) {
@@ -73,7 +74,7 @@ public class CommonUtilities {
 		}
 		return value;
 	}
-	
+
 	public static void initializeFonts() {
 		BufferedInputStream his = null;
 		BufferedInputStream tis = null;
@@ -100,7 +101,7 @@ public class CommonUtilities {
 		headerFont = Font.loadFont(his, 36f);
 		textFont = Font.loadFont(tis, 18f);
 	}
-	
+
 	public static void initializeImages() {
 		errMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/error.png", 64, 64, true, true, true);
 		yayMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/success.png", 64, 64, true, true, true);
@@ -115,11 +116,11 @@ public class CommonUtilities {
 	public static Image getSuccessImg() {
 		return yayMsgImg;
 	}
-	
+
 	public static Image getWarningImg() {
 		return warnMsgImg;
 	}
-	
+
 	public static Image getIcon() {
 		return appIcon;
 	}
