@@ -128,7 +128,7 @@ public class LootDialogs {
 		case Inverse:
 			return new InvertPredicate(name);
 		case KilledByPlayer:
-			break;
+			return new KillerPlayerPredicate(name);
 		case Location:
 			break;
 		case Random:
@@ -160,7 +160,7 @@ public class LootDialogs {
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("Input Request");
 		dialog.setGraphic(null);
-		dialog.setHeaderText("Input Request");
+		dialog.setHeaderText("Enter Name");
 		dialog.getEditor().setPromptText("Enter name...");
 		dialog.setOnCloseRequest(e -> {
 			if(dialog.getEditor().getText() == "") {

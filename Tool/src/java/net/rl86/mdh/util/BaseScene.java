@@ -58,8 +58,11 @@ public abstract class BaseScene {
 		exit.setText("Back");
 		exit.setOnAction(e -> {
 			if(warnOnExit) {
-				if(warning("Are you sure you want to exit? You will lose all data!") == ButtonType.YES) Main.switchScene(returnToScene);
+				if(warning("Are you sure you want to exit? You will lose all data!") != ButtonType.YES) {
+					return;
+				}
 			}
+			Main.switchScene(returnToScene);
 		});
 		root.getChildren().add(exit);
 

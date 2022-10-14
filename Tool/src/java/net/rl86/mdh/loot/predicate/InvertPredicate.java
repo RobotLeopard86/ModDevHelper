@@ -21,6 +21,7 @@ public class InvertPredicate extends AbstractLootPredicate {
 	public InvertPredicate(String name) {
 		super(name);
 		predicateChosen = new SimpleBooleanProperty();
+		predicateChosen.set(false);
 	}
 
 	@Override
@@ -36,7 +37,7 @@ public class InvertPredicate extends AbstractLootPredicate {
 		Button open = new Button();
 		open.setText("Edit Predicate");
 		open.setFont(CommonUtilities.getFont(FontType.TEXT));
-		open.disableProperty().bind(predicateChosen);
+		open.disableProperty().bind(predicateChosen.not());
 		open.setOnAction(e -> {
 			LootTableEditorScene.tabs.getTabs().add(predicate.generateTab());
 		});
