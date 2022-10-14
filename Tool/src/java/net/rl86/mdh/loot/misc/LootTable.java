@@ -72,5 +72,9 @@ public class LootTable extends LootMember {
 	public LootMember[] getChildren() {
 		return pools.toArray(new LootMember[0]);
 	}
+	
+	public LootType getType() {
+		return type;
+	}
 
 }

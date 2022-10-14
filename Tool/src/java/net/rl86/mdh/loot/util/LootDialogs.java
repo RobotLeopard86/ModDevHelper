@@ -1,5 +1,7 @@
 package net.rl86.mdh.loot.util;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -15,40 +17,49 @@ import javafx.scene.layout.VBox;
 import net.rl86.mdh.loot.predicate.AbstractLootPredicate;
 import net.rl86.mdh.loot.predicate.AlternativesPredicate;
 import net.rl86.mdh.loot.predicate.BlockStatePredicate;
+import net.rl86.mdh.loot.predicate.InvertPredicate;
+import net.rl86.mdh.loot.predicate.KillerPlayerPredicate;
 import net.rl86.mdh.scenes.loot.LootTableEditorScene;
 import net.rl86.mdh.util.CommonUtilities;
+import net.rl86.mdh.util.CommonUtilities.LootType;
 
 public class LootDialogs {
 	
 	public static enum PredicateType {
-		Alternative("Alternatives"),
-		BlockState("Block State"),
-		DamageSource("Damage Source"),
-		EntityProps("Entity Properties"),
-		EntityScores("Entity Scores"),
-		Inverse("Inverse"),
-		KilledByPlayer("Killed By Player"),
-		Location("Entity Location"),
-		ToolMatch("Tool Match"),
-		Random("Random Chance"),
-		RandomLooting("Random Chance With Looting"),
-		Reference("Reference"),
-		SurviveExplosion("Survived Explosion"),
-		TableBonus("Enchantment Bonus"),
-		Time("Time Check"),
-		Value("Value Check"),
-		Weather("Weather Check");
+		Alternative("Alternatives", AlternativesPredicate.class),
+		BlockState("Block State", BlockStatePredicate.class),
+		DamageSource("Damage Source", null),
+		EntityProps("Entity Properties", null),
+		EntityScores("Entity Scores", null),
+		Inverse("Inverse", InvertPredicate.class),
+		KilledByPlayer("Killed By Player", KillerPlayerPredicate.class),
+		Location("Entity Location", null),
+		ToolMatch("Tool Match", null),
+		Random("Random Chance", null),
+		RandomLooting("Random Chance With Looting", null),
+		Reference("Reference", null),
+		SurviveExplosion("Survived Explosion", null),
+		TableBonus("Enchantment Bonus", null),
+		Time("Time Check", null),
+		Value("Value Check", null),
+		Weather("Weather Check", null);
 		
 		
 		private String displayName;
+		private Class<? extends AbstractLootPredicate> clazz;
 
-		private PredicateType(String name) {
+		private PredicateType(String name, Class<? extends AbstractLootPredicate> clazz) {
 			displayName = name;
+			this.clazz = clazz;
 		}
 
 		@Override
 		public String toString() {
 			return displayName;
+		}
+		
+		public Class<? extends AbstractLootPredicate> getClazz() {
+			return clazz;
 		}
 	}
 
@@ -115,7 +126,7 @@ public class LootDialogs {
 		case EntityScores:
 			break;
 		case Inverse:
-			break;
+			return new InvertPredicate(name);
 		case KilledByPlayer:
 			break;
 		case Location:
@@ -179,6 +190,27 @@ public class LootDialogs {
 
 			if(shouldConsume) {
 				event.consume();
+			}
+		});
+		dialog.selectedItemProperty().addListener(new ChangeListener<PredicateType>() {
+			@Override
+			public void changed(ObservableValue<? extends PredicateType> observable, PredicateType oldValue, PredicateType newValue) {
+				boolean disableSelection = true;
+				
+				UnusableIn unusable = newValue.clazz.getAnnotation(UnusableIn.class);
+				
+				if(unusable == null) {
+					disableSelection = false;
+				} else {
+					for(LootType lt : unusable.value()) {
+						disableSelection = (lt == LootTableEditorScene.table.getType());
+					}
+				}
+				
+				dialog.getDialogPane().lookupButton(ButtonType.OK).setDisable(disableSelection);
+				if(disableSelection) {
+					error("The selected value is not available in the current loot table type! :(");
+				}
 			}
 		});
 		

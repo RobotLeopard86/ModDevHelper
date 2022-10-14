@@ -45,6 +45,17 @@ public class AlternativesPredicate extends AbstractLootPredicate {
 			LootTableEditorScene.tabs.getTabs().add(list.getSelectionModel().getSelectedItem().generateTab());
 		});
 		
+		Button rm = new Button();
+		rm.setText("Remove Selected Predicate");
+		rm.setFont(CommonUtilities.getFont(FontType.TEXT));
+		rm.disableProperty().bind(list.getSelectionModel().selectedItemProperty().isNull());
+		rm.setOnAction(e -> {
+			AbstractLootPredicate sel = list.getSelectionModel().getSelectedItem();
+			predicates.remove(sel);
+			list.setItems(FXCollections.observableList(predicates));
+			LootTableEditorScene.tabs.getTabs().remove(sel.generateTab());
+		});
+		
 		Button add = new Button();
 		add.setText("Add Predicate");
 		add.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -53,7 +64,7 @@ public class AlternativesPredicate extends AbstractLootPredicate {
 			list.setItems(FXCollections.observableList(predicates));
 		});
 
-		root.getChildren().addAll(header, list, add, open);
+		root.getChildren().addAll(header, list, add, open, rm);
 	}
 
 	@Override

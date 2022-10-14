@@ -12,10 +12,13 @@ import javafx.scene.text.Text;
 import javafx.util.converter.NumberStringConverter;
 import net.rl86.mdh.loot.util.IngameIdentifier;
 import net.rl86.mdh.loot.util.LootMember;
+import net.rl86.mdh.loot.util.UnusableIn;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
+import net.rl86.mdh.util.CommonUtilities.LootType;
 
 @IngameIdentifier("minecraft:block_state_property")
+@UnusableIn({LootType.ENTITY, LootType.CHEST})
 public class BlockStatePredicate extends AbstractLootPredicate {
 
 	private SimpleStringProperty id;
