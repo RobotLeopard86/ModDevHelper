@@ -19,6 +19,8 @@ import net.rl86.mdh.loot.predicate.AlternativesPredicate;
 import net.rl86.mdh.loot.predicate.BlockStatePredicate;
 import net.rl86.mdh.loot.predicate.InvertPredicate;
 import net.rl86.mdh.loot.predicate.KillerPlayerPredicate;
+import net.rl86.mdh.loot.predicate.RandomLootingPredicate;
+import net.rl86.mdh.loot.predicate.RandomPredicate;
 import net.rl86.mdh.scenes.loot.LootTableEditorScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.LootType;
@@ -35,8 +37,8 @@ public class LootDialogs {
 		KilledByPlayer("Killed By Player", KillerPlayerPredicate.class),
 		Location("Entity Location", null),
 		ToolMatch("Tool Match", null),
-		Random("Random Chance", null),
-		RandomLooting("Random Chance With Looting", null),
+		Random("Random Chance", RandomPredicate.class),
+		RandomLooting("Random Chance With Looting", RandomLootingPredicate.class),
 		Reference("Reference", null),
 		SurviveExplosion("Survived Explosion", null),
 		TableBonus("Enchantment Bonus", null),
@@ -132,9 +134,9 @@ public class LootDialogs {
 		case Location:
 			break;
 		case Random:
-			break;
+			return new RandomPredicate(name);
 		case RandomLooting:
-			break;
+			return new RandomLootingPredicate(name);
 		case Reference:
 			break;
 		case SurviveExplosion:
@@ -161,6 +163,7 @@ public class LootDialogs {
 		dialog.setTitle("Input Request");
 		dialog.setGraphic(null);
 		dialog.setHeaderText("Enter Name");
+		dialog.getDialogPane().getButtonTypes().remove(ButtonType.CANCEL);
 		dialog.getEditor().setPromptText("Enter name...");
 		dialog.setOnCloseRequest(e -> {
 			if(dialog.getEditor().getText() == "") {
@@ -179,6 +182,7 @@ public class LootDialogs {
 		dialog.setHeaderText("Add Predicate");
 		dialog.getItems().addAll(PredicateType.values());
 		dialog.setSelectedItem(PredicateType.Alternative);
+		dialog.getDialogPane().getButtonTypes().remove(ButtonType.CANCEL);
 		dialog.setOnCloseRequest(event -> {
 			boolean shouldConsume = true;
 
@@ -204,6 +208,9 @@ public class LootDialogs {
 				} else {
 					for(LootType lt : unusable.value()) {
 						disableSelection = (lt == LootTableEditorScene.table.getType());
+						if(disableSelection) {
+							break;
+						}
 					}
 				}
 				
