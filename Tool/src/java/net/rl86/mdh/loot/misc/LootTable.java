@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import javafx.scene.control.Tab;
 import javafx.scene.text.Text;
 import net.rl86.mdh.loot.util.LootMember;
 import net.rl86.mdh.loot.util.LootMemberType;
@@ -26,8 +25,6 @@ public class LootTable extends LootMember {
 		super("Loot Table");
 		this.type = type;
 		pools = new ArrayList<>();
-
-		generateTabContent();
 	}
 
 	public void addPool(Pool pool) {

@@ -110,7 +110,7 @@ public class CubeModelScene extends BaseScene {
 				particleDialog.setHeaderText("Which face's texture should be used for the break particle?");
 				particleDialog.setTitle("Input Request");
 				particleDialog.setGraphic(null);
-				particleDialog.getItems().addAll(Direction.Top, Direction.Bottom, Direction.East, Direction.West, Direction.North, Direction.South);
+				particleDialog.getItems().addAll(Direction.values());
 				particleDialog.setSelectedItem(Direction.Top);
 				particleDialog.setOnCloseRequest(event -> {
 					boolean shouldConsume = true;

@@ -16,6 +16,7 @@ public abstract class LootMember {
 	protected abstract void generateTabContent();
 
 	public Tab generateTab() {
+		generateTabContent();
 		Tab tab = new Tab();
 		tab.setText(toString());
 		tab.setContent(root);
