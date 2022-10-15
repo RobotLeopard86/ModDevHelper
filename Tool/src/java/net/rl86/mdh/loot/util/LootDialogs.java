@@ -17,10 +17,12 @@ import javafx.scene.layout.VBox;
 import net.rl86.mdh.loot.predicate.AbstractLootPredicate;
 import net.rl86.mdh.loot.predicate.AlternativesPredicate;
 import net.rl86.mdh.loot.predicate.BlockStatePredicate;
+import net.rl86.mdh.loot.predicate.ExplosionSurvivalPredicate;
 import net.rl86.mdh.loot.predicate.InvertPredicate;
 import net.rl86.mdh.loot.predicate.KillerPlayerPredicate;
 import net.rl86.mdh.loot.predicate.RandomLootingPredicate;
 import net.rl86.mdh.loot.predicate.RandomPredicate;
+import net.rl86.mdh.loot.predicate.RefPredicate;
 import net.rl86.mdh.scenes.loot.LootTableEditorScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.LootType;
@@ -39,8 +41,8 @@ public class LootDialogs {
 		ToolMatch("Tool Match", null),
 		Random("Random Chance", RandomPredicate.class),
 		RandomLooting("Random Chance With Looting", RandomLootingPredicate.class),
-		Reference("Reference", null),
-		SurviveExplosion("Survived Explosion", null),
+		Reference("Reference", RefPredicate.class),
+		SurviveExplosion("Survived Explosion", ExplosionSurvivalPredicate.class),
 		TableBonus("Enchantment Bonus", null),
 		Time("Time Check", null),
 		Value("Value Check", null),
@@ -138,9 +140,9 @@ public class LootDialogs {
 		case RandomLooting:
 			return new RandomLootingPredicate(name);
 		case Reference:
-			break;
+			return new RefPredicate(name);
 		case SurviveExplosion:
-			break;
+			return new ExplosionSurvivalPredicate(name);
 		case TableBonus:
 			break;
 		case Time:
