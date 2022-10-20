@@ -41,7 +41,7 @@ public class ConditionDescriptor {
 
 	public String generateJsonLabel() {
 		if(isAllTime) {
-			return "\"\"";
+			return "";
 		} else {
 			String root = "";
 			for(int i = 0; i < conditions.length; i++) {

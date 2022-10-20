@@ -143,7 +143,6 @@ public class BlockstateFieldEditorScene extends BaseScene {
 		});
 
 		root.getChildren().addAll(header, remaining, conditions, chooseModel, filePath, xPane, yPane, zPane, next);
-		root.getChildren().remove(back);
 	}
 
 	public static void setData(HashMap<String,String[]> input, String[] keylist) {
@@ -152,8 +151,6 @@ public class BlockstateFieldEditorScene extends BaseScene {
 		keys = keylist;
 		completed = -1;
 		combos = combinations(calculateTotalOutcomes());
-
-		updateView();
 	}
 
 	private static void updateView() {
@@ -238,6 +235,12 @@ public class BlockstateFieldEditorScene extends BaseScene {
 		}
 
 		return outcomes;
+	}
+	
+	@Override
+	public void updatePageOnSceneLoad() {
+		completed = -1;
+		updateView();
 	}
 
 	private static ConditionDescriptor[] combinations(int numcombos) {
