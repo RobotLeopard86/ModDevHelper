@@ -7,10 +7,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import net.rl86.mdh.loot.util.IngameIdentifier;
 import net.rl86.mdh.loot.util.LootMember;
+import net.rl86.mdh.loot.util.UsableIn;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
+import net.rl86.mdh.util.CommonUtilities.LootType;
 
 @IngameIdentifier("minecraft:reference")
+@UsableIn({LootType.ALL})
 public class RefPredicate extends AbstractLootPredicate {
 	
 	private SimpleStringProperty rloc;

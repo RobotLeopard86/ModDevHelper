@@ -56,5 +56,5 @@ public abstract class AbstractLootPredicate extends LootMember {
 	public abstract LootMember[] getChildren();
 
 	protected abstract JsonObject generateJsonData();
-;
+
 }

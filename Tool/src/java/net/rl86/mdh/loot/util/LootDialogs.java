@@ -1,7 +1,8 @@
 package net.rl86.mdh.loot.util;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -23,6 +24,7 @@ import net.rl86.mdh.loot.predicate.KillerPlayerPredicate;
 import net.rl86.mdh.loot.predicate.RandomLootingPredicate;
 import net.rl86.mdh.loot.predicate.RandomPredicate;
 import net.rl86.mdh.loot.predicate.RefPredicate;
+import net.rl86.mdh.loot.predicate.TablePredicate;
 import net.rl86.mdh.scenes.loot.LootTableEditorScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.LootType;
@@ -43,7 +45,7 @@ public class LootDialogs {
 		RandomLooting("Random Chance With Looting", RandomLootingPredicate.class),
 		Reference("Reference", RefPredicate.class),
 		SurviveExplosion("Survived Explosion", ExplosionSurvivalPredicate.class),
-		TableBonus("Enchantment Bonus", null),
+		TableBonus("Enchantment Bonus", TablePredicate.class),
 		Time("Time Check", null),
 		Value("Value Check", null),
 		Weather("Weather Check", null);
@@ -144,7 +146,7 @@ public class LootDialogs {
 		case SurviveExplosion:
 			return new ExplosionSurvivalPredicate(name);
 		case TableBonus:
-			break;
+			return new TablePredicate(name);
 		case Time:
 			break;
 		case ToolMatch:
@@ -182,7 +184,49 @@ public class LootDialogs {
 		dialog.setTitle("Add Predicate");
 		dialog.setGraphic(null);
 		dialog.setHeaderText("Add Predicate");
-		dialog.getItems().addAll(PredicateType.values());
+		
+		ArrayList<PredicateType> types = new ArrayList<>(Arrays.asList(PredicateType.values()));
+		for(PredicateType pt : PredicateType.values()) {
+			boolean notOk = true;
+			UsableIn usable = null;
+			
+			if(pt.clazz == null) {
+				notOk = true;
+				types.remove(pt);
+				System.out.println("Check 1 for " + pt.toString() + ": Has Class - false");
+				continue;
+			}
+			
+			System.out.println("Check 1 for " + pt.toString() + ": Has Class - true");
+			
+			if(pt.clazz.isAnnotationPresent(UsableIn.class)) {
+				usable = pt.clazz.getAnnotation(UsableIn.class);
+			}
+			
+			if(usable == null) {
+				System.out.println("Check 2 for " + pt.toString() + ": Has @Usable - false");
+				notOk = true;
+			} else {
+				System.out.println("Check 2 for " + pt.toString() + ": Has @Usable - true");
+				ArrayList<LootType> usableIn = new ArrayList<>(Arrays.asList(usable.value()));
+				notOk = !usableIn.contains(LootTableEditorScene.table.getType());
+				
+				if(usableIn.contains(LootType.ALL)) {
+					notOk = false;
+					System.out.println("Check 3 for " + pt.toString() + ": Is Available for " + LootTableEditorScene.table.getType().toString() + " - true");
+				} else {
+					System.out.println("Check 3 for " + pt.toString() + ": Is Available for " + LootTableEditorScene.table.getType().toString() + " - " + !notOk);
+				}
+			}
+			
+			System.out.println("Results for " + pt.toString() + ": " + !notOk);
+			
+			if(notOk) {
+				types.remove(pt);
+			}
+		}
+		
+		dialog.getItems().addAll(types);
 		dialog.setSelectedItem(PredicateType.Alternative);
 		dialog.getDialogPane().getButtonTypes().remove(ButtonType.CANCEL);
 		dialog.setOnCloseRequest(event -> {
@@ -196,30 +240,6 @@ public class LootDialogs {
 
 			if(shouldConsume) {
 				event.consume();
-			}
-		});
-		dialog.selectedItemProperty().addListener(new ChangeListener<PredicateType>() {
-			@Override
-			public void changed(ObservableValue<? extends PredicateType> observable, PredicateType oldValue, PredicateType newValue) {
-				boolean disableSelection = true;
-				
-				UnusableIn unusable = newValue.clazz.getAnnotation(UnusableIn.class);
-				
-				if(unusable == null) {
-					disableSelection = false;
-				} else {
-					for(LootType lt : unusable.value()) {
-						disableSelection = (lt == LootTableEditorScene.table.getType());
-						if(disableSelection) {
-							break;
-						}
-					}
-				}
-				
-				dialog.getDialogPane().lookupButton(ButtonType.OK).setDisable(disableSelection);
-				if(disableSelection) {
-					error("The selected value is not available in the current loot table type! :(");
-				}
 			}
 		});
 		

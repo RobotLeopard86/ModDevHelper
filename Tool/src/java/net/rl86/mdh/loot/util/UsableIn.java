@@ -10,6 +10,6 @@ import net.rl86.mdh.util.CommonUtilities.LootType;
 
 @Retention(RUNTIME)
 @Target(TYPE)
-public @interface UnusableIn {
+public @interface UsableIn {
 	public LootType[] value();
 }

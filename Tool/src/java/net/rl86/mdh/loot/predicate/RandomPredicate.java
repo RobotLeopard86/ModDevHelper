@@ -8,10 +8,13 @@ import javafx.scene.text.Text;
 import javafx.util.converter.NumberStringConverter;
 import net.rl86.mdh.loot.util.IngameIdentifier;
 import net.rl86.mdh.loot.util.LootMember;
+import net.rl86.mdh.loot.util.UsableIn;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
+import net.rl86.mdh.util.CommonUtilities.LootType;
 
 @IngameIdentifier("minecraft:random_chance")
+@UsableIn({LootType.ALL})
 public class RandomPredicate extends AbstractLootPredicate {
 	
 	private SimpleFloatProperty chance;

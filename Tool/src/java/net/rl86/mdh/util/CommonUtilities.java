@@ -34,7 +34,8 @@ public class CommonUtilities {
 	public static enum LootType {
 		BLOCK("Block Drops", "minecraft:block"),
 		ENTITY("Entity Drops", "minecraft:entity"),
-		CHEST("Chest Loot", "minecraft:chest");
+		CHEST("Chest Loot", "minecraft:chest"),
+		ALL;
 
 		private String id;
 		private String inGameID;
@@ -43,6 +44,8 @@ public class CommonUtilities {
 			id = name;
 			inGameID = ingame;
 		}
+		
+		private LootType() {}
 
 		@Override
 		public String toString() {

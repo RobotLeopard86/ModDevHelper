@@ -7,13 +7,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.util.converter.NumberStringConverter;
 import net.rl86.mdh.loot.util.IngameIdentifier;
-import net.rl86.mdh.loot.util.UnusableIn;
+import net.rl86.mdh.loot.util.UsableIn;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 import net.rl86.mdh.util.CommonUtilities.LootType;
 
 @IngameIdentifier("minecraft:random_chance_with_looting")
-@UnusableIn({LootType.BLOCK, LootType.CHEST})
+@UsableIn({LootType.ENTITY})
 public class RandomLootingPredicate extends RandomPredicate {
 	
 	private SimpleFloatProperty multiplier;

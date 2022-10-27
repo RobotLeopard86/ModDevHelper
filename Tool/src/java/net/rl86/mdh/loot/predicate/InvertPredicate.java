@@ -8,11 +8,14 @@ import javafx.scene.text.Text;
 import net.rl86.mdh.loot.util.IngameIdentifier;
 import net.rl86.mdh.loot.util.LootDialogs;
 import net.rl86.mdh.loot.util.LootMember;
+import net.rl86.mdh.loot.util.UsableIn;
 import net.rl86.mdh.scenes.loot.LootTableEditorScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
+import net.rl86.mdh.util.CommonUtilities.LootType;
 
 @IngameIdentifier("minecraft:inverted")
+@UsableIn({LootType.ALL})
 public class InvertPredicate extends AbstractLootPredicate {
 	
 	private AbstractLootPredicate predicate;

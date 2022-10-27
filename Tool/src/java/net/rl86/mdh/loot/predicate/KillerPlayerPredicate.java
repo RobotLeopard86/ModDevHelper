@@ -5,13 +5,13 @@ import com.google.gson.JsonObject;
 import javafx.scene.text.Text;
 import net.rl86.mdh.loot.util.IngameIdentifier;
 import net.rl86.mdh.loot.util.LootMember;
-import net.rl86.mdh.loot.util.UnusableIn;
+import net.rl86.mdh.loot.util.UsableIn;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 import net.rl86.mdh.util.CommonUtilities.LootType;
 
 @IngameIdentifier("minecraft:killed_by_player")
-@UnusableIn({LootType.BLOCK, LootType.CHEST})
+@UsableIn({LootType.ENTITY})
 public class KillerPlayerPredicate extends AbstractLootPredicate {
 
 	public KillerPlayerPredicate(String name) {
