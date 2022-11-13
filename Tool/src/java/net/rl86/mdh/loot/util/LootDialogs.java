@@ -25,6 +25,7 @@ import net.rl86.mdh.loot.predicate.RandomLootingPredicate;
 import net.rl86.mdh.loot.predicate.RandomPredicate;
 import net.rl86.mdh.loot.predicate.RefPredicate;
 import net.rl86.mdh.loot.predicate.TablePredicate;
+import net.rl86.mdh.loot.predicate.WeatherPredicate;
 import net.rl86.mdh.scenes.loot.LootTableEditorScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.LootType;
@@ -48,7 +49,7 @@ public class LootDialogs {
 		TableBonus("Enchantment Bonus", TablePredicate.class),
 		Time("Time Check", null),
 		Value("Value Check", null),
-		Weather("Weather Check", null);
+		Weather("Weather Check", WeatherPredicate.class);
 		
 		
 		private String displayName;
@@ -154,7 +155,7 @@ public class LootDialogs {
 		case Value:
 			break;
 		case Weather:
-			break;
+			return new WeatherPredicate(name);
 		default:
 			break;
 		}
@@ -193,33 +194,23 @@ public class LootDialogs {
 			if(pt.clazz == null) {
 				notOk = true;
 				types.remove(pt);
-				System.out.println("Check 1 for " + pt.toString() + ": Has Class - false");
 				continue;
 			}
-			
-			System.out.println("Check 1 for " + pt.toString() + ": Has Class - true");
 			
 			if(pt.clazz.isAnnotationPresent(UsableIn.class)) {
 				usable = pt.clazz.getAnnotation(UsableIn.class);
 			}
 			
 			if(usable == null) {
-				System.out.println("Check 2 for " + pt.toString() + ": Has @Usable - false");
 				notOk = true;
 			} else {
-				System.out.println("Check 2 for " + pt.toString() + ": Has @Usable - true");
 				ArrayList<LootType> usableIn = new ArrayList<>(Arrays.asList(usable.value()));
 				notOk = !usableIn.contains(LootTableEditorScene.table.getType());
 				
 				if(usableIn.contains(LootType.ALL)) {
 					notOk = false;
-					System.out.println("Check 3 for " + pt.toString() + ": Is Available for " + LootTableEditorScene.table.getType().toString() + " - true");
-				} else {
-					System.out.println("Check 3 for " + pt.toString() + ": Is Available for " + LootTableEditorScene.table.getType().toString() + " - " + !notOk);
 				}
 			}
-			
-			System.out.println("Results for " + pt.toString() + ": " + !notOk);
 			
 			if(notOk) {
 				types.remove(pt);

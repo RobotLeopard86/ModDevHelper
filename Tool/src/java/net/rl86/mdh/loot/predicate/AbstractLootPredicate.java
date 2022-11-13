@@ -18,9 +18,12 @@ import net.rl86.mdh.util.CommonUtilities.FontType;
 
 @LootMemberType(MemberType.PREDICATE)
 public abstract class AbstractLootPredicate extends LootMember {
+	
+	private Tab tab;
 
 	public AbstractLootPredicate(String name) {
 		super(name);
+		tab = null;
 	}
 
 	@Override
@@ -37,16 +40,20 @@ public abstract class AbstractLootPredicate extends LootMember {
 	
 	@Override
 	public final Tab generateTab() {
-		Tab tab = super.generateTab();
-		
-		Button make = new Button();
-		make.setFont(CommonUtilities.getFont(FontType.TEXT));
-		make.setText("Make Me");
-		make.setOnAction(e -> {
-			System.out.println(generateJson().toString());
-		});
-		
-		((VBox) tab.getContent()).getChildren().add(make);
+		if(tab == null) {
+			Tab generated = super.generateTab();
+			
+			Button make = new Button();
+			make.setFont(CommonUtilities.getFont(FontType.TEXT));
+			make.setText("Make Me");
+			make.setOnAction(e -> {
+				System.out.println(generateJson().toString());
+			});
+			
+			((VBox) generated.getContent()).getChildren().add(make);
+			
+			tab = generated;
+		}
 		
 		return tab;
 	}

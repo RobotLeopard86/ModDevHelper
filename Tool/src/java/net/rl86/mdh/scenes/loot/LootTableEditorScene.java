@@ -3,6 +3,7 @@ package net.rl86.mdh.scenes.loot;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TabPane.TabDragPolicy;
@@ -22,7 +23,19 @@ public class LootTableEditorScene extends BaseScene {
 	
 	public static LootTable table;
 
-	public static TabPane tabs;
+	private static TabPane tabs;
+	
+	public static void addTab(Tab tab) {
+		if(!tabs.getTabs().contains(tab)) {
+			tabs.getTabs().add(tab);
+		}
+	}
+	
+	public static void deleteTab(Tab tab) {
+		if(tabs.getTabs().contains(tab)) {
+			tabs.getTabs().remove(tab);
+		}
+	}
 
 	@Override
 	public void buildScene() {

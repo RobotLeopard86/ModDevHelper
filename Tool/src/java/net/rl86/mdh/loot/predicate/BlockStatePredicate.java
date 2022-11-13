@@ -60,7 +60,8 @@ public class BlockStatePredicate extends AbstractLootPredicate {
 		
 		VBox props = new VBox();
 		props.setSpacing(15d);
-		props.visibleProperty().bindBidirectional(useProperties);
+		props.visibleProperty().bind(useProperties);
+		props.managedProperty().bind(useProperties);
 		
 		TextField property = new TextField();
 		property.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -76,7 +77,7 @@ public class BlockStatePredicate extends AbstractLootPredicate {
 		
 		VBox range = new VBox();
 		range.setSpacing(15d);
-		range.visibleProperty().bindBidirectional(useRangeProperty);
+		range.visibleProperty().bind(useRangeProperty);
 		
 		TextField valueNoRange = new TextField();
 		valueNoRange.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -90,12 +91,16 @@ public class BlockStatePredicate extends AbstractLootPredicate {
 		rangeMin.setFont(CommonUtilities.getFont(FontType.TEXT));
 		rangeMin.setPromptText("Enter minimum value...");
 		rangeMin.setText(blockstateValue.get());
+		rangeMin.visibleProperty().bind(useRangeProperty);
+		rangeMin.managedProperty().bind(useRangeProperty);
 		rangeMin.textProperty().bindBidirectional(valueMin, new NumberStringConverter());
 		
 		TextField rangeMax = new TextField();
 		rangeMax.setFont(CommonUtilities.getFont(FontType.TEXT));
 		rangeMax.setPromptText("Enter maximum value...");
 		rangeMax.setText(blockstateValue.get());
+		rangeMax.visibleProperty().bind(useRangeProperty);
+		rangeMax.managedProperty().bind(useRangeProperty);
 		rangeMax.textProperty().bindBidirectional(valueMin, new NumberStringConverter());
 		
 		range.getChildren().addAll(rangeMin, rangeMax);

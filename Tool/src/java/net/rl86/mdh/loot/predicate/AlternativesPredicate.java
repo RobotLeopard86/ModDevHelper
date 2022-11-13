@@ -44,7 +44,7 @@ public class AlternativesPredicate extends AbstractLootPredicate {
 		open.setFont(CommonUtilities.getFont(FontType.TEXT));
 		open.disableProperty().bind(list.getSelectionModel().selectedItemProperty().isNull());
 		open.setOnAction(e -> {
-			LootTableEditorScene.tabs.getTabs().add(list.getSelectionModel().getSelectedItem().generateTab());
+			LootTableEditorScene.addTab(list.getSelectionModel().getSelectedItem().generateTab());
 		});
 		
 		Button rm = new Button();
@@ -54,7 +54,7 @@ public class AlternativesPredicate extends AbstractLootPredicate {
 		rm.setOnAction(e -> {
 			AbstractLootPredicate sel = list.getSelectionModel().getSelectedItem();
 			predicates.remove(sel);
-			LootTableEditorScene.tabs.getTabs().remove(sel.generateTab());
+			LootTableEditorScene.deleteTab(sel.generateTab());
 		});
 		
 		Button add = new Button();

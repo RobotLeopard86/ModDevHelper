@@ -42,7 +42,7 @@ public class InvertPredicate extends AbstractLootPredicate {
 		open.setFont(CommonUtilities.getFont(FontType.TEXT));
 		open.disableProperty().bind(predicateChosen.not());
 		open.setOnAction(e -> {
-			LootTableEditorScene.tabs.getTabs().add(predicate.generateTab());
+			LootTableEditorScene.addTab(predicate.generateTab());
 		});
 		
 		Button change = new Button();
