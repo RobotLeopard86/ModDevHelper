@@ -5,20 +5,20 @@ import com.google.gson.JsonObject;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.text.Text;
-import javafx.util.converter.DoubleStringConverter;
 import net.rl86.mdh.loot.util.IngameIdentifier;
 import net.rl86.mdh.loot.util.LootMember;
 import net.rl86.mdh.loot.util.UsableIn;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 import net.rl86.mdh.util.CommonUtilities.LootType;
+import net.rl86.mdh.util.NumberInputDialog;
 
 @IngameIdentifier("minecraft:table_bonus")
 @UsableIn({LootType.BLOCK, LootType.ENTITY})
@@ -26,11 +26,23 @@ public class TablePredicate extends AbstractLootPredicate {
 	
 	private SimpleStringProperty rloc;
 	private ObservableList<Double> chances;
+	private ObservableList<String> presentation;
 
 	public TablePredicate(String name) {
 		super(name);
 		rloc = new SimpleStringProperty();
 		chances = FXCollections.observableArrayList();
+		presentation = FXCollections.observableArrayList();
+		
+		chances.addListener(new ListChangeListener<Double>() {
+			@Override
+			public void onChanged(Change<? extends Double> change) {
+				presentation.clear();
+				for(int i = 0; i < chances.size(); i++) {
+					presentation.add(i == 0 ? "Without Enchantment: " + chances.get(i) : "Level " + i + ": " + chances.get(i));
+				}
+			}
+		});
 	}
 
 	@Override
@@ -45,15 +57,9 @@ public class TablePredicate extends AbstractLootPredicate {
 		enchantment.setText(rloc.get());
 		enchantment.textProperty().bindBidirectional(rloc);
 		
-		Text howtoread = new Text();
-		howtoread.setFont(CommonUtilities.getFont(FontType.TEXT));
-		howtoread.setText("Enchantment levels are read top-to-bottom. Top entry is not having the enchantment, second entry is level 1, and so on.");
-
-		ListView<Double> list = new ListView<>();
-		list.setItems(chances);
+		ListView<String> list = new ListView<>();
+		list.setItems(presentation);
 		list.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-		list.setEditable(true);
-		list.setCellFactory(TextFieldListCell.forListView(new DoubleStringConverter()));
 		
 		Button addLevel = new Button();
 		addLevel.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -67,7 +73,13 @@ public class TablePredicate extends AbstractLootPredicate {
 		edit.setText("Edit Selected Enchantment Level");
 		edit.disableProperty().bind(list.getSelectionModel().selectedItemProperty().isNull());
 		edit.setOnAction(e -> {
-			list.edit(list.getSelectionModel().getSelectedIndex());
+			NumberInputDialog numIn = new NumberInputDialog();
+			numIn.setGraphic(null);
+			numIn.setHeaderText("Enter New Value");
+			numIn.setTitle("Input Request");
+			numIn.getEditor().setPromptText("Enter new value...");
+			Double newVal = numIn.showAndWait().get();
+			chances.set(list.getSelectionModel().getSelectedIndex(), newVal);
 		});
 		
 		Button delLevel = new Button();
@@ -78,7 +90,7 @@ public class TablePredicate extends AbstractLootPredicate {
 			chances.remove(list.getSelectionModel().getSelectedIndex());
 		});
 		
-		root.getChildren().addAll(header, enchantment, howtoread, list, addLevel, edit, delLevel);
+		root.getChildren().addAll(header, enchantment, list, addLevel, edit, delLevel);
 	}
 
 	@Override
