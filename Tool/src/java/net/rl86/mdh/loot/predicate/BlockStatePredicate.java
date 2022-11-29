@@ -9,13 +9,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.converter.NumberStringConverter;
 import net.rl86.mdh.loot.util.IngameIdentifier;
 import net.rl86.mdh.loot.util.LootMember;
 import net.rl86.mdh.loot.util.UsableIn;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 import net.rl86.mdh.util.CommonUtilities.LootType;
+import net.rl86.mdh.util.NumberField;
 
 @IngameIdentifier("minecraft:block_state_property")
 @UsableIn({LootType.BLOCK})
@@ -87,21 +87,19 @@ public class BlockStatePredicate extends AbstractLootPredicate {
 		valueNoRange.managedProperty().bind(useRangeProperty.not());
 		valueNoRange.textProperty().bindBidirectional(blockstateValue);
 		
-		TextField rangeMin = new TextField();
+		NumberField rangeMin = new NumberField(valueMin.get());
 		rangeMin.setFont(CommonUtilities.getFont(FontType.TEXT));
 		rangeMin.setPromptText("Enter minimum value...");
 		rangeMin.setText(blockstateValue.get());
 		rangeMin.visibleProperty().bind(useRangeProperty);
 		rangeMin.managedProperty().bind(useRangeProperty);
-		rangeMin.textProperty().bindBidirectional(valueMin, new NumberStringConverter());
 		
-		TextField rangeMax = new TextField();
+		NumberField rangeMax = new NumberField(valueMax.get());
 		rangeMax.setFont(CommonUtilities.getFont(FontType.TEXT));
 		rangeMax.setPromptText("Enter maximum value...");
 		rangeMax.setText(blockstateValue.get());
 		rangeMax.visibleProperty().bind(useRangeProperty);
 		rangeMax.managedProperty().bind(useRangeProperty);
-		rangeMax.textProperty().bindBidirectional(valueMin, new NumberStringConverter());
 		
 		range.getChildren().addAll(rangeMin, rangeMax);
 		props.getChildren().addAll(property, useRange, valueNoRange, range);

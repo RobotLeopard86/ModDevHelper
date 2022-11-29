@@ -2,26 +2,25 @@ package net.rl86.mdh.loot.predicate;
 
 import com.google.gson.JsonObject;
 
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.scene.control.TextField;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.text.Text;
-import javafx.util.converter.NumberStringConverter;
 import net.rl86.mdh.loot.util.IngameIdentifier;
 import net.rl86.mdh.loot.util.LootMember;
 import net.rl86.mdh.loot.util.UsableIn;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 import net.rl86.mdh.util.CommonUtilities.LootType;
+import net.rl86.mdh.util.NumberField;
 
 @IngameIdentifier("minecraft:random_chance")
 @UsableIn({LootType.ALL})
 public class RandomPredicate extends AbstractLootPredicate {
 	
-	private SimpleFloatProperty chance;
+	private SimpleDoubleProperty chance;
 
 	public RandomPredicate(String name) {
 		super(name);
-		chance = new SimpleFloatProperty();
+		chance = new SimpleDoubleProperty();
 	}
 
 	@Override
@@ -30,10 +29,9 @@ public class RandomPredicate extends AbstractLootPredicate {
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Random Chance Predicate");
 		
-		TextField field = new TextField();
+		NumberField field = new NumberField(chance.get());
 		field.setPromptText("Enter chance...");
 		field.setText(String.valueOf(chance.get()));
-		field.textProperty().bindBidirectional(chance, new NumberStringConverter());
 		field.setFont(CommonUtilities.getFont(FontType.TEXT));
 
 		root.getChildren().addAll(header, field);

@@ -66,7 +66,7 @@ public class LootTableEditorScene extends BaseScene {
 	public void updatePageOnSceneLoad() {
 		table = new LootTable(tableTypeDataReceiver);
 		tabs.getTabs().add(table.generateTab());
-		tabs.getTabs().add(new AlternativesPredicate("Sussy Baka").generateTab());
+		tabs.getTabs().add(new AlternativesPredicate("YOUR BEANS").generateTab());
 	}
 
 	@Override

@@ -2,25 +2,24 @@ package net.rl86.mdh.loot.predicate;
 
 import com.google.gson.JsonObject;
 
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.scene.control.TextField;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.text.Text;
-import javafx.util.converter.NumberStringConverter;
 import net.rl86.mdh.loot.util.IngameIdentifier;
 import net.rl86.mdh.loot.util.UsableIn;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 import net.rl86.mdh.util.CommonUtilities.LootType;
+import net.rl86.mdh.util.NumberField;
 
 @IngameIdentifier("minecraft:random_chance_with_looting")
 @UsableIn({LootType.ENTITY})
 public class RandomLootingPredicate extends RandomPredicate {
 	
-	private SimpleFloatProperty multiplier;
+	private SimpleDoubleProperty multiplier;
 
 	public RandomLootingPredicate(String name) {
 		super(name);
-		multiplier = new SimpleFloatProperty();
+		multiplier = new SimpleDoubleProperty();
 	}
 
 	@Override
@@ -29,10 +28,9 @@ public class RandomLootingPredicate extends RandomPredicate {
 		
 		((Text) root.getChildren().get(0)).setText("Random Chance With Looting Predicate");
 		
-		TextField inputMultiplier = new TextField();
+		NumberField inputMultiplier = new NumberField(multiplier.get());
 		inputMultiplier.setPromptText("Enter looting multiplier...");
 		inputMultiplier.setText(String.valueOf(multiplier.get()));
-		inputMultiplier.textProperty().bindBidirectional(multiplier, new NumberStringConverter());
 		inputMultiplier.setFont(CommonUtilities.getFont(FontType.TEXT));
 
 		root.getChildren().addAll(inputMultiplier);

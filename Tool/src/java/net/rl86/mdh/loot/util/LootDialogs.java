@@ -25,6 +25,7 @@ import net.rl86.mdh.loot.predicate.RandomLootingPredicate;
 import net.rl86.mdh.loot.predicate.RandomPredicate;
 import net.rl86.mdh.loot.predicate.RefPredicate;
 import net.rl86.mdh.loot.predicate.TablePredicate;
+import net.rl86.mdh.loot.predicate.TimePredicate;
 import net.rl86.mdh.loot.predicate.WeatherPredicate;
 import net.rl86.mdh.scenes.loot.LootTableEditorScene;
 import net.rl86.mdh.util.CommonUtilities;
@@ -47,7 +48,7 @@ public class LootDialogs {
 		Reference("Reference", RefPredicate.class),
 		SurviveExplosion("Survived Explosion", ExplosionSurvivalPredicate.class),
 		TableBonus("Enchantment Bonus", TablePredicate.class),
-		Time("Time Check", null),
+		Time("Time Check", TimePredicate.class),
 		Value("Value Check", null),
 		Weather("Weather Check", WeatherPredicate.class);
 		
@@ -149,7 +150,7 @@ public class LootDialogs {
 		case TableBonus:
 			return new TablePredicate(name);
 		case Time:
-			break;
+			return new TimePredicate(name);
 		case ToolMatch:
 			break;
 		case Value:

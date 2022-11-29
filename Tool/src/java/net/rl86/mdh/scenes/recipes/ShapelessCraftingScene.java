@@ -27,9 +27,6 @@ import net.rl86.mdh.util.CommonUtilities.FontType;
 
 public class ShapelessCraftingScene extends BaseScene {
 
-	protected int windowWidth = 500;
-	protected int windowHeight = 775;
-
 	@Override
 	public void buildScene() {
 		returnToScene = RecipesScene.class.getName();
@@ -290,5 +287,11 @@ public class ShapelessCraftingScene extends BaseScene {
 		}
 
 		return valid;
+	}
+
+	@Override
+	protected void setDimensions() {
+		windowWidth = 650;
+		windowHeight = 800;
 	}
 }
