@@ -49,7 +49,6 @@ public class LootDialogs {
 		SurviveExplosion("Survived Explosion", ExplosionSurvivalPredicate.class),
 		TableBonus("Enchantment Bonus", TablePredicate.class),
 		Time("Time Check", TimePredicate.class),
-		Value("Value Check", null),
 		Weather("Weather Check", WeatherPredicate.class);
 		
 		
@@ -152,8 +151,6 @@ public class LootDialogs {
 		case Time:
 			return new TimePredicate(name);
 		case ToolMatch:
-			break;
-		case Value:
 			break;
 		case Weather:
 			return new WeatherPredicate(name);

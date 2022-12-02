@@ -1,15 +1,8 @@
 package net.rl86.mdh.util;
 
 import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 
 public class CommonUtilities {
@@ -79,37 +72,17 @@ public class CommonUtilities {
 	}
 
 	public static void initializeFonts() {
-		BufferedInputStream his = null;
-		BufferedInputStream tis = null;
-		try {
-			his = new BufferedInputStream(new URL("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/fonts/redhatdisplay.ttf").openStream());
-			tis = new BufferedInputStream(new URL("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/fonts/redhattext.ttf").openStream());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			Alert msg = new Alert(AlertType.ERROR, "Couldn't load font from malformed URL! :(", ButtonType.OK);
-			msg.setTitle("Error");
-			ImageView graphic = new ImageView();
-			graphic.setImage(CommonUtilities.getErrorImg());
-			msg.setGraphic(graphic);
-			msg.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-			Alert msg = new Alert(AlertType.ERROR, "Couldn't load font due to IO exception! If you are offline, please obtain a connection. :(", ButtonType.OK);
-			msg.setTitle("Error");
-			ImageView graphic = new ImageView();
-			graphic.setImage(CommonUtilities.getErrorImg());
-			msg.setGraphic(graphic);
-			msg.show();
-		}
+		BufferedInputStream his = new BufferedInputStream(Thread.currentThread().getContextClassLoader().getResourceAsStream("fonts/redhatdisplay.ttf"));
+		BufferedInputStream tis = new BufferedInputStream(Thread.currentThread().getContextClassLoader().getResourceAsStream("fonts/redhattext.ttf"));
 		headerFont = Font.loadFont(his, 36f);
 		textFont = Font.loadFont(tis, 18f);
 	}
 
 	public static void initializeImages() {
-		errMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/error.png", 64, 64, true, true, true);
-		yayMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/success.png", 64, 64, true, true, true);
-		warnMsgImg = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/warning.png", 64, 64, true, true, true);
-		appIcon = new Image("https://raw.githubusercontent.com/RobotLeopard86/ModDevHelper/main/Tool/src/resources/images/appicon.png");
+		errMsgImg = new Image("images/error.png", 64, 64, true, true, true);
+		yayMsgImg = new Image("images/success.png", 64, 64, true, true, true);
+		warnMsgImg = new Image("images/warning.png", 64, 64, true, true, true);
+		appIcon = new Image("images/appicon.png");
 	}
 
 	public static Image getErrorImg() {
