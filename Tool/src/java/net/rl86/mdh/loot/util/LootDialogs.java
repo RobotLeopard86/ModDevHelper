@@ -42,7 +42,7 @@ public class LootDialogs {
 		Inverse("Inverse", InvertPredicate.class),
 		KilledByPlayer("Killed By Player", KillerPlayerPredicate.class),
 		Location("Entity Location", null),
-		ToolMatch("Tool Match", null),
+		ToolMatch("Item Check", null),
 		Random("Random Chance", RandomPredicate.class),
 		RandomLooting("Random Chance With Looting", RandomLootingPredicate.class),
 		Reference("Reference", RefPredicate.class),
