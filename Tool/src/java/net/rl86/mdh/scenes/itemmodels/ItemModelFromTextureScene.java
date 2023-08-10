@@ -51,8 +51,16 @@ public class ItemModelFromTextureScene extends BaseScene {
 		generate.setOnAction(e -> {
 			JsonObject json = new JsonObject();
 			json.addProperty("parent", "minecraft:item/generated");
+			
+			String texPath = textureFile.getAbsolutePath();
+			int assetsLoc = texPath.indexOf(modid.getText()) + modid.getText().length() + 1;
+			String assetsPath = texPath.substring(assetsLoc, texPath.length() - 4);
+			if(assetsPath.startsWith("textures/")) {
+				assetsPath = assetsPath.substring(9, assetsPath.length());
+			}
+			
 			JsonObject textureObject = new JsonObject();
-			textureObject.addProperty("layer0", modid.getText() + ":item/" + textureFile.getName().substring(0, textureFile.getName().length() - 4));
+			textureObject.addProperty("layer0", modid.getText() + ":" + assetsPath);
 			json.add("textures", textureObject);
 
 			FileChooser fc = new FileChooser();

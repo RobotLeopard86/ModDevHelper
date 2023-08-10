@@ -72,17 +72,15 @@ public class CommonUtilities {
 	}
 
 	public static void initializeFonts() {
-		BufferedInputStream his = new BufferedInputStream(Thread.currentThread().getContextClassLoader().getResourceAsStream("fonts/redhatdisplay.ttf"));
-		BufferedInputStream tis = new BufferedInputStream(Thread.currentThread().getContextClassLoader().getResourceAsStream("fonts/redhattext.ttf"));
-		headerFont = Font.loadFont(his, 36f);
-		textFont = Font.loadFont(tis, 18f);
+		headerFont = Font.loadFont("file:fonts/redhatdisplay.ttf", 36f);
+		textFont = Font.loadFont("file:fonts/redhattext.ttf", 18f);
 	}
 
 	public static void initializeImages() {
-		errMsgImg = new Image("images/error.png", 64, 64, true, true, true);
-		yayMsgImg = new Image("images/success.png", 64, 64, true, true, true);
-		warnMsgImg = new Image("images/warning.png", 64, 64, true, true, true);
-		appIcon = new Image("images/appicon.png");
+		errMsgImg = new Image("file:images/error.png", 64, 64, true, true, true);
+		yayMsgImg = new Image("file:images/success.png", 64, 64, true, true, true);
+		warnMsgImg = new Image("file:images/warning.png", 64, 64, true, true, true);
+		appIcon = new Image("file:images/appicon.png", 128, 128, true, true, true);
 	}
 
 	public static Image getErrorImg() {

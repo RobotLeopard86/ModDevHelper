@@ -2,53 +2,53 @@
 <classpath>
 	<classpathentry kind="src" path="src/java"/>
 	<classpathentry excluding="libraries/natives" kind="src" path="src/resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/resources/libraries/javafx.base.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Mod Development Helper/src/resources/libraries/natives"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/resources/libraries/javafx.controls.jar">
+	<classpathentry exported="true" kind="lib" path="src/resources/libraries/javafx.base.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Mod Development Helper/src/resources/libraries/natives"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/resources/libraries/javafx.fxml.jar">
+	<classpathentry exported="true" kind="lib" path="src/resources/libraries/javafx.controls.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Mod Development Helper/src/resources/libraries/natives"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/resources/libraries/javafx.graphics.jar">
+	<classpathentry exported="true" kind="lib" path="src/resources/libraries/javafx.fxml.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Mod Development Helper/src/resources/libraries/natives"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/resources/libraries/javafx.media.jar">
+	<classpathentry exported="true" kind="lib" path="src/resources/libraries/javafx.graphics.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Mod Development Helper/src/resources/libraries/natives"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/resources/libraries/javafx.swing.jar">
+	<classpathentry exported="true" kind="lib" path="src/resources/libraries/javafx.media.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Mod Development Helper/src/resources/libraries/natives"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/resources/libraries/javafx.web.jar">
+	<classpathentry exported="true" kind="lib" path="src/resources/libraries/javafx.swing.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Mod Development Helper/src/resources/libraries/natives"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/resources/libraries/gson-2.9.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="src/resources/libraries/javafx.web.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Mod Development Helper/src/resources/libraries/natives"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="src/resources/libraries/gson-2.9.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

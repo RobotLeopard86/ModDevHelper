@@ -21,10 +21,6 @@ public class MenuScene extends BaseScene {
 		header.setText("Mod Development Helper");
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 
-		Text todo = new Text();
-		todo.setText("Please select an option:");
-		todo.setFont(CommonUtilities.getFont(FontType.TEXT));
-
 		Button lang = new Button();
 		lang.setFont(CommonUtilities.getFont(FontType.TEXT));
 		lang.setText("Localization Entry");
@@ -74,7 +70,7 @@ public class MenuScene extends BaseScene {
 			Main.getStage().fireEvent(new WindowEvent(Main.getStage(), WindowEvent.WINDOW_CLOSE_REQUEST));
 		});
 
-		root.getChildren().addAll(header, todo, lang, imodel, cmodel, states, craft, loot, quit);
+		root.getChildren().addAll(header, lang, imodel, cmodel, states, craft, loot, quit);
 		root.getChildren().remove(back);
 	}
 
