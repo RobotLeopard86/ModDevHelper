@@ -1,8 +1,23 @@
-# Mod Development Helper (current version: 0.0.1)
-This is a helper tool for creating Minecraft mods. It does not create the code of the mod for you, rather it does some of the tedious things, like adding language file entries, and creating blockstates. It only directly affects and creates JSON format files, although it may pull data from other sources.
+# Mod Development Helper
+### Tools for Minecraft: Java Edition mod makers
 
-If you would like to contribute to the project, please fork it and create a pull request. If it's good, I'm happy to merge it into the original project.
+## About
+Mod Development Helper is an application designed to reduce the amount of menial tasks necessary in making Minecraft: Java Edition mods. Its functionality is split up between different tools accessible from the main menu. It is written in Java (using OpenJFX for the UI), and is shipped as an Eclipse project.
 
-Please report any issues to the issues tab on GitHub.
+## Planned Features
+* Localization file editor
+* Blockstate file creator
+* Item model creator
+* Cube block model creator
+* Recipe creator
+* Loot table creator
+* Plugin system
+* Existing asset modification via tools
 
-# ENJOY! :)
+More features may come in the future, so stay tuned!
+
+## Licenses
+Citrus Engine is licensed under the Apache License 2.0, which can be found in the root directory. The app may use OpenJFX due to the classpath exception found in their license, which is present alongside this license in the root directory.
+
+## Contributing
+Please visit the [contributing page](CONTRIBUTING.md) for details.
