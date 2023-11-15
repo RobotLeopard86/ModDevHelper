@@ -2,7 +2,7 @@
 ### Tools for Minecraft: Java Edition mod makers
 
 ## About
-Mod Development Helper is an application designed to reduce the amount of menial tasks necessary in making Minecraft: Java Edition mods. Its functionality is split up between different tools accessible from the main menu. It is written in Java (using OpenJFX for the UI), and is shipped as an Eclipse project.
+Mod Development Helper is an application designed to reduce the amount of menial tasks necessary in making Minecraft: Java Edition mods. Its functionality is split up between different tools accessible from the main menu. It is written in Java (using OpenJFX for the UI), and is built using Gradle.
 
 ## Planned Features
 * Localization file editor

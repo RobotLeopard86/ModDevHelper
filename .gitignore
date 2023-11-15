@@ -1,2 +1,14 @@
-/Tool/bin/
-/Tool/src/resources/libraries/natives
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+app/bin
+app/build
+
+# Ignore Eclipse files
+.settings
+.project
+app/.settings
+app/.classpath
+app/.project
