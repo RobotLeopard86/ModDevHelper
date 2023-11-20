@@ -14,12 +14,12 @@ import net.rl86.mdh.util.CommonUtilities.LootType;
 @UsableIn({LootType.BLOCK})
 public class ExplosionSurvivalPredicate extends AbstractLootPredicate {
 
-	public ExplosionSurvivalPredicate(String name) {
-		super(name);
+	public ExplosionSurvivalPredicate() {
+		super();
 	}
 
 	@Override
-	protected void generateTabContent() {
+	protected void generateEditorContent() {
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Survived Explosion Predicate");

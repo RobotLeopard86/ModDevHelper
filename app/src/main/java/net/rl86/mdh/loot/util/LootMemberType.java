@@ -16,7 +16,7 @@ public @interface LootMemberType {
 		PREDICATE("Predicate"),
 		FUNCTION("Function"),
 		NUMPROVIDER("Number Provider"),
-		TABLE("Root"),
+		TABLE("Loot Table"),
 		LIST("Value List"),
 		POOL("Pool"),
 		ENTRY("Entry");

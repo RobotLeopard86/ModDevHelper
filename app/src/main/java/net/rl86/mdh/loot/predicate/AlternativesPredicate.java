@@ -13,7 +13,6 @@ import net.rl86.mdh.loot.util.IngameIdentifier;
 import net.rl86.mdh.loot.util.LootDialogs;
 import net.rl86.mdh.loot.util.LootMember;
 import net.rl86.mdh.loot.util.UsableIn;
-import net.rl86.mdh.scenes.loot.LootTableEditorScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 import net.rl86.mdh.util.CommonUtilities.LootType;
@@ -24,13 +23,13 @@ public class AlternativesPredicate extends AbstractLootPredicate {
 	
 	private ObservableList<AbstractLootPredicate> predicates;
 
-	public AlternativesPredicate(String name) {
-		super(name);
+	public AlternativesPredicate() {
+		super();
 		predicates = FXCollections.observableArrayList();
 	}
 
 	@Override
-	protected void generateTabContent() {
+	protected void generateEditorContent() {
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Alternatives Predicate");
@@ -39,14 +38,6 @@ public class AlternativesPredicate extends AbstractLootPredicate {
 		list.setItems(predicates);
 		list.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		
-		Button open = new Button();
-		open.setText("Open Selected Predicate");
-		open.setFont(CommonUtilities.getFont(FontType.TEXT));
-		open.disableProperty().bind(list.getSelectionModel().selectedItemProperty().isNull());
-		open.setOnAction(e -> {
-			LootTableEditorScene.addTab(list.getSelectionModel().getSelectedItem().generateTab());
-		});
-		
 		Button rm = new Button();
 		rm.setText("Remove Selected Predicate");
 		rm.setFont(CommonUtilities.getFont(FontType.TEXT));
@@ -54,7 +45,6 @@ public class AlternativesPredicate extends AbstractLootPredicate {
 		rm.setOnAction(e -> {
 			AbstractLootPredicate sel = list.getSelectionModel().getSelectedItem();
 			predicates.remove(sel);
-			LootTableEditorScene.deleteTab(sel.generateTab());
 		});
 		
 		Button add = new Button();
@@ -64,7 +54,7 @@ public class AlternativesPredicate extends AbstractLootPredicate {
 			predicates.add(LootDialogs.addPredicate());
 		});
 
-		root.getChildren().addAll(header, list, add, open, rm);
+		root.getChildren().addAll(header, list, add, rm);
 	}
 
 	@Override

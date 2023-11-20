@@ -19,14 +19,14 @@ public class WeatherPredicate extends AbstractLootPredicate {
 	private SimpleBooleanProperty checkRain;
 	private SimpleBooleanProperty checkThunder;
 
-	public WeatherPredicate(String name) {
-		super(name);
+	public WeatherPredicate() {
+		super();
 		checkRain = new SimpleBooleanProperty();
 		checkThunder = new SimpleBooleanProperty();
 	}
 
 	@Override
-	protected void generateTabContent() {
+	protected void generateEditorContent() {
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Weather Check Predicate");

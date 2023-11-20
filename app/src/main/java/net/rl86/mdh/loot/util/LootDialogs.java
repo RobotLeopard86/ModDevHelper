@@ -119,13 +119,11 @@ public class LootDialogs {
 	public static AbstractLootPredicate addPredicate() {
 		PredicateType type = addPredicateDialog().showAndWait().get();
 		
-		String name = getItemName();
-		
 		switch(type) {
 		case Alternative:
-			return new AlternativesPredicate(name);
+			return new AlternativesPredicate();
 		case BlockState:
-			return new BlockStatePredicate(name);
+			return new BlockStatePredicate();
 		case DamageSource:
 			break;
 		case EntityProps:
@@ -133,27 +131,27 @@ public class LootDialogs {
 		case EntityScores:
 			break;
 		case Inverse:
-			return new InvertPredicate(name);
+			return new InvertPredicate();
 		case KilledByPlayer:
-			return new KillerPlayerPredicate(name);
+			return new KillerPlayerPredicate();
 		case Location:
 			break;
 		case Random:
-			return new RandomPredicate(name);
+			return new RandomPredicate();
 		case RandomLooting:
-			return new RandomLootingPredicate(name);
+			return new RandomLootingPredicate();
 		case Reference:
-			return new RefPredicate(name);
+			return new RefPredicate();
 		case SurviveExplosion:
-			return new ExplosionSurvivalPredicate(name);
+			return new ExplosionSurvivalPredicate();
 		case TableBonus:
-			return new TablePredicate(name);
+			return new TablePredicate();
 		case Time:
-			return new TimePredicate(name);
+			return new TimePredicate();
 		case ToolMatch:
 			break;
 		case Weather:
-			return new WeatherPredicate(name);
+			return new WeatherPredicate();
 		default:
 			break;
 		}

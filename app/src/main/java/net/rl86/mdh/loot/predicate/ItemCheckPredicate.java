@@ -14,12 +14,12 @@ import net.rl86.mdh.util.CommonUtilities.LootType;
 @IngameIdentifier("minecraft:match_tool")
 public class ItemCheckPredicate extends AbstractLootPredicate {
 
-	public ItemCheckPredicate(String name) {
-		super(name);
+	public ItemCheckPredicate() {
+		super();
 	}
 
 	@Override
-	protected void generateTabContent() {
+	protected void generateEditorContent() {
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Item Check Predicate");

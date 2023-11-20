@@ -14,12 +14,12 @@ import net.rl86.mdh.util.CommonUtilities.LootType;
 @UsableIn({LootType.ENTITY})
 public class KillerPlayerPredicate extends AbstractLootPredicate {
 
-	public KillerPlayerPredicate(String name) {
-		super(name);
+	public KillerPlayerPredicate() {
+		super();
 	}
 
 	@Override
-	protected void generateTabContent() {
+	protected void generateEditorContent() {
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Killed By Player Predicate");

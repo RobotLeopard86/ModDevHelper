@@ -29,8 +29,8 @@ public class BlockStatePredicate extends AbstractLootPredicate {
 	private SimpleDoubleProperty valueMin;
 	private SimpleDoubleProperty valueMax;
 
-	public BlockStatePredicate(String name) {
-		super(name);
+	public BlockStatePredicate() {
+		super();
 		id = new SimpleStringProperty();
 		blockstateProperty = new SimpleStringProperty();
 		blockstateValue = new SimpleStringProperty();
@@ -41,7 +41,7 @@ public class BlockStatePredicate extends AbstractLootPredicate {
 	}
 
 	@Override
-	protected void generateTabContent() {
+	protected void generateEditorContent() {
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Block State Predicate");

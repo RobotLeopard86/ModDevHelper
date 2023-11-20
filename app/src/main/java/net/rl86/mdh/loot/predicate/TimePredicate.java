@@ -25,8 +25,8 @@ public class TimePredicate extends AbstractLootPredicate {
 	private SimpleBooleanProperty useRange;
 	private SimpleBooleanProperty usePeriod;
 
-	public TimePredicate(String name) {
-		super(name);
+	public TimePredicate() {
+		super();
 		exactValue = new SimpleDoubleProperty();
 		valueMin = new SimpleDoubleProperty();
 		valueMax = new SimpleDoubleProperty();
@@ -36,7 +36,7 @@ public class TimePredicate extends AbstractLootPredicate {
 	}
 
 	@Override
-	protected void generateTabContent() {
+	protected void generateEditorContent() {
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Time Check Predicate");

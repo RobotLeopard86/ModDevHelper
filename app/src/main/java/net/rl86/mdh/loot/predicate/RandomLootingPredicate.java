@@ -17,14 +17,14 @@ public class RandomLootingPredicate extends RandomPredicate {
 	
 	private SimpleDoubleProperty multiplier;
 
-	public RandomLootingPredicate(String name) {
-		super(name);
+	public RandomLootingPredicate() {
+		super();
 		multiplier = new SimpleDoubleProperty();
 	}
 
 	@Override
-	protected void generateTabContent() {
-		super.generateTabContent();
+	protected void generateEditorContent() {
+		super.generateEditorContent();
 		
 		((Text) root.getChildren().get(0)).setText("Random Chance With Looting Predicate");
 		

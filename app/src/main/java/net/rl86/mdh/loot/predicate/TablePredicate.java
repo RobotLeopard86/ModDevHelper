@@ -28,8 +28,8 @@ public class TablePredicate extends AbstractLootPredicate {
 	private ObservableList<Double> chances;
 	private ObservableList<String> presentation;
 
-	public TablePredicate(String name) {
-		super(name);
+	public TablePredicate() {
+		super();
 		rloc = new SimpleStringProperty();
 		chances = FXCollections.observableArrayList();
 		presentation = FXCollections.observableArrayList();
@@ -46,7 +46,7 @@ public class TablePredicate extends AbstractLootPredicate {
 	}
 
 	@Override
-	protected void generateTabContent() {
+	protected void generateEditorContent() {
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Enchantment Bonus Predicate");

@@ -9,7 +9,6 @@ import net.rl86.mdh.loot.util.IngameIdentifier;
 import net.rl86.mdh.loot.util.LootDialogs;
 import net.rl86.mdh.loot.util.LootMember;
 import net.rl86.mdh.loot.util.UsableIn;
-import net.rl86.mdh.scenes.loot.LootTableEditorScene;
 import net.rl86.mdh.util.CommonUtilities;
 import net.rl86.mdh.util.CommonUtilities.FontType;
 import net.rl86.mdh.util.CommonUtilities.LootType;
@@ -21,14 +20,14 @@ public class InvertPredicate extends AbstractLootPredicate {
 	private AbstractLootPredicate predicate;
 	private SimpleBooleanProperty predicateChosen;
 
-	public InvertPredicate(String name) {
-		super(name);
+	public InvertPredicate() {
+		super();
 		predicateChosen = new SimpleBooleanProperty();
 		predicateChosen.set(false);
 	}
 
 	@Override
-	protected void generateTabContent() {
+	protected void generateEditorContent() {
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Inverse Predicate");
@@ -41,9 +40,6 @@ public class InvertPredicate extends AbstractLootPredicate {
 		open.setText("Edit Predicate");
 		open.setFont(CommonUtilities.getFont(FontType.TEXT));
 		open.disableProperty().bind(predicateChosen.not());
-		open.setOnAction(e -> {
-			LootTableEditorScene.addTab(predicate.generateTab());
-		});
 		
 		Button change = new Button();
 		change.setText("Change Predicate");

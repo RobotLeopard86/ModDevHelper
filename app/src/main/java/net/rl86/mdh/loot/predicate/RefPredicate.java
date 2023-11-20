@@ -18,13 +18,13 @@ public class RefPredicate extends AbstractLootPredicate {
 	
 	private SimpleStringProperty rloc;
 
-	public RefPredicate(String name) {
-		super(name);
+	public RefPredicate() {
+		super();
 		rloc = new SimpleStringProperty();
 	}
 
 	@Override
-	protected void generateTabContent() {
+	protected void generateEditorContent() {
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Reference Predicate");

@@ -18,13 +18,13 @@ public class RandomPredicate extends AbstractLootPredicate {
 	
 	private SimpleDoubleProperty chance;
 
-	public RandomPredicate(String name) {
-		super(name);
+	public RandomPredicate() {
+		super();
 		chance = new SimpleDoubleProperty();
 	}
 
 	@Override
-	protected void generateTabContent() {
+	protected void generateEditorContent() {
 		Text header = new Text();
 		header.setFont(CommonUtilities.getFont(FontType.HEADER));
 		header.setText("Random Chance Predicate");

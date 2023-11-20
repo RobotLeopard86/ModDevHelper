@@ -7,7 +7,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 import net.rl86.mdh.loot.util.IngameIdentifier;
 import net.rl86.mdh.loot.util.LootMember;
@@ -18,13 +17,6 @@ import net.rl86.mdh.util.CommonUtilities.FontType;
 
 @LootMemberType(MemberType.PREDICATE)
 public abstract class AbstractLootPredicate extends LootMember {
-	
-	private Tab tab;
-
-	public AbstractLootPredicate(String name) {
-		super(name);
-		tab = null;
-	}
 
 	@Override
 	public final JsonObject generateJson() {
@@ -39,26 +31,22 @@ public abstract class AbstractLootPredicate extends LootMember {
 	}
 	
 	@Override
-	public final Tab generateTab() {
-		if(tab == null) {
-			Tab generated = super.generateTab();
-			
-			Button make = new Button();
-			make.setFont(CommonUtilities.getFont(FontType.TEXT));
-			make.setText("Make Me");
-			make.setOnAction(e -> {
-				System.out.println(generateJson().toString());
-			});
-			
-			((VBox) generated.getContent()).getChildren().add(make);
-			
-			tab = generated;
-		}
+	public final VBox generateView() {
+		super.generateView();
 		
-		return tab;
+		Button make = new Button();
+		make.setFont(CommonUtilities.getFont(FontType.TEXT));
+		make.setText("Make Me");
+		make.setOnAction(e -> {
+			System.out.println(generateJson().toString());
+		});
+		
+		root.getChildren().add(make);
+		
+		return root;
 	}
 
-	protected abstract void generateTabContent();
+	protected abstract void generateEditorContent();
 	
 	public abstract LootMember[] getChildren();
 

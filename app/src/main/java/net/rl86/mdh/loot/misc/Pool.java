@@ -4,16 +4,19 @@ import static net.rl86.mdh.loot.util.LootMemberType.MemberType.POOL;
 
 import com.google.gson.JsonObject;
 
+import javafx.scene.text.Text;
 import net.rl86.mdh.loot.util.LootMember;
 import net.rl86.mdh.loot.util.LootMemberType;
+import net.rl86.mdh.util.CommonUtilities;
+import net.rl86.mdh.util.CommonUtilities.FontType;
 
 @LootMemberType(POOL)
 public class Pool extends LootMember {
 
 	public int rolls;
 
-	public Pool(String name, int rolls) {
-		super(name);
+	public Pool(int rolls) {
+		super();
 		if(rolls > 0) {
 			this.rolls = rolls;
 		} else {
@@ -23,13 +26,16 @@ public class Pool extends LootMember {
 
 	@Override
 	public JsonObject generateJson() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected void generateTabContent() {
-
+	protected void generateEditorContent() {
+		Text header = new Text();
+		header.setFont(CommonUtilities.getFont(FontType.HEADER));
+		header.setText("Pool");
+		
+		root.getChildren().add(header);
 	}
 
 	@Override
