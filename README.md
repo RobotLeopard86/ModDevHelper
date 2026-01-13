@@ -1,3 +1,6 @@
+# THIS PROJECT IS NOW ARCHIVED AND WILL NOT BE DEVELOPED OR UPDATED ANYMORE
+To be honest, I should have done this years ago (considering the last real commit was in 2023). Most of the app still works (I think), but I'm not going to keep working on this. Perhaps I'll make a sequel app in the future that is sensibly designed :-)
+
 # Mod Development Helper
 ### Tools for Minecraft: Java Edition mod makers
 
